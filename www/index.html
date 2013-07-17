@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WebSockets - Simple chat</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css">
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/jquery.mobile-1.3.1.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script src="./js/jquery.min.js"></script>
+        <script src="js/connectionManager.js"></script>
+        <script src="js/responseManager.js"></script>
+        
+        <style>
+            .ui-footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+            }
+        </style>
+    </head>
+    
+    <body>
+        
+
+        <div data-role="page" id="main" data-theme="e">
+            <div data-role="header" >
+                <h1>Main Page</h1>
+            </div>
+            
+            <div data-role="content">
+                <ul data-role="listview" id="messageArray" data-theme="e">
+                    <li class="ui-li ui-li-static ui-btn-up-c">test :messafe</li>
+                </ul>
+                <p>
+                    <input type="text" id="userNameText"/>
+                    
+                    <button onclick="sendPrivateMessage(8,'test message from web');">send private message</button>
+                    <button onclick="login($('#userNameText').val());">Login</button>
+                    <button onclick="logout();">Logout</button>
+                    <button onclick="setStatus('CHAT_STATUS_AWAY');">Change status AWAY</button>
+                    <button onclick="setStatus('CHAT_STATUS_DND');">Change status DND</button>
+                    <button onclick="setStatus('CHAT_STATUS_BUSY');">Change status BUSY</button>
+                    <button onclick="setStatus('CHAT_STATUS_AVAILABLE');">Change status AVAIL</button>
+                    <button onclick="openPrivateChat(8);">Open chat</button>
+                    <button onclick="closePrivateChat(8);">Close chat</button>
+                    <span id="connectionON">Status...</span>
+                    
+                </p>
+            </div>
+            
+            <div data-role="footer">
+                <h4>PAGE FOOTER</h4>
+            </div>
+        </div>
+        
+        <div data-role="page" id="second" data-theme="e">
+            <div data-role="header">
+                <h1>Chat window</h1>  
+                <a href="#main">Logout</a>
+            </div>
+            
+            <div data-role="content">
+                <p>
+                    <input type="text" id="input"/>
+                    <!-- <span id="status">Connecting...</span>-->
+                </p>
+                
+            </div>
+        </div>
+        
+    </body>
+</html>
