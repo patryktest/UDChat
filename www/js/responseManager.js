@@ -6,16 +6,25 @@ function responseLogin(json) {
     /*for(var i=0;i<json.groupList;i++){
      friendList.push(createGroup());
      }*/
-
+    groupList = new Array();
+    groupList = json.groupList;
+    
     user = {
         id: json.user.id,
         name: json.user.name,
         friendList: friendList,
-        groupList: '',
+        groupList: groupList,
         status: 0
 
     };
     console.log("responseLogin OK ");
+    console.log(user);
+    if(user!== null)
+        {
+            onUserLogin();
+            
+        }
+        
 }
 
 function responseLogout(json) {
@@ -25,20 +34,46 @@ function responseLogout(json) {
 function responseFriendListUpdate() {
 
 }
-function responseGroupClose() {
-
+function responseGroupClose(json) {
+    console.log('responseGroupClose: OK');
+    for(var i=0;i<user.groupList.length;i++){
+        if(user.groupList[i].groupId === json.data.groupId)
+            user.groupList.splice(i,1);
+    }
 }
-function responseGroupInfo() {
-
+function responseGroupInfo(json) {
+    console.log('responseGroupInfo: OK');
+    user.groupList.push(json.data);
 }
-function responseGroupJoin() {
 
+function responseGroupJoin(json) {
+    console.log('responseGroupJoin: OK');
+    for(var i=0;i<user.groupList.length;i++){
+        if(user.groupList[i].groupId === json.data.groupId)
+            user.groupList[i].users.push(json.data.user);
+    }
+    console.log(user);
 }
-function responseGroupLeave() {
-
+function responseGroupLeave(json) {
+    console.log('responseGroupLeave: OK');
+    for(var i=0;i<user.groupList.length;i++){
+        if(user.groupList[i].groupId === json.data.groupId){
+            for(var j=0;j<user.groupList[i].users.length;j++){
+                if(user.groupList[i].users[j].id===json.data.id)
+                    user.groupList[i].users.splice(j,1);
+            }
+        }
+    }
+    console.log(user);
 }
-function responseGroupMessage() {
-
+function responseGroupMessage(json) {
+    console.log('responseGroupMessage: OK');
+    for(var i=0;i<user.groupList.length;i++){
+        if(user.groupList[i].groupId === json.data.groupId){
+            user.groupList[i].history.push(json.data);
+        }
+    }
+    
 }
 function responsePrivateHistory(json) {
     console.log('responsePrivateHistory: OK');

@@ -14,6 +14,7 @@ var actualOpeningChat="";
 var messageArrayText;
 
 
+
 function background() {
     back = true;
 }
@@ -38,20 +39,21 @@ function onDeviceReady()
     document.addEventListener("resume", show, false);
 
 }
-function login(name) {
+function login(login,pass) {
     //if (name !== "") {
     //window.location = '#second';
 
     //}
 
-    var params = ['conan@cd.ef', '123'];
-    sendCommand('user.loginWS', params);
+    //var params = ['conan@cd.ef', '123'];
+    sendCommand('user.loginWS', [login,pass]);
 
 }
 
 function logout() {
     console.log('logout user: ' + user.id);
     sendCommand('user.logout', [user.id]);
+    onLogout();
 
 }
 
@@ -79,6 +81,32 @@ function sendPrivateMessage(friendId,message){
     sendCommand('chat.sendPrivateMessage',[user.id,friendId,message]);
 }
 
+function openGroupChat(groupName){
+    console.log('creating Group with name: '+groupName);
+    sendCommand('chat.openGroupConversation',[user.id,groupName]);
+}
+
+function closeGroupChat(groupId){
+    console.log('close Group with ID: '+groupId);
+    sendCommand('chat.closeGroupConversation',[user.id,groupId]);
+}
+
+function addUserToGroup(friendId,groupId){
+    console.log('add user : '+friendId+' to group: '+groupId);
+    sendCommand('chat.addUserToConversation',[friendId,groupId]);
+}
+
+function leaveConversation(groupId){
+    console.log('leave group '+groupId);
+    sendCommand('chat.leaveConversation',[groupId, user.id]);
+}
+
+function sendGroupMessage(groupId,message){
+    console.log('leave group '+groupId);
+    sendCommand('chat.sendGroupMessage',[user.id,groupId, message]);
+}
+
+
 function sendCommand(command, params) {
 
     connection.send(JSON.stringify({command: command, parameters: params}));
@@ -97,11 +125,11 @@ function sendCommand(command, params) {
      connection.send(JSON.stringify({command: 'chat.getPrivateHistory', parameters: param}));           [id,idfriend]
      connection.send(JSON.stringify({command: 'chat.sendPrivateMessage', parameters: param}));          [id,idfriend,message]
      
-     connection.send(JSON.stringify({command: 'chat.openGroupConversation', parameters: param}));
-     connection.send(JSON.stringify({command: 'chat.closeGroupConversation', parameters: param}));
-     connection.send(JSON.stringify({command: 'chat.addUserToConversation', parameters: param}));
-     connection.send(JSON.stringify({command: 'chat.leaveConversation', parameters: param}));
-     connection.send(JSON.stringify({command: 'chat.sendGroupMessage', parameters: param})); 
+     connection.send(JSON.stringify({command: 'chat.openGroupConversation', parameters: param}));       [id,string nazov grupy]
+     connection.send(JSON.stringify({command: 'chat.closeGroupConversation', parameters: param}));      [id, group id]
+     connection.send(JSON.stringify({command: 'chat.addUserToConversation', parameters: param}));       [id of frienduser, id group]
+     connection.send(JSON.stringify({command: 'chat.leaveConversation', parameters: param}));           [id grup, id my]
+     connection.send(JSON.stringify({command: 'chat.sendGroupMessage', parameters: param}));            [user.id,group.id,message]
      */
 }
 function createFriend(id, name, newMessages, status) {
@@ -188,20 +216,20 @@ function connect() {
                 break;
                 
             case 'SERVER_GROUP_MESSAGE':
-                responseGroupMessage();
+                responseGroupMessage(json);
                 break;
 
             case 'SERVER_GROUP_INFO':
-                responseGroupInfo();
+                responseGroupInfo(json);
                 break;
             case 'SERVER_GROUP_JOIN':
-                responseGroupJoin();
+                responseGroupJoin(json);
                 break;
             case 'SERVER_GROUP_LEAVE':
-                responseGroupLeave();
+                responseGroupLeave(json);
                 break;
             case 'SERVER_GROUP_CLOSE':
-                responseGroupClose();
+                responseGroupClose(json);
                 break;
         }
 
@@ -240,5 +268,6 @@ function showConversation(){
     }
    
 }
+
 
 

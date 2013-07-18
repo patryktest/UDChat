@@ -11,7 +11,8 @@
         <script src="./js/jquery.min.js"></script>
         <script src="js/connectionManager.js"></script>
         <script src="js/responseManager.js"></script>
-        
+        <script src="js/applicationManager.js"></script>
+
         <style>
             .ui-footer {
                 position: absolute;
@@ -20,55 +21,99 @@
             }
         </style>
     </head>
-    
-    <body>
-        
 
-        <div data-role="page" id="main" data-theme="e">
+    <body>
+
+
+        <div data-role="page" id="loginPage">
             <div data-role="header" >
-                <h1>Main Page</h1>
+                <h1>UD chat</h1>
             </div>
-            
+
+            <div data-role="content">
+                <p>
+                    <input type="text" id="loginI" value="conan@cd.ef"/>
+                    <input type="password" id="passwordI" value="123"/>
+                    <button onclick="login($('#loginI').val(), $('#passwordI').val());">Login</button>
+                    <span id="connectionON">Status...</span>                    
+                </p>
+            </div>
+
+            <div data-role="footer">
+                <h4>PAGE FOOTER</h4>
+            </div>
+        </div>
+
+
+
+
+
+        <div data-role="page" id="mainPage">
+            <div data-role="header">
+                <h1 id="usernameT">Chat window</h1>  
+                <button onclick="logout();">Logout</button>
+            </div>
+
+            <div data-role="content">
+                <button onclick="setStatus('CHAT_STATUS_AWAY');">Change status AWAY</button>
+                <div data-role="collapsible-set" data-icon="false">
+                    <div data-role="collapsible">
+                        <h2>Friends</h2>
+                        <ul data-role="listview" id="friendListT">
+                            <li class="ui-li ui-li-static ui-btn-up-c">test :messafe</li>
+                        </ul>
+                    </div>
+                    <div data-role="collapsible">
+                        <h2>Groups</h2>
+                        <ul data-role="listview" id="groupListT">
+                            <li class="ui-li ui-li-static ui-btn-up-c">test :messafe</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+        <div data-role="page" id="chatPage">
+            <div data-role="header">
+                <h1>Chat window</h1>  
+                <button onclick="logout();">Logout</button>
+            </div>
+
             <div data-role="content">
                 <ul data-role="listview" id="messageArray" data-theme="e">
                     <li class="ui-li ui-li-static ui-btn-up-c">test :messafe</li>
                 </ul>
                 <p>
-                    <input type="text" id="userNameText"/>
-                    
-                    <button onclick="sendPrivateMessage(8,'test message from web');">send private message</button>
-                    <button onclick="login($('#userNameText').val());">Login</button>
-                    <button onclick="logout();">Logout</button>
+                    <input type="text" id="input"/>
+
+
+                    <button onclick="sendPrivateMessage(8, 'test message from web');">send private message</button>
+
                     <button onclick="setStatus('CHAT_STATUS_AWAY');">Change status AWAY</button>
                     <button onclick="setStatus('CHAT_STATUS_DND');">Change status DND</button>
                     <button onclick="setStatus('CHAT_STATUS_BUSY');">Change status BUSY</button>
                     <button onclick="setStatus('CHAT_STATUS_AVAILABLE');">Change status AVAIL</button>
                     <button onclick="openPrivateChat(8);">Open chat</button>
                     <button onclick="closePrivateChat(8);">Close chat</button>
-                    <span id="connectionON">Status...</span>
-                    
+
+                    <button onclick="openGroupChat('test G1');">Open group</button>
+                    <button onclick="closeGroupChat(7551);">Close group 7551</button>
+                    <button onclick="addUserToGroup(8, 4194);">Add user 8 to group 4194</button>
+
+                    <button onclick="leaveConversation(3751);">Leave conver 3751</button>
+
+                    <button onclick="sendGroupMessage(4194, 'test message from web to group');">send mess to 4194</button>
+
+
                 </p>
-            </div>
-            
-            <div data-role="footer">
-                <h4>PAGE FOOTER</h4>
+
             </div>
         </div>
-        
-        <div data-role="page" id="second" data-theme="e">
-            <div data-role="header">
-                <h1>Chat window</h1>  
-                <a href="#main">Logout</a>
-            </div>
-            
-            <div data-role="content">
-                <p>
-                    <input type="text" id="input"/>
-                    <!-- <span id="status">Connecting...</span>-->
-                </p>
-                
-            </div>
-        </div>
-        
+
     </body>
 </html>
