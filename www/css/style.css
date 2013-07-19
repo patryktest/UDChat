@@ -1,0 +1,10 @@
+.ui-li-message {
+    margin: 0;
+    overflow: visible;
+    white-space: pre-wrap;
+}
+
+.ui-li-left {
+    font-weight: 700;
+    margin: 0;
+}

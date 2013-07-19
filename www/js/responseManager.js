@@ -3,9 +3,6 @@ function responseLogin(json) {
     for (var i = 0; i < json.friendList.length; i++) {
         friendList.push(createFriend(json.friendList[i].id, json.friendList[i].name, json.friendList[i].newMessages, json.friendList[i].status));
     }
-    /*for(var i=0;i<json.groupList;i++){
-     friendList.push(createGroup());
-     }*/
     groupList = new Array();
     groupList = json.groupList;
     
@@ -19,12 +16,12 @@ function responseLogin(json) {
     };
     console.log("responseLogin OK ");
     console.log(user);
-    if(user!== null)
-        {
+    if(user!== null){
             onUserLogin();
-            
         }
-        
+    else{
+        console.log('ERR: user is null after LOGIN');
+    }   
 }
 
 function responseLogout(json) {
@@ -82,7 +79,7 @@ function responsePrivateHistory(json) {
             user.friendList[i].history = json.history;
     }
     console.log(user.friendList);
-    showConversation();
+    onOpenPrivateChatWindow(actualOpeningChat);
 }
 function responsePrivateMessage(json) {
     console.log('responsePrivateMessage: OK');
@@ -98,8 +95,8 @@ function responsePrivateMessage(json) {
                 user.friendList[i].history.push(json.data);
         }
     }
-    
-    showConversation();
+    if(json.data.senderId === actualOpeningChat || json.data.receiverId === actualOpeningChat)
+        addMessageToPrivateChat(actualOpeningChat);
 
 }
 
