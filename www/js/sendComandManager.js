@@ -19,11 +19,15 @@ function setStatus(status){
 
 function openPrivateChat(friendId){
     console.log('open private chat: '+user.id+' with '+friendId);
-    sendCommand('chat.openPrivateConversation',[user.id,friendId]);
-    sendCommand('chat.getPrivateHistory',[user.id,friendId]);
-    actualOpeningChat = "";
-    actualOpeningChat = friendId;
-    
+    setActiveConverastion(friendId);
+    if(!findConverasation(friendId)){
+        sendCommand('chat.openPrivateConversation',[user.id,friendId]);
+        sendCommand('chat.getPrivateHistory',[user.id,friendId]);
+    }
+    else{
+        onOpenPrivateChatWindow(getActiveConverastion());
+    }
+        
 }
 
 function closePrivateChat(friendId){
@@ -32,7 +36,7 @@ function closePrivateChat(friendId){
 }
 
 function sendPrivateMessage(message){
-    if(actualOpeningChat!==''){
+    if(getActiveConverastion()!==''){
         console.log('send private message to '+actualOpeningChat+' with text '+message);
         sendCommand('chat.sendPrivateMessage',[user.id,actualOpeningChat,message]);
     }

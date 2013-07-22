@@ -11,7 +11,7 @@ function responseLogin(json) {
         name: json.user.name,
         friendList: friendList,
         groupList: groupList,
-        status: 0
+        status: available
 
     };
     console.log("responseLogin OK ");
@@ -75,11 +75,12 @@ function responseGroupMessage(json) {
 function responsePrivateHistory(json) {
     console.log('responsePrivateHistory: OK');
     for (var i = 0; i < user.friendList.length; i++) {
-        if (user.friendList[i].id === actualOpeningChat)
+        if (user.friendList[i].id === getActiveConverastion())
             user.friendList[i].history = json.history;
     }
     console.log(user.friendList);
-    onOpenPrivateChatWindow(actualOpeningChat);
+    addNewConversation(getActiveConverastion());
+    onOpenPrivateChatWindow(getActiveConverastion());
 }
 function responsePrivateMessage(json) {
     console.log('responsePrivateMessage: OK');
@@ -94,9 +95,13 @@ function responsePrivateMessage(json) {
             if (user.friendList[i].id === json.data.receiverId)
                 user.friendList[i].history.push(json.data);
         }
+        $('#inputPrivateMessage').val('');
     }
-    if(json.data.senderId === actualOpeningChat || json.data.receiverId === actualOpeningChat)
-        addMessageToPrivateChat(actualOpeningChat);
+    if(json.data.senderId === getActiveConverastion() || json.data.receiverId === getActiveConverastion())
+        addMessageToActiveConversation(getActiveConverastion());
+    else{
+        // TODO: zobraz upozornenie o neprecitanej sprave
+    }
 
 }
 

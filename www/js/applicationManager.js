@@ -19,13 +19,7 @@ function onGoToMainPage(){
 }
 
 function onOpenPrivateChatWindow(id){
-    /*htmlString = '<div data-role="page" id="chatPage_'+id+'">';
-    htmlString += $('#chatPageTemplate').html();
-    htmlString += '</div>';
-    $('#body').append(htmlString);*/
-    
     loadPrivateChat(id);
+    //updateRightMenu();
     window.location = '#chatPageTemplate';
-    
-    
 }

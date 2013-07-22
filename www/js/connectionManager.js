@@ -5,6 +5,7 @@ var user = {};
 var friendList = {};
 var groupList = {};
 var actualOpeningChat = "";
+var openConversation = [];
 var messageArrayText;
 
 $(function() {
@@ -48,7 +49,7 @@ function connect() {
     window.WebSocket = window.WebSocket || window.MozWebSocket;
 
     //connection = new WebSocket('ws://demo-project.patryktesting.c9.io');
-    connection = new WebSocket('ws://192.168.2.51:8180/UniquedocChat');
+    connection = new WebSocket('ws://192.168.2.49:8180/UniquedocChat');
 
 
     connection.onopen = function() {
