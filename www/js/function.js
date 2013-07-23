@@ -37,7 +37,7 @@ function getFriendById(id) {
     }
     return null;
 }
-function getFriendName(id){
+function getFriendName(id) {
     for (var i = 0; i < user.friendList.length; i++) {
         if (user.friendList[i].id === id)
             return user.friendList[i].name;
@@ -61,6 +61,7 @@ function ShowUserGroupList() {
 }
 
 function loadPrivateChat(id) {
+    $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     var friend = getFriendById(id);
     var time = '', mess = '', name = '';
     var lastSender = '';
@@ -104,6 +105,10 @@ function loadPrivateChat(id) {
     }
 }
 
+function closePrivateChatWindow(){
+    
+}
+
 function addMessageToActiveConversation(id) {
     var friend = getFriendById(id);
     var time = '', mess = '', name = '';
@@ -131,10 +136,10 @@ function addMessageToActiveConversation(id) {
             $('#chatHistory').append(htmlString);
         }
         else {
-            htmlString = '<p class="ui-li-aside ui-li-desc"><strong>' + time + '</strong></p>';
-            htmlString += '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
+            htmlString = '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
             $('#chatHistory li').last().append(htmlString);
         }
+        $("html, body").animate({ scrollTop: $(document).height() }, 100);
     }
 }
 
@@ -177,17 +182,17 @@ function updateRightMenu() {
                     <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="false" data-iconpos="right" data-theme="d" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-d">\n\
                         <div class="ui-btn-inner ui-li">\n\
                             <div class="ui-btn-text">\n\
-                                <a href="#" class="ui-link-inherit">Close this conversation</a>\n\
+                                <a onclick="closePrivateChat('+getActiveConverastion()+');" href="#" class="ui-link-inherit">Close this conversation</a>\n\
                             </div>\n\
                         </div>\n\
                     </li>';
 
     for (var i = 0; i < openConversation.length; i++) {
-        if(openConversation[i]!== getActiveConverastion())
-        htmlString += '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="false" data-iconpos="right" data-theme="d" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-d">\n\
+        if (openConversation[i] !== getActiveConverastion())
+            htmlString += '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="false" data-iconpos="right" data-theme="d" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-d">\n\
                         <div class="ui-btn-inner ui-li">\n\
                             <div class="ui-btn-text">\n\
-                                <a href="#" class="ui-link-inherit">swtich to '+getFriendName(openConversation[i])+'</a>\n\
+                                <a href="#" class="ui-link-inherit">swtich to ' + getFriendName(openConversation[i]) + '</a>\n\
                             </div>\n\
                         </div>\n\
                       </li>';
@@ -196,8 +201,13 @@ function updateRightMenu() {
     $('#right-panel ul').html(htmlString);
 }
 
-function inputKeyDown(e){
+$(function() {
+
+    
+
+    $('#inputPrivateMessage').keydown(function(e) {
         if (e.keyCode === 13) {
+            console.log(e.keyCode);
             var msg = $(this).val();
             if (!msg) {
                 return;
@@ -206,4 +216,6 @@ function inputKeyDown(e){
             //connection.send(msg);
             sendPrivateMessage(msg);
         }
-}
+        ;
+    });
+});

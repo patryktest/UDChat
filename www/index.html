@@ -99,7 +99,7 @@
         </div>
 
         <div data-role="page" id="chatPageTemplate">
-            <div data-role="header">
+            <div data-role="header" data-position="fixed">
                 <h1 id="usernameT">Chat window</h1>  
                 <button onclick="onGoToMainPage();">Back</button>
                 <a href="#right-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false">Menu</a>
@@ -108,10 +108,10 @@
             <div data-role="content">
                 <ul data-role="listview" id="chatHistory">                        
                 </ul>
-                <div id="chat_input">
+                <!--<div id="chat_input">
                     <div class="block-button-send"><button onclick="sendPrivateMessage($('#inputPrivateMessage').val());">send</button></div>
-                    <div class="block-input-send"><input type="text" id="inputPrivateMessage" onkeydown="inputKeyDown();"/></div>
-                </div>
+                    <div class="block-input-send"><input type="text" id="inputPrivateMessage"/></div>
+                </div>-->
             </div>
 
             <div data-role="panel" id="right-panel" data-display="overlay" data-position="right" data-theme="c">
@@ -121,6 +121,10 @@
                 </ul>
             </div><!-- /panel -->
 
+            <div data-role="footer" data-position="fixed">
+                <div class="block-input-send"><input type="text" id="inputPrivateMessage"/></div>
+                <div class="block-button-send"><button onclick="sendPrivateMessage($('#inputPrivateMessage').val());">send</button></div>
+            </div>
         </div>
 
 

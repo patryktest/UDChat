@@ -23,3 +23,9 @@ function onOpenPrivateChatWindow(id){
     //updateRightMenu();
     window.location = '#chatPageTemplate';
 }
+
+function onClosePrivateChatWindow(){
+    closePrivateChatWindow();
+    window.location = '#mainPage';
+    
+}

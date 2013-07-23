@@ -33,6 +33,7 @@ function openPrivateChat(friendId){
 function closePrivateChat(friendId){
     console.log('close private chat: '+user.id+' with '+friendId);
     sendCommand('chat.closePrivateConversation',[user.id,friendId]);
+    onClosePrivateChatWindow(friendId)
 }
 
 function sendPrivateMessage(message){
