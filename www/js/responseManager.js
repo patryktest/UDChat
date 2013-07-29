@@ -12,7 +12,6 @@ function responseLogin(json) {
         friendList: friendList,
         groupList: groupList,
         status: available
-
     };
     console.log("responseLogin OK ");
     console.log(user);
@@ -106,10 +105,16 @@ function responsePrivateMessage(json) {
 }
 
 function responseStatusUpdate(json) {
-    if (json.result === 0)
+    if (json.result === 0){
         console.log('responseStatusUpdate OK');
+        setUserStatus(global_status);
+    }
     else
         console.log('responseStatusUpdate ERR result: ' + json.result);
 
 
+}
+
+function responseSetconversationMode(json){
+    
 }

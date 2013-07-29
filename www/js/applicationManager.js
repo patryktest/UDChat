@@ -21,6 +21,7 @@ function onGoToMainPage(){
 function onOpenPrivateChatWindow(id){
     loadPrivateChat(id);
     //updateRightMenu();
+    //updateRightMenu();
     window.location = '#chatPageTemplate';
 }
 

@@ -4,6 +4,8 @@ var busy = 'CHAT_STATUS_BUSY';
 var available = 'CHAT_STATUS_AVAILABLE';
 var ofline = 'CHAT_STATUS_OFFLINE';
 
+var global_status = '';
+
 function showConversation() {
     messageArrayText.text('');
     for (var i = 0; i < user.friendList.length; i++) {
@@ -25,7 +27,8 @@ function createFriend(id, name, newMessages, status) {
         name: name,
         newMessages: newMessages,
         status: status,
-        history: ''
+        history: '',
+        incognito: false
     };
     return friend;
 }
@@ -58,10 +61,12 @@ function ShowUserGroupList() {
     for (var i = 0; i < user.groupList.length; i++) {
         $('#groupListT').append('<li data-icon="false"><a href=""><h2>' + user.groupList[i].groupName + '</h2> Leader: ' + user.groupList[i].groupLeader + '</a></li>');
     }
+    $('#groupListT').append('<li data-icon="false"><a onclick="openGroupChat(\'test G1\');" href=""><h2>+++</h2></a></li>');
 }
 
 function loadPrivateChat(id) {
     $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    $('.block-input-send').css({width:($(document).width()-$('.block-button-send').width()-50)+'px'});
     var friend = getFriendById(id);
     var time = '', mess = '', name = '';
     var lastSender = '';
@@ -106,6 +111,7 @@ function loadPrivateChat(id) {
 }
 
 function closePrivateChatWindow(){
+    closeConverastion(getActiveConverastion());
     
 }
 
@@ -144,10 +150,10 @@ function addMessageToActiveConversation(id) {
 }
 
 function addNewConversation(id) {
-    openConversation.push(id)
+    openConversation.push(id);
 }
 
-function closeConverastion() {
+function closeConverastion(id) {
     for (var i = 0; i < openConversation.length; i++) {
         if (openConversation[i] === id)
             openConversation.splice(i, 1);
@@ -219,3 +225,7 @@ $(function() {
         ;
     });
 });
+
+function setUserStatus(stat){
+    user.status = stat;
+}

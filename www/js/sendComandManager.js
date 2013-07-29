@@ -1,8 +1,16 @@
-function login(login,pass) {
+function login(login, pass) {
     //var params = ['conan@cd.ef', '123'];
-    if(login!=="" && pass!=="")
-        sendCommand('user.loginWS', [login,pass]);
-    else alert('Login or password missing!');
+    try{
+        if (login !== "" && pass !== "")
+            sendCommand('user.loginWS', [login, pass]);
+        else
+            alert('Login or password missing!');
+    }
+    catch(e){
+        alert('Not conneted');
+    } 
+        
+
 }
 
 function logout() {
@@ -12,65 +20,71 @@ function logout() {
 
 }
 
-function setStatus(status){
-    console.log('set status: '+status);
-    sendCommand('user.updateStatus',[user.id,status]);
+function setStatus(status) {
+    global_status =status;
+    
+    console.log('set status: ' + status);
+    sendCommand('user.updateStatus', [user.id, status]);
 }
 
-function openPrivateChat(friendId){
-    console.log('open private chat: '+user.id+' with '+friendId);
+function openPrivateChat(friendId) {
+    console.log('open private chat: ' + user.id + ' with ' + friendId);
     setActiveConverastion(friendId);
-    if(!findConverasation(friendId)){
-        sendCommand('chat.openPrivateConversation',[user.id,friendId]);
-        sendCommand('chat.getPrivateHistory',[user.id,friendId]);
+    if (!findConverasation(friendId)) {
+        sendCommand('chat.openPrivateConversation', [user.id, friendId]);
+        sendCommand('chat.getPrivateHistory', [user.id, friendId]);
     }
-    else{
+    else {
         onOpenPrivateChatWindow(getActiveConverastion());
     }
-        
+
 }
 
-function closePrivateChat(friendId){
-    console.log('close private chat: '+user.id+' with '+friendId);
-    sendCommand('chat.closePrivateConversation',[user.id,friendId]);
-    onClosePrivateChatWindow(friendId)
+function closePrivateChat(friendId) {
+    console.log('close private chat: ' + user.id + ' with ' + friendId);
+    sendCommand('chat.closePrivateConversation', [user.id, friendId]);
+    onClosePrivateChatWindow(friendId);
 }
 
-function sendPrivateMessage(message){
-    if(getActiveConverastion()!==''){
-        console.log('send private message to '+actualOpeningChat+' with text '+message);
-        sendCommand('chat.sendPrivateMessage',[user.id,actualOpeningChat,message]);
+function sendPrivateMessage(message) {
+    if (getActiveConverastion() !== '') {
+        console.log('send private message to ' + actualOpeningChat + ' with text ' + message);
+        sendCommand('chat.sendPrivateMessage', [user.id, actualOpeningChat, message]);
     }
     else
         console.log('ERR send private message friend ID missing');
-    
+
 }
 
-function openGroupChat(groupName){
-    console.log('creating Group with name: '+groupName);
-    sendCommand('chat.openGroupConversation',[user.id,groupName]);
+function openGroupChat(groupName) {
+    console.log('creating Group with name: ' + groupName);
+    sendCommand('chat.openGroupConversation', [user.id, groupName]);
 }
 
-function closeGroupChat(groupId){
-    console.log('close Group with ID: '+groupId);
-    sendCommand('chat.closeGroupConversation',[user.id,groupId]);
+function closeGroupChat(groupId) {
+    console.log('close Group with ID: ' + groupId);
+    sendCommand('chat.closeGroupConversation', [user.id, groupId]);
 }
 
-function addUserToGroup(friendId,groupId){
-    console.log('add user : '+friendId+' to group: '+groupId);
-    sendCommand('chat.addUserToConversation',[friendId,groupId]);
+function addUserToGroup(friendId, groupId) {
+    console.log('add user : ' + friendId + ' to group: ' + groupId);
+    sendCommand('chat.addUserToConversation', [friendId, groupId]);
 }
 
-function leaveConversation(groupId){
-    console.log('leave group '+groupId);
-    sendCommand('chat.leaveConversation',[groupId, user.id]);
+function leaveConversation(groupId) {
+    console.log('leave group ' + groupId);
+    sendCommand('chat.leaveConversation', [groupId, user.id]);
 }
 
-function sendGroupMessage(groupId,message){
-    console.log('leave group '+groupId);
-    sendCommand('chat.sendGroupMessage',[user.id,groupId, message]);
+function sendGroupMessage(groupId, message) {
+    console.log('leave group ' + groupId);
+    sendCommand('chat.sendGroupMessage', [user.id, groupId, message]);
 }
-
+ function setconversationMode(friendId, mode){
+     console.log('set inkognito with: '+friendId+' to'+mode);
+     sendCommand('chat.setconversationMode',[user.id,friendId,mode]);
+ }
+ 
 
 function sendCommand(command, params) {
 
@@ -95,5 +109,7 @@ function sendCommand(command, params) {
      connection.send(JSON.stringify({command: 'chat.addUserToConversation', parameters: param}));       [id of frienduser, id group]
      connection.send(JSON.stringify({command: 'chat.leaveConversation', parameters: param}));           [id grup, id my]
      connection.send(JSON.stringify({command: 'chat.sendGroupMessage', parameters: param}));            [user.id,group.id,message]
+     connection.send(JSON.stringify({command: 'chat.setconversationMode', parameters: param}));         [id,idFriend,true/false]
+     
      */
 }

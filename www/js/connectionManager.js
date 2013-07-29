@@ -41,6 +41,7 @@ function onDeviceReady()
 }
 
 function connect() {
+    //$('#loginButton').button ("disable");
     var statusOnConnect = $('#connectionON');
     statusOnConnect.text('');
 
@@ -49,11 +50,19 @@ function connect() {
     window.WebSocket = window.WebSocket || window.MozWebSocket;
 
     //connection = new WebSocket('ws://demo-project.patryktesting.c9.io');
-    connection = new WebSocket('ws://192.168.2.49:8180/UniquedocChat');
+    try{
+        connection = new WebSocket('ws://192.168.2.49:8180/UniquedocChat');
+    }
+    catch (e){
+        console.log(e);
+    }
+    
 
 
     connection.onopen = function() {
         statusOnConnect.text('Connected');
+       // $('#loginButton').removeClass('ui-disabled');
+        
     };
 
     connection.onerror = function(error) {
@@ -108,6 +117,9 @@ function connect() {
             case 'SERVER_GROUP_CLOSE':
                 responseGroupClose(json);
                 break;
+            case 'SERVER_':
+                responseSetconversationMode(json);
+                break; 
         }
 
 
