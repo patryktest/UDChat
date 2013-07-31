@@ -12,6 +12,7 @@
         <script src="./js/jquery.min.js"></script>
 
         <script src="js/function.js"></script>
+        <script src="js/group.js"></script>
         <script src="js/connectionManager.js"></script>
         <script src="js/responseManager.js"></script>
         <script src="js/applicationManager.js"></script>
@@ -43,6 +44,16 @@
                 margin: 3px 11px 0 0;
                 min-width: 200px;
             }
+            .block-button-send{
+                float: right;
+                margin-right: 25px;
+                width: 70px;
+            }
+            .block-input-send{
+                float: left;
+                margin-left: 25px;
+
+            }
 
         </style>
     </head>
@@ -59,7 +70,7 @@
                 <p>
                     <input type="text" id="loginI" value="conan@cd.ef"/>
                     <input type="password" id="passwordI" value="123"/>
-                    <button onclick="login($('#loginI').val(), $('#passwordI').val());">Login</button>
+                    <button onclick="login($('#loginI').val(), $('#passwordI').val());" id="loginButton">Login</button>
                     <span id="connectionON">Status...</span>                    
                 </p>
             </div>
@@ -77,6 +88,7 @@
             <div data-role="header">
                 <h1 id="usernameT">Chat window</h1>  
                 <button onclick="logout();">Logout</button>
+                <a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-transition="slidedown" data-icon="gear">Status</a>
             </div>
 
             <div data-role="content">
@@ -95,12 +107,24 @@
                     </div>
                 </div>
 
+                <div data-role="popup" id="popupMenu">
+                    <ul data-role="listview" data-inset="true" style="min-width:210px;" >
+                        <li data-role="divider" data-theme="e">Choose status</li>
+                        <li data-icon="false"><a onclick="setStatus(away);" href="#" data-rel="back">away</a></li>
+                        <li data-icon="false"><a onclick="setStatus(dnd);" href="#" data-rel="back">dnd</a></li>
+                        <li data-icon="false"><a onclick="setStatus(busy);" href="#" data-rel="back">busy</a></li>
+                        <li data-icon="false"><a onclick="setStatus(available);" href="#" data-rel="back">available</a></li>
+                        <li data-icon="false"><a onclick="setStatus(ofline);" href="#" data-rel="back">ofline</a></li>  
+                    </ul>
+                </div>
             </div>
+
+
         </div>
 
         <div data-role="page" id="chatPageTemplate">
             <div data-role="header" data-position="fixed">
-                <h1 id="usernameT">Chat window</h1>  
+                <h1 id="chatPageT"></h1>  
                 <button onclick="onGoToMainPage();">Back</button>
                 <a href="#right-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false">Menu</a>
             </div>
@@ -115,10 +139,12 @@
             </div>
 
             <div data-role="panel" id="right-panel" data-display="overlay" data-position="right" data-theme="c">
-                <ul data-role="listview" data-theme="d" data-icon="false">
-                    <li data-icon="delete"><a href="#" data-rel="close"></a></li>
-                    <li><a href="#">Close conversation</a></li>                 
-                </ul>
+                <div class="ui-panel-inner">
+                    <ul data-role="listview" data-theme="d" data-icon="false">
+                        <li data-icon="delete"><a href="#" data-rel="close"></a></li>
+                        <li><a onclick="closePrivateChat(getActiveConverastion());" href="#">Close this converastion</a></li>                 
+                    </ul>
+                </div>
             </div><!-- /panel -->
 
             <div data-role="footer" data-position="fixed">
@@ -129,8 +155,69 @@
 
 
 
+        <div data-role="page" id="createGroupPage">
+            <div data-role="header">
+                <h1>Create Group</h1>  
+                <button onclick="onGoToMainPage();">Back</button>
+            </div>
 
+            <div data-role="content">
+                <p>
+                    <input type="text" id="inputGroupName" value="group name"/>
+                    <button type="button" value="Create Group" onclick="openGroupChat($('#inputGroupName').val());"></button>
+                </p>
 
+            </div>
+        </div>
+        
+        <div data-role="page" id="addUserGroupPage">
+            <div data-role="header">
+                <h1>Add user to group</h1>  
+                <button onclick="onGoToMainPage();">Back</button>
+            </div>
+
+            <div data-role="content">
+                <p>
+                    <button type="button" value="Load group chat" onclick="onOpenGroupChatWindow(getActiveGroupChat())"></button>
+                </p>
+                <ul data-role="listview" data-filter="true" id="friendListGroupT">
+                            <li class="ui-li ui-li-static ui-btn-up-c">test :messafe</li>
+                </ul>
+            </div>
+        </div>
+
+        
+        <div data-role="page" id="groupChatPageTemplate">
+            <div data-role="header" data-position="fixed">
+                <h1 id="groupChatPageT"></h1>  
+                <button onclick="onGoToMainPage();">Back</button>
+                <a href="#groupRight-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false">Menu</a>
+            </div>
+
+            <div data-role="content">
+                <ul data-role="listview" id="groupChatHistory">                        
+                </ul>
+                <!--<div id="chat_input">
+                    <div class="block-button-send"><button onclick="sendPrivateMessage($('#inputPrivateMessage').val());">send</button></div>
+                    <div class="block-input-send"><input type="text" id="inputPrivateMessage"/></div>
+                </div>-->
+            </div>
+
+            <div data-role="panel" id="groupRight-panel" data-display="overlay" data-position="right" data-theme="c">
+                <div class="ui-panel-inner">
+                    <ul data-role="listview" data-theme="d" data-icon="false">
+                        <li data-icon="delete"><a href="#" data-rel="close"></a></li>
+                        <li><a onclick="closeGroupChat(getActiveGroupChat());" href="#">Close this group</a></li>                 
+                    </ul>
+                </div>
+            </div><!-- /panel -->
+
+            <div data-role="footer" data-position="fixed">
+                <div class="block-input-send"><input type="text" id="groupInputPrivateMessage"/></div>
+                <div class="block-button-send"><button onclick="sendGroupMessage(getActiveGroupChat(),$('#groupInputPrivateMessage').val());">send</button></div>
+            </div>
+        </div>
+        
         <div data-role="page" id="chatPage">
             <div data-role="header">
                 <h1>Chat window</h1>  
@@ -144,13 +231,6 @@
                 <p>
                     <input type="text" id="input"/>
 
-
-
-
-                    <button onclick="setStatus('CHAT_STATUS_AWAY');">Change status AWAY</button>
-                    <button onclick="setStatus('CHAT_STATUS_DND');">Change status DND</button>
-                    <button onclick="setStatus('CHAT_STATUS_BUSY');">Change status BUSY</button>
-                    <button onclick="setStatus('CHAT_STATUS_AVAILABLE');">Change status AVAIL</button>
                     <button onclick="openPrivateChat(8);">Open chat</button>
                     <button onclick="closePrivateChat(8);">Close chat</button>
 

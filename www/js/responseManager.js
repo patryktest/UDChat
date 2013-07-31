@@ -36,12 +36,18 @@ function responseGroupClose(json) {
         if(user.groupList[i].groupId === json.data.groupId)
             user.groupList.splice(i,1);
     }
+    onCloseGroupChatWindow();
 }
 function responseGroupInfo(json) {
     console.log('responseGroupInfo: OK');
     user.groupList.push(json.data);
+    setActiveGroupChat(json.data.groupId);
+    onSetupGroup();
 }
 
+/*
+ * respon after adding user to group
+ */
 function responseGroupJoin(json) {
     console.log('responseGroupJoin: OK');
     for(var i=0;i<user.groupList.length;i++){
@@ -49,6 +55,8 @@ function responseGroupJoin(json) {
             user.groupList[i].users.push(json.data.user);
     }
     console.log(user);
+    uploadSetupGroupContent();
+    
 }
 function responseGroupLeave(json) {
     console.log('responseGroupLeave: OK');
@@ -69,6 +77,13 @@ function responseGroupMessage(json) {
             user.groupList[i].history.push(json.data);
         }
     }
+    $('#groupInputPrivateMessage').val('');
+    if(json.data.groupId===getActiveGroupChat())
+        addMessageToActiveGroupChat(getActiveGroupChat());
+    else{
+        // TODO: zobraz upozornenie o neprecitanej sprave
+    }
+    
     
 }
 function responsePrivateHistory(json) {

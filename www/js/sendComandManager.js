@@ -56,28 +56,59 @@ function sendPrivateMessage(message) {
 
 }
 
+/*
+ * create new group
+ * 
+ * @param {type} groupName
+ * @returns {undefined}
+ */
+
 function openGroupChat(groupName) {
-    console.log('creating Group with name: ' + groupName);
-    sendCommand('chat.openGroupConversation', [user.id, groupName]);
+    if(groupName!==""){
+        console.log('creating Group with name: ' + groupName);
+        sendCommand('chat.openGroupConversation', [user.id, groupName]);
+    }
+    else{
+        alert('Missing Group name');
+    }    
 }
 
+/*
+ * Close group chat, only leader
+ * 
+ * @param {type} groupId
+ * @returns {undefined}
+ */
 function closeGroupChat(groupId) {
     console.log('close Group with ID: ' + groupId);
     sendCommand('chat.closeGroupConversation', [user.id, groupId]);
 }
 
+/*
+ * addUser to group. only leader
+ * 
+ * @param {type} friendId
+ * @param {type} groupId
+ * @returns {undefined}
+ */
 function addUserToGroup(friendId, groupId) {
     console.log('add user : ' + friendId + ' to group: ' + groupId);
     sendCommand('chat.addUserToConversation', [friendId, groupId]);
 }
 
+/*
+ * not leader
+ * 
+ * @param {type} groupId
+ * @returns {undefined}
+ */
 function leaveConversation(groupId) {
     console.log('leave group ' + groupId);
     sendCommand('chat.leaveConversation', [groupId, user.id]);
 }
 
 function sendGroupMessage(groupId, message) {
-    console.log('leave group ' + groupId);
+    console.log('send group message to ' + groupId+' with text: '+message);
     sendCommand('chat.sendGroupMessage', [user.id, groupId, message]);
 }
  function setconversationMode(friendId, mode){

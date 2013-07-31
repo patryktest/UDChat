@@ -30,3 +30,23 @@ function onClosePrivateChatWindow(){
     window.location = '#mainPage';
     
 }
+
+function onOpenPageCreatingGroupChat(){
+    window.location = '#createGroupPage';
+}
+function onSetupGroup(){
+    uploadSetupGroupContent();
+    window.location = '#addUserGroupPage';
+}
+
+function onOpenGroupChatWindow(id){
+    setActiveGroupChat(id);
+    loadGroupChat(id);
+    //updateRightMenu();
+    //updateRightMenu();
+    window.location = '#groupChatPageTemplate';
+}
+function onCloseGroupChatWindow(){
+    ShowUserGroupList();
+    window.location = '#mainPage';
+}
