@@ -60,6 +60,7 @@ function connect() {
 
     connection.onopen = function() {
         statusOnConnect.text('Connected');
+        console.log('connected to ws');
        // $('#loginButton').removeClass('ui-disabled');
         
     };
@@ -67,7 +68,8 @@ function connect() {
     connection.onerror = function(error) {
         statusOnConnect.text('Not Connected');
         // an error occurred when sending/receiving data
-        alert(error);
+        console.log(error);
+       // alert(error);
     };
 
     connection.onmessage = function(message) {
