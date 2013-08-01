@@ -14,13 +14,13 @@ function onLogout(){
 }
 
 function onGoToMainPage(){
-    
+    setActiveConverastion('');
     window.location = '#mainPage';
 }
 
 function onOpenPrivateChatWindow(id){
     loadPrivateChat(id);
-    //updateRightMenu();
+    clearNotificationToPrivateChat(id);
     //updateRightMenu();
     window.location = '#chatPageTemplate';
 }

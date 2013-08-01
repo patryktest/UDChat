@@ -21,8 +21,9 @@ function logout() {
 }
 
 function setStatus(status) {
-    global_status =status;
     
+    updateStatusIcon(status,global_status);
+    global_status =status;
     console.log('set status: ' + status);
     sendCommand('user.updateStatus', [user.id, status]);
 }

@@ -4,8 +4,7 @@ var connection;
 var user = {};
 var friendList = {};
 var groupList = {};
-var actualOpeningChat = "";
-var openConversation = [];
+
 var messageArrayText;
 
 $(function() {

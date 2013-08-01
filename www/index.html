@@ -11,6 +11,9 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script src="./js/jquery.min.js"></script>
 
+        <script src="js/friend.js"></script>
+        <script src="js/privateChat.js"></script>
+        <script src="js/groupChat.js"></script>
         <script src="js/function.js"></script>
         <script src="js/group.js"></script>
         <script src="js/connectionManager.js"></script>
@@ -54,7 +57,22 @@
                 margin-left: 25px;
 
             }
-
+            
+            .ui-icon-CHAT_STATUS_AVAILABLE{
+                background: url("./img/CHAT_STATUS_AVAILABLE.png") no-repeat scroll -15px -18px transparent;
+            }
+            .ui-icon-CHAT_STATUS_AWAY {
+                background: url("./img/CHAT_STATUS_BUSY.png") no-repeat scroll -15px -18px transparent;
+            }
+            .ui-icon-CHAT_STATUS_DND {
+                background: url("./img/CHAT_STATUS_OFFLINE.png") no-repeat scroll -15px -18px transparent;
+            }
+            .ui-icon-CHAT_STATUS_BUSY {
+                background: url("./img/CHAT_STATUS_BUSY.png") no-repeat scroll -15px -18px transparent;
+            }
+            .ui-icon-CHAT_STATUS_OFFLINE {
+                background: url("./img/CHAT_STATUS_OFFLINE.png") no-repeat scroll -15px -18px transparent;
+            }
         </style>
     </head>
 
@@ -88,7 +106,7 @@
             <div data-role="header">
                 <h1 id="usernameT">Chat window</h1>  
                 <button onclick="logout();">Logout</button>
-                <a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-transition="slidedown" data-icon="gear">Status</a>
+                <a id="statusLink" href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE">Status</a>
             </div>
 
             <div data-role="content">
