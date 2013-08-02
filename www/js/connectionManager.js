@@ -5,13 +5,9 @@ var user = {};
 var friendList = {};
 var groupList = {};
 
-var messageArrayText;
-
 $(function() {
     connect();
     background();
-    messageArrayText = $('#messageArray');
-    messageArrayText.text('');
 });
 
 function background() {
@@ -125,24 +121,4 @@ function connect() {
 
 
     };
-
-
-    function addMessage(name, message) {
-        //content.prepend('<br><b>' + name + '</b>' + ': ' + message);
-        messageArrayText.prepend('<li class="ui-li ui-li-static ui-btn-up-c">' + name + ':' + message + '</li>');
-
-    }
-
-    input.keydown(function(e) {
-        if (e.keyCode === 13) {
-            var msg = $(this).val();
-            if (!msg) {
-                return;
-            }
-            // send the message as an ordinary text
-            //connection.send(msg);
-            connection.send(JSON.stringify({type: 'message', text: msg}));
-            $(this).val('');
-        }
-    });
 }

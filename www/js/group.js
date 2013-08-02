@@ -1,4 +1,5 @@
 var activeGroupChat;
+var openGroupChat;
 
 function setActiveGroupChat(id) {
     activeGroupChat = id;
@@ -7,6 +8,18 @@ function setActiveGroupChat(id) {
 function getActiveGroupChat() {
     return activeGroupChat;
 }
+
+function addOpenGroupChat(id){
+    openGroupChat.push(id);
+}
+
+function closeOpenGroupChat(id){
+    for (var i = 0; i < openGroupChat.length; i++) {
+        if (openGroupChat[i] === id)
+            openGroupChat.splice(i, 1);
+    }
+}
+
 
 function getGroupById(id) {
     for (var i = 0; i < user.groupList.length; i++)
