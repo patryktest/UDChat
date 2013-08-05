@@ -1,3 +1,5 @@
+var selectedFriend=[];
+
 /*
  * Create new friend createFriend(id,name,newMessage,status)
  * return object friend
@@ -27,4 +29,24 @@ function getFriendName(id) {
             return user.friendList[i].name;
     }
     return null;
+}
+
+function addToSelectedFriend(id){
+    selectedFriend.push(id);
+}
+function removeFromSelectedFriend(id){
+    for(var i=0;i<selectedFriend.length;i++){
+        if (selectedFriend[i] === id)
+            selectedFriend.splice(i, 1);
+    }
+}
+function isSelectedFriend(id){
+    for(var i=0;i<selectedFriend.length;i++){
+        if (selectedFriend[i] === id)
+            return true;
+    }
+    return false;
+}
+function getSelectedFriend(){
+    return selectedFriend;
 }

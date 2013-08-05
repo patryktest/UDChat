@@ -57,7 +57,7 @@
                 margin-left: 25px;
 
             }
-            
+
             .ui-icon-CHAT_STATUS_AVAILABLE{
                 background: url("./img/CHAT_STATUS_AVAILABLE.png") no-repeat scroll -15px -18px transparent;
             }
@@ -73,14 +73,42 @@
             .ui-icon-CHAT_STATUS_OFFLINE {
                 background: url("./img/CHAT_STATUS_OFFLINE.png") no-repeat scroll -15px -18px transparent;
             }
+            
+            #chatListT .ui-li-icon{
+                max-height: 30px;
+                min-width: 30px;
+            }
+            .ui-li-message-count {
+                background: none repeat scroll 0 0 lightgreen;
+                border-radius: 1em 1em 1em 1em;
+                color: white;
+                margin: 0 6px;
+                padding: 1px 6px;
+                position: absolute;
+            }
+            .ui-li-message-text {
+                padding-left: 30px;
+            }
+            .chat-list-friend-item{
+                margin: 0;
+            }
+            
+            .ui-selectedFriend{
+                z-index: 1;
+                box-shadow: 0 0 3px #387BBE inset, 0 0 9px #387BBE;
+            }
+            /*.profilImg{
+                width: 30px;
+                height: 30px;
+            }*/
         </style>
     </head>
 
     <body id="body">
 
 
-        <div data-role="page" id="loginPage">
-            <div data-role="header" >
+        <div data-role="page" id="loginPage" data-theme="c">
+            <div data-role="header" data-theme="c">
                 <h1>UD chat</h1>
             </div>
 
@@ -93,7 +121,7 @@
                 </p>
             </div>
 
-            <div data-role="footer">
+            <div data-role="footer" data-theme="c">
                 <h4>PAGE FOOTER</h4>
             </div>
         </div>
@@ -102,28 +130,21 @@
 
 
 
-        <div data-role="page" id="mainPage">
-            <div data-role="header">
+        <div data-role="page" id="mainPage" data-theme="c">
+            <div data-role="header" data-theme="c">
                 <h1 id="usernameT">Chat window</h1>  
-                <button onclick="logout();">Logout</button>
-                <a id="statusLink" href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE">Status</a>
+                <!-- <button onclick="logout();">Logout</button> -->
+                <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
+                    <a id="contactLink" onclick="onOpenContactList();"  href="" data-role="button" data-inline="true">contats</a>
+                    <a id="statusLink"  href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE">Status</a>
+                </div>
             </div>
 
             <div data-role="content">
-                <div data-role="collapsible-set">
-                    <div data-role="collapsible">
-                        <h2>Friends</h2>
-                        <ul data-role="listview" id="friendListT">
-                            <li class="ui-li ui-li-static ui-btn-up-c">test :messafe</li>
-                        </ul>
-                    </div>
-                    <div data-role="collapsible">
-                        <h2>Groups</h2>
-                        <ul data-role="listview" id="groupListT">
-                            <li class="ui-li ui-li-static ui-btn-up-c">test :messafe</li>
-                        </ul>
-                    </div>
-                </div>
+
+                <ul data-role="listview" id="chatListT">
+                    <li class="ui-li ui-li-static ui-btn-up-c">test :messafe</li>
+                </ul>
 
                 <div data-role="popup" id="popupMenu">
                     <ul data-role="listview" data-inset="true" style="min-width:210px;" >
@@ -139,9 +160,31 @@
 
 
         </div>
+        
+        <div data-role="page" id="contactPage" data-theme="c">
+            <div data-role="header" data-theme="c">
+                <h1 id="contactT">Chat window</h1>  
+                <!-- <button onclick="logout();">Logout</button> -->
+                <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
+                    <a id="contactback" onclick="onGoToMainPage();"  href="" data-role="button" data-inline="true">back</a>
+                    <a id="statusLink"  href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE">Status</a>
+                </div>
+            </div>
 
-        <div data-role="page" id="chatPageTemplate">
-            <div data-role="header" data-position="fixed">
+            <div data-role="content">
+                <ul id="contactList-selectedFriendT" data-role="listview" class="ui-listview">
+                    
+                </ul>
+                <ul data-role="listview" id="contactListT" data-filter="true">
+                    <li class="ui-li ui-li-static ui-btn-up-c">test :messafe</li>
+                </ul>
+            </div>
+
+
+        </div>
+
+        <div data-role="page" id="chatPageTemplate" data-theme="c">
+            <div data-role="header" data-position="fixed" data-theme="c">
                 <h1 id="chatPageT"></h1>  
                 <button onclick="onGoToMainPage();">Back</button>
                 <a href="#right-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false">Menu</a>
@@ -165,7 +208,7 @@
                 </div>
             </div><!-- /panel -->
 
-            <div data-role="footer" data-position="fixed">
+            <div data-role="footer" data-position="fixed" data-theme="c">
                 <div class="block-input-send"><input type="text" id="inputPrivateMessage"/></div>
                 <div class="block-button-send"><button onclick="sendPrivateMessage($('#inputPrivateMessage').val());">send</button></div>
             </div>
@@ -187,7 +230,7 @@
 
             </div>
         </div>
-        
+
         <div data-role="page" id="addUserGroupPage">
             <div data-role="header">
                 <h1>Add user to group</h1>  
@@ -199,12 +242,12 @@
                     <button type="button" value="Load group chat" onclick="onOpenGroupChatWindow(getActiveGroupChat())"></button>
                 </p>
                 <ul data-role="listview" data-filter="true" id="friendListGroupT">
-                            <li class="ui-li ui-li-static ui-btn-up-c">test :messafe</li>
+                    <li class="ui-li ui-li-static ui-btn-up-c">test :messafe</li>
                 </ul>
             </div>
         </div>
 
-        
+
         <div data-role="page" id="groupChatPageTemplate">
             <div data-role="header" data-position="fixed">
                 <h1 id="groupChatPageT"></h1>  
@@ -232,10 +275,10 @@
 
             <div data-role="footer" data-position="fixed">
                 <div class="block-input-send"><input type="text" id="groupInputPrivateMessage"/></div>
-                <div class="block-button-send"><button onclick="sendGroupMessage(getActiveGroupChat(),$('#groupInputPrivateMessage').val());">send</button></div>
+                <div class="block-button-send"><button onclick="sendGroupMessage(getActiveGroupChat(), $('#groupInputPrivateMessage').val());">send</button></div>
             </div>
         </div>
-        
+
         <div data-role="page" id="chatPage">
             <div data-role="header">
                 <h1>Chat window</h1>  

@@ -4,8 +4,8 @@
 function onUserLogin() {
     $('#usernameT').text(user.name);
     window.location = '#mainPage';
-    ShowUserFriendList();
-    ShowUserGroupList();
+    ShowChatList();
+   // ShowUserGroupList();
 }
 
 function onLogout(){
@@ -47,6 +47,11 @@ function onOpenGroupChatWindow(id){
     window.location = '#groupChatPageTemplate';
 }
 function onCloseGroupChatWindow(){
-    ShowUserGroupList();
+    //ShowUserGroupList();
     window.location = '#mainPage';
+}
+
+function onOpenContactList(){
+    window.location = '#contactPage';
+    showContactList();
 }

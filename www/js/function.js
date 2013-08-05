@@ -20,11 +20,30 @@ var global_status = online;
 }*/
 
 
-function ShowUserFriendList() {
-    $('#friendListT').text('');
+function ShowChatList() {
+    $('#chatListT').text('');
     for (var i = 0; i < user.friendList.length; i++) {
-        $('#friendListT').append('<li data-icon="false" id="friend_list_'+user.friendList[i].id+'"><a onclick="openPrivateChat(' + user.friendList[i].id + ');" href="">\n\
-        <img src="./img/' + user.friendList[i].status + '.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '<span class="ui-li-count">' + user.friendList[i].newMessages + '</span></a></li>');
+        if(user.friendList[i].history.length)
+            var message = user.friendList[i].history[user.friendList[i].history.length-1].message;
+        else
+            message = 'no history';
+        $('#chatListT').append('<li data-icon="'+user.friendList[i].status+'" id="friend_list_'+user.friendList[i].id+'"><a onclick="openPrivateChat(' + user.friendList[i].id + ');" href="">\n\
+        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '<p class="chat-list-friend-item"><span class="ui-li-message-count">' + user.friendList[i].newMessages + '</span><span class="ui-li-message-text">'+message+'</span></p></a></li>');
+    }
+    for (var i = 0; i < user.groupList.length; i++) {
+        $('#chatListT').append('<li data-icon="false"><a onclick="onOpenGroupChatWindow('+user.groupList[i].groupId+')" href=""><h2>' + user.groupList[i].groupName + '</h2> Leader: ' + user.groupList[i].groupLeader.name + '</a></li>');
+    }
+    
+}
+
+function showContactList(){
+    $('#contactListT').text('');
+    for (var i = 0; i < user.friendList.length; i++) {
+        $('#contactListT').append('<li data-icon="'+user.friendList[i].status+'" id="friend_list_'+user.friendList[i].id+'"><a onclick="selectFriend(' + user.friendList[i].id + ');" href="">\n\
+        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '</a></li>');
+    }
+    for (var i = 0; i < user.groupList.length; i++) {
+        $('#contactListT').append('<li data-icon="false"><a onclick="onOpenGroupChatWindow('+user.groupList[i].groupId+')" href=""><h2>' + user.groupList[i].groupName + '</h2> Leader: ' + user.groupList[i].groupLeader.name + '</a></li>');
     }
 }
 
@@ -40,7 +59,7 @@ function ShowUserGroupList() {
 
 $(function() {
 
-    
+    if(user)window.location = '#loginPage';
 
     $('#inputPrivateMessage').keydown(function(e) {
         if (e.keyCode === 13) {
@@ -186,4 +205,27 @@ function updateFriendStatus(id,status){
     else
         console.log('friend status: user not exist');
     
+}
+
+function selectFriend(id){
+    if(isSelectedFriend(id)){
+        removeFromSelectedFriend(id);
+        $('#contactListT #friend_list_'+id).removeClass('ui-selectedFriend');
+    }
+    else{
+        addToSelectedFriend(id);
+        $('#contactListT #friend_list_'+id).addClass('ui-selectedFriend');
+    }
+    updateSelectedFriendView();
+        
+}
+
+function updateSelectedFriendView(){
+    $('#contactList-selectedFriendT').text('');
+    for (var i = 0; i < user.friendList.length; i++) {
+     $('#contactList-selectedFriendT').append('<li data-icon="'+user.friendList[i].status+'" id="friend_list_'+user.friendList[i].id+' class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-icon ui-first-child ui-btn-up-c"" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-iconpos="right" data-theme="c">\n\
+        \n\<div class="ui-btn-inner ui-li"><div class="ui-btn-text">\n\
+        <a onclick="selectFriend(' + user.friendList[i].id + ');" href="">\n\
+        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '</a></div></div></li>');
+    }
 }
