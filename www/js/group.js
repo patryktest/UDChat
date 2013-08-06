@@ -45,3 +45,17 @@ function isUserInGroup(idUser,idGroup){
       
 }
 
+function removeUserFromGroup(idUser,idGroup){
+    group = getGroupById(idGroup);
+    if(group){
+        var users= group.users;
+        for(var i=0;i<users.length;i++){
+            if(users[i].id===idUser){
+                users.splice(i,1);
+                return true;
+            }
+        }         
+    }  
+    return false;
+}
+

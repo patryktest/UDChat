@@ -27,6 +27,7 @@ function onOpenPrivateChatWindow(id){
 
 function onClosePrivateChatWindow(){
     closePrivateChatWindow();
+    setActiveConverastion('');
     window.location = '#mainPage';
     
 }
@@ -34,16 +35,10 @@ function onClosePrivateChatWindow(){
 function onOpenPageCreatingGroupChat(){
     window.location = '#createGroupPage';
 }
-function onSetupGroup(){
-    uploadSetupGroupContent();
-    window.location = '#addUserGroupPage';
-}
 
 function onOpenGroupChatWindow(id){
     setActiveGroupChat(id);
     loadGroupChat(id);
-    //updateRightMenu();
-    //updateRightMenu();
     window.location = '#groupChatPageTemplate';
 }
 function onCloseGroupChatWindow(){
@@ -53,5 +48,9 @@ function onCloseGroupChatWindow(){
 
 function onOpenContactList(){
     window.location = '#contactPage';
-    showContactList();
+    updateSelectedFriendView();
+    if($('#contactListT').html()==="")
+        showContactList();
+    else
+        updateContactListView();
 }

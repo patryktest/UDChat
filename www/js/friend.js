@@ -50,3 +50,6 @@ function isSelectedFriend(id){
 function getSelectedFriend(){
     return selectedFriend;
 }
+function clearSelectedFriend(){
+    selectedFriend = [];
+}

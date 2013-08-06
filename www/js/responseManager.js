@@ -36,17 +36,20 @@ function responseGroupClose(json) {
         if(user.groupList[i].groupId === json.data.groupId)
             user.groupList.splice(i,1);
     }
+    removeGroupFromContactList(json.data.groupId);
+    removeGroupFromMainList(json.data.groupId);
     onCloseGroupChatWindow();
+    
 }
 function responseGroupInfo(json) {
     console.log('responseGroupInfo: OK');
     user.groupList.push(json.data);
     setActiveGroupChat(json.data.groupId);
-    onSetupGroup();
+    onGroupCreate();
 }
 
 /*
- * respon after adding user to group
+ * response after adding user to group
  */
 function responseGroupJoin(json) {
     console.log('responseGroupJoin: OK');
@@ -54,30 +57,23 @@ function responseGroupJoin(json) {
         if(user.groupList[i].groupId === json.data.groupId)
             user.groupList[i].users.push(json.data.user);
     }
-    console.log(user);
-    uploadSetupGroupContent();
-    
+    console.log(user);    
 }
+
 function responseGroupLeave(json) {
     console.log('responseGroupLeave: OK');
-    for(var i=0;i<user.groupList.length;i++){
-        if(user.groupList[i].groupId === json.data.groupId){
-            for(var j=0;j<user.groupList[i].users.length;j++){
-                if(user.groupList[i].users[j].id===json.data.id)
-                    user.groupList[i].users.splice(j,1);
-            }
-        }
-    }
+    if(removeUserFromGroup(json.data.id, json.data.groupId))
+        console.log('user with id:'+json.data.id+' leaved group');
+    else
+        console.log('ERROR in leave group');
     console.log(user);
 }
 function responseGroupMessage(json) {
     console.log('responseGroupMessage: OK');
-    for(var i=0;i<user.groupList.length;i++){
-        if(user.groupList[i].groupId === json.data.groupId){
-            user.groupList[i].history.push(json.data);
-        }
+    group = getGroupById(json.data.groupId);
+    if(group){
+        group.history.push(json.data);
     }
-    $('#groupInputPrivateMessage').val('');
     if(json.data.groupId===getActiveGroupChat())
         addMessageToActiveGroupChat(getActiveGroupChat());
     else{

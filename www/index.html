@@ -73,6 +73,9 @@
             .ui-icon-CHAT_STATUS_OFFLINE {
                 background: url("./img/CHAT_STATUS_OFFLINE.png") no-repeat scroll -15px -18px transparent;
             }
+            .ui-icon-CHAT_STATUS_ONLINE {
+                background: url("./img/CHAT_STATUS_ONLINE.png") no-repeat scroll -15px -18px transparent;
+            }
             
             #chatListT .ui-li-icon{
                 max-height: 30px;
@@ -94,8 +97,16 @@
             }
             
             .ui-selectedFriend{
-                z-index: 1;
-                box-shadow: 0 0 3px #387BBE inset, 0 0 9px #387BBE;
+                /*z-index: 1;
+                box-shadow: 0 0 3px #387BBE inset, 0 0 9px #387BBE;*/
+                display: none;
+            }
+            #contactPageSmallMenu{
+                display: none;
+                margin: 15px 0;
+            }
+            #groupName{
+                display: none;
             }
             /*.profilImg{
                 width: 30px;
@@ -175,9 +186,11 @@
                 <ul id="contactList-selectedFriendT" data-role="listview" class="ui-listview">
                     
                 </ul>
-                <ul data-role="listview" id="contactListT" data-filter="true">
-                    <li class="ui-li ui-li-static ui-btn-up-c">test :messafe</li>
-                </ul>
+                <div id='contactPageSmallMenu'>
+                    <div id="groupName"><input type="text" id='groupNameI' value="group name" /></div>
+                    <div id="smallMenu"><button id='button_chat' onclick="openPGChat($('#groupNameI').val());">start chat</button></div>
+                </div>
+                <ul data-role="listview" id="contactListT" data-filter="true"></ul>
             </div>
 
 
@@ -214,38 +227,7 @@
             </div>
         </div>
 
-
-
-        <div data-role="page" id="createGroupPage">
-            <div data-role="header">
-                <h1>Create Group</h1>  
-                <button onclick="onGoToMainPage();">Back</button>
-            </div>
-
-            <div data-role="content">
-                <p>
-                    <input type="text" id="inputGroupName" value="group name"/>
-                    <button type="button" value="Create Group" onclick="openGroupChat($('#inputGroupName').val());"></button>
-                </p>
-
-            </div>
-        </div>
-
-        <div data-role="page" id="addUserGroupPage">
-            <div data-role="header">
-                <h1>Add user to group</h1>  
-                <button onclick="onGoToMainPage();">Back</button>
-            </div>
-
-            <div data-role="content">
-                <p>
-                    <button type="button" value="Load group chat" onclick="onOpenGroupChatWindow(getActiveGroupChat())"></button>
-                </p>
-                <ul data-role="listview" data-filter="true" id="friendListGroupT">
-                    <li class="ui-li ui-li-static ui-btn-up-c">test :messafe</li>
-                </ul>
-            </div>
-        </div>
+        
 
 
         <div data-role="page" id="groupChatPageTemplate">
@@ -258,10 +240,6 @@
             <div data-role="content">
                 <ul data-role="listview" id="groupChatHistory">                        
                 </ul>
-                <!--<div id="chat_input">
-                    <div class="block-button-send"><button onclick="sendPrivateMessage($('#inputPrivateMessage').val());">send</button></div>
-                    <div class="block-input-send"><input type="text" id="inputPrivateMessage"/></div>
-                </div>-->
             </div>
 
             <div data-role="panel" id="groupRight-panel" data-display="overlay" data-position="right" data-theme="c">
