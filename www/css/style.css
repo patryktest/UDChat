@@ -1,3 +1,10 @@
+@font-face {
+    font-family: "SSPika";
+    font-style: normal;
+    font-weight: normal;
+    src: url("ss-pika.eot?#iefix") format("embedded-opentype"), url("ss-pika.woff") format("woff"), url("ss-pika.ttf") format("truetype"), url("ss-pika.svg#SSPika") format("svg");
+}
+
 .ui-li-message {
     margin: 0;
     overflow: visible;

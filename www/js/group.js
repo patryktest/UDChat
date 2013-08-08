@@ -59,3 +59,14 @@ function removeUserFromGroup(idUser,idGroup){
     return false;
 }
 
+function groupLeader(idGroup){
+    group = getGroupById(idGroup);
+    if(group){
+        var leader= group.groupLeader;
+        if(leader.id===user.id)
+            return true;        
+    }
+    return false;
+    
+}
+

@@ -43,9 +43,23 @@ function responseGroupClose(json) {
 }
 function responseGroupInfo(json) {
     console.log('responseGroupInfo: OK');
-    user.groupList.push(json.data);
-    setActiveGroupChat(json.data.groupId);
-    onGroupCreate();
+    group = getGroupById(json.data.groupId);
+    if(group){
+        group=json.data;
+    }
+    else{
+        user.groupList.push(json.data);
+        if(groupLeader(json.data.groupId)){
+            setActiveGroupChat(json.data.groupId);
+            onGroupCreate();
+        }
+        else onAddToFriendGroup();
+        
+        addGroupToContactList(json.data);
+        addGroupToMainList(json.data);
+    }
+    
+    
 }
 
 /*

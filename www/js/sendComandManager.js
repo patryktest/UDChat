@@ -116,6 +116,10 @@ function sendGroupMessage(groupId, message) {
      console.log('set inkognito with: '+friendId+' to'+mode);
      sendCommand('chat.setconversationMode',[user.id,friendId,mode]);
  }
+ function setGroupName(groupId,newName){
+     console.log('set new Group Name to group: '+groupId+' name:'+newName);
+     sendCommand('chat.setGroupName',[user.id,groupId,newName]); 
+ }
  
 
 function sendCommand(command, params) {
@@ -142,6 +146,7 @@ function sendCommand(command, params) {
      connection.send(JSON.stringify({command: 'chat.leaveConversation', parameters: param}));           [id grup, id my]
      connection.send(JSON.stringify({command: 'chat.sendGroupMessage', parameters: param}));            [user.id,group.id,message]
      connection.send(JSON.stringify({command: 'chat.setconversationMode', parameters: param}));         [id,idFriend,true/false]
+     connection.send(JSON.stringify({command: 'chat.setGroupName', parameters: param}));                [id,idGroup,string new name] - send back responseGroupInfo()
      
      */
 }

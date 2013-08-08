@@ -27,8 +27,8 @@ function ShowChatList() {
             var message = user.friendList[i].history[user.friendList[i].history.length - 1].message;
         else
             message = 'no history';
-        $('#chatListT').append('<li data-icon="' + user.friendList[i].status + '" id="friend_list_' + user.friendList[i].id + '"><a onclick="openPrivateChat(' + user.friendList[i].id + ');" href="">\n\
-        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '<p class="chat-list-friend-item"><span class="ui-li-message-count">' + user.friendList[i].newMessages + '</span><span class="ui-li-message-text">' + message + '</span></p></a></li>');
+        $('#chatListT').append('<li data-icon="false" id="friend_list_' + user.friendList[i].id + '"><a onclick="openPrivateChat(' + user.friendList[i].id + ');" href="">\n\
+        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '<p class="chat-list-friend-item"><span class="ui-li-message-count">' + user.friendList[i].newMessages + '</span><span class="ui-li-message-text">' + message + '</span></p></a><span class="user-status-icon ui-'+user.friendList[i].status+'">&#xEA01;</span></li>');
     }
     for (var i = 0; i < user.groupList.length; i++) {
         $('#chatListT').append('<li data-icon="false" id="group_list_'+user.groupList[i].groupId+'"><a onclick="onOpenGroupChatWindow(' + user.groupList[i].groupId + ')" href=""><h2>' + user.groupList[i].groupName + '</h2> Leader: ' + user.groupList[i].groupLeader.name + '</a></li>');
@@ -39,8 +39,8 @@ function ShowChatList() {
 function showContactList() {
     $('#contactListT').text('');
     for (var i = 0; i < user.friendList.length; i++) {
-        $('#contactListT').append('<li data-icon="' + user.friendList[i].status + '" id="friend_list_' + user.friendList[i].id + '"><a onclick="selectFriend(' + user.friendList[i].id + ');" href="">\n\
-        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '</a></li>');
+        $('#contactListT').append('<li data-icon="false" id="friend_list_' + user.friendList[i].id + '"><a onclick="selectFriend(' + user.friendList[i].id + ');" href="">\n\
+        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '</a><span class="user-status-icon ui-'+user.friendList[i].status+'">&#xEA01;</span></li>');
     }
     for (var i = 0; i < user.groupList.length; i++) {
         $('#contactListT').append('<li data-icon="false" id="group_list_'+user.groupList[i].groupId+'"><a onclick="onOpenGroupChatWindow(' + user.groupList[i].groupId + ')" href=""><h2>' + user.groupList[i].groupName + '</h2> Leader: ' + user.groupList[i].groupLeader.name + '</a></li>');
@@ -269,4 +269,37 @@ function removeGroupFromContactList(id){
 
 function removeGroupFromMainList(id){
     $('#chatListT #group_list_'+id).remove();
+}
+
+function addGroupToContactList(group){
+    $('#contactListT').append('\n\
+        <li id="group_list_'+group.groupId+'" class="ui-btn ui-btn-icon-right ui-li ui-last-child ui-btn-up-c" data-icon="false" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-iconpos="right" data-theme="c">\n\
+            <div class="ui-btn-inner ui-li">\n\
+                <div class="ui-btn-text">\n\
+                    <a class="ui-link-inherit" href="" onclick="onOpenGroupChatWindow(' + group.groupId + ')">\n\
+                        <h2 class="ui-li-heading">' + group.groupName + '</h2>\n\
+                        Leader: ' + group.groupLeader.name + '\n\
+                    </a>\n\
+                </div>\n\
+            </div>\n\
+        </li>\n\
+    ');
+}
+function addGroupToMainList(group){
+    $('#chatListT').append('\n\
+        <li id="group_list_'+group.groupId+'" class="ui-btn ui-btn-icon-right ui-li ui-last-child ui-btn-up-c" data-icon="false" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-iconpos="right" data-theme="c">\n\
+            <div class="ui-btn-inner ui-li">\n\
+                <div class="ui-btn-text">\n\
+                    <a class="ui-link-inherit" href="" onclick="onOpenGroupChatWindow(' + group.groupId + ')">\n\
+                        <h2 class="ui-li-heading">' + group.groupName + '</h2>\n\
+                        Leader: ' + group.groupLeader.name + '\n\
+                    </a>\n\
+                </div>\n\
+            </div>\n\
+        </li>\n\
+    ');
+}
+
+function onAddToFriendGroup(){
+    console.log('friend create group');
 }

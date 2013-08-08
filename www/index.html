@@ -57,6 +57,23 @@
                 margin-left: 25px;
 
             }
+            
+            .ui-CHAT_STATUS_AVAILABLE{
+                color: #00CC99;
+            }
+            .ui-CHAT_STATUS_AWAY{
+                color: #00CCCC;
+            }
+            .ui-CHAT_STATUS_DND{
+                color: #FF6600;
+            }
+            .ui-CHAT_STATUS_OFFLINE{
+                color: #CCCCCC;
+            }
+            .ui-CHAT_STATUS_INVISIBLE {
+                color: #CCCCCC;
+            }
+            
 
             .ui-icon-CHAT_STATUS_AVAILABLE{
                 background: url("./img/CHAT_STATUS_AVAILABLE.png") no-repeat scroll -15px -18px transparent;
@@ -108,6 +125,14 @@
             #groupName{
                 display: none;
             }
+            
+            .user-status-icon {
+                font-family: SSPika;
+                position: absolute;
+                right: 10px;
+                top: 35%;
+            }
+            
             /*.profilImg{
                 width: 30px;
                 height: 30px;
@@ -146,15 +171,15 @@
                 <h1 id="usernameT">Chat window</h1>  
                 <!-- <button onclick="logout();">Logout</button> -->
                 <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
-                    <a id="contactLink" onclick="onOpenContactList();"  href="" data-role="button" data-inline="true">contats</a>
-                    <a id="statusLink"  href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE">Status</a>
+                    <a id="contactLink" onclick="onOpenContactList();"  href="" data-inline="true">&#x1F50E</a>
+                    <a id="statusLink"  href="#popupMenu" data-rel="popup" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE">Status</a>
                 </div>
             </div>
 
             <div data-role="content">
 
                 <ul data-role="listview" id="chatListT">
-                    <li class="ui-li ui-li-static ui-btn-up-c">test :messafe</li>
+                    <li class="ui-li ui-li-static ui-btn-up-c">test :message</li>
                 </ul>
 
                 <div data-role="popup" id="popupMenu">
@@ -177,8 +202,8 @@
                 <h1 id="contactT">Chat window</h1>  
                 <!-- <button onclick="logout();">Logout</button> -->
                 <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
-                    <a id="contactback" onclick="onGoToMainPage();"  href="" data-role="button" data-inline="true">back</a>
-                    <a id="statusLink"  href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE">Status</a>
+                    <a id="contactback" onclick="onGoToMainPage();"  href=""  data-inline="true">&#x2B05;</a>
+                    <a id="statusLink"  href="#popupMenu" data-rel="popup"  data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE">Status</a>
                 </div>
             </div>
 
@@ -199,8 +224,12 @@
         <div data-role="page" id="chatPageTemplate" data-theme="c">
             <div data-role="header" data-position="fixed" data-theme="c">
                 <h1 id="chatPageT"></h1>  
-                <button onclick="onGoToMainPage();">Back</button>
-                <a href="#right-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false">Menu</a>
+                <button onclick="onGoToMainPage();">&#xED50;</button>
+                <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
+                    
+                    <a id="contactback" onclick="onGoToMainPage();"  href=""  data-inline="true">&#xED50;</a>
+                    <a id="statusLink"  href="#popupMenu" data-rel="popup" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE">Status</a>
+                </div>
             </div>
 
             <div data-role="content">
