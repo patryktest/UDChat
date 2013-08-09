@@ -2,9 +2,9 @@
  * After login response open main chat page with friend list and group list
  */
 function onUserLogin() {
-    $('#usernameT').text(user.name);
     window.location = '#mainPage';
     ShowChatList();
+    
    // ShowUserGroupList();
 }
 

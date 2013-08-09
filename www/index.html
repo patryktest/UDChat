@@ -73,25 +73,48 @@
             .ui-CHAT_STATUS_INVISIBLE {
                 color: #CCCCCC;
             }
-            
-
+    
             .ui-icon-CHAT_STATUS_AVAILABLE{
-                background: url("./img/CHAT_STATUS_AVAILABLE.png") no-repeat scroll -15px -18px transparent;
+                background: url("./img/CHAT_STATUS_AVAILABLE.png") no-repeat scroll -12px -15px transparent;
+                display: block;
+                float: right;
+                height: 25px;
+                width: 25px;
             }
             .ui-icon-CHAT_STATUS_AWAY {
-                background: url("./img/CHAT_STATUS_BUSY.png") no-repeat scroll -15px -18px transparent;
+                background: url("./img/CHAT_STATUS_BUSY.png") no-repeat scroll -12px -15px transparent;
+                display: block;
+                float: right;
+                height: 25px;
+                width: 25px;
             }
             .ui-icon-CHAT_STATUS_DND {
-                background: url("./img/CHAT_STATUS_OFFLINE.png") no-repeat scroll -15px -18px transparent;
+                background: url("./img/CHAT_STATUS_OFFLINE.png") no-repeat scroll -12px -15px transparent;
+                display: block;
+                float: right;
+                height: 25px;
+                width: 25px;
             }
             .ui-icon-CHAT_STATUS_BUSY {
-                background: url("./img/CHAT_STATUS_BUSY.png") no-repeat scroll -15px -18px transparent;
+                background: url("./img/CHAT_STATUS_BUSY.png") no-repeat scroll -12px -15px transparent;
+                display: block;
+                float: right;
+                height: 25px;
+                width: 25px;
             }
             .ui-icon-CHAT_STATUS_OFFLINE {
-                background: url("./img/CHAT_STATUS_OFFLINE.png") no-repeat scroll -15px -18px transparent;
+                background: url("./img/CHAT_STATUS_OFFLINE.png") no-repeat scroll -12px -15px transparent;
+                display: block;
+                float: right;
+                height: 25px;
+                width: 25px;
             }
             .ui-icon-CHAT_STATUS_ONLINE {
-                background: url("./img/CHAT_STATUS_ONLINE.png") no-repeat scroll -15px -18px transparent;
+                background: url("./img/CHAT_STATUS_ONLINE.png") no-repeat scroll -12px -15px transparent;
+                display: block;
+                float: right;
+                height: 25px;
+                width: 25px;
             }
             
             #chatListT .ui-li-icon{
@@ -133,6 +156,15 @@
                 top: 35%;
             }
             
+            .ui-header .ui-title {
+                margin-left: 20px;
+                text-align: left;
+            }
+            
+            .hidden {
+                display: none;
+            }
+            
             /*.profilImg{
                 width: 30px;
                 height: 30px;
@@ -144,9 +176,7 @@
 
 
         <div data-role="page" id="loginPage" data-theme="c">
-            <div data-role="header" data-theme="c">
-                <h1>UD chat</h1>
-            </div>
+            
 
             <div data-role="content">
                 <p>
@@ -157,9 +187,6 @@
                 </p>
             </div>
 
-            <div data-role="footer" data-theme="c">
-                <h4>PAGE FOOTER</h4>
-            </div>
         </div>
 
 
@@ -168,11 +195,11 @@
 
         <div data-role="page" id="mainPage" data-theme="c">
             <div data-role="header" data-theme="c">
-                <h1 id="usernameT">Chat window</h1>  
+                <h1 id="mainPageHeadT">Chat</h1>  
                 <!-- <button onclick="logout();">Logout</button> -->
                 <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
                     <a id="contactLink" onclick="onOpenContactList();"  href="" data-inline="true">&#x1F50E</a>
-                    <a id="statusLink"  href="#popupMenu" data-rel="popup" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE">Status</a>
+                    <a id="statusLinkMainPage"  href="#popupMenu" data-rel="popup" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE" class="ui-icon-CHAT_STATUS_AVAILABLE"></a>
                 </div>
             </div>
 
@@ -199,11 +226,11 @@
         
         <div data-role="page" id="contactPage" data-theme="c">
             <div data-role="header" data-theme="c">
-                <h1 id="contactT">Chat window</h1>  
+                <h1 id="contactT">Connections</h1>  
                 <!-- <button onclick="logout();">Logout</button> -->
                 <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
                     <a id="contactback" onclick="onGoToMainPage();"  href=""  data-inline="true">&#x2B05;</a>
-                    <a id="statusLink"  href="#popupMenu" data-rel="popup"  data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE">Status</a>
+                    <a id="statusLinkContatct"  href="#popupMenu" data-rel="popup"  data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE" class="ui-icon-CHAT_STATUS_AVAILABLE"></a>
                 </div>
             </div>
 
@@ -223,12 +250,11 @@
 
         <div data-role="page" id="chatPageTemplate" data-theme="c">
             <div data-role="header" data-position="fixed" data-theme="c">
-                <h1 id="chatPageT"></h1>  
-                <button onclick="onGoToMainPage();">&#xED50;</button>
+                <h1 id="chatPageT">Text chat</h1>  
                 <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
                     
-                    <a id="contactback" onclick="onGoToMainPage();"  href=""  data-inline="true">&#xED50;</a>
-                    <a id="statusLink"  href="#popupMenu" data-rel="popup" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE">Status</a>
+                    <a id="chatBack" onclick="onGoToMainPage();"  href=""  data-inline="true">&#xED50;</a>
+                    <a id="statusLinkChat"  href="#popupMenu" data-rel="popup" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE" class="ui-icon-CHAT_STATUS_AVAILABLE"></a>
                 </div>
             </div>
 

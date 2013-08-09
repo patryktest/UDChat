@@ -27,8 +27,13 @@ function ShowChatList() {
             var message = user.friendList[i].history[user.friendList[i].history.length - 1].message;
         else
             message = 'no history';
+        
+        var hidden = '';
+        if(user.friendList[i].newMessages<1)
+            hidden = 'hidden';
+        
         $('#chatListT').append('<li data-icon="false" id="friend_list_' + user.friendList[i].id + '"><a onclick="openPrivateChat(' + user.friendList[i].id + ');" href="">\n\
-        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '<p class="chat-list-friend-item"><span class="ui-li-message-count">' + user.friendList[i].newMessages + '</span><span class="ui-li-message-text">' + message + '</span></p></a><span class="user-status-icon ui-'+user.friendList[i].status+'">&#xEA01;</span></li>');
+        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '<p class="chat-list-friend-item"><span class="ui-li-message-count '+hidden+' ">' + user.friendList[i].newMessages + '</span><span class="ui-li-message-text">' + message + '</span></p></a><span class="user-status-icon ui-'+user.friendList[i].status+'">&#xEA01;</span></li>');
     }
     for (var i = 0; i < user.groupList.length; i++) {
         $('#chatListT').append('<li data-icon="false" id="group_list_'+user.groupList[i].groupId+'"><a onclick="onOpenGroupChatWindow(' + user.groupList[i].groupId + ')" href=""><h2>' + user.groupList[i].groupName + '</h2> Leader: ' + user.groupList[i].groupLeader.name + '</a></li>');
@@ -184,8 +189,16 @@ function addMessageToActiveGroupChat(id) {
 
 function updateStatusIcon(statusNew, statusOld) {
     console.log('change status icon');
-    $('#mainPage .ui-header #statusLink span.ui-icon').removeClass('ui-icon-' + statusOld);
-    $('#mainPage .ui-header #statusLink span.ui-icon').addClass('ui-icon-' + statusNew);
+    $('#mainPage .ui-header #statusLinkMainPage').removeClass('ui-icon-' + statusOld);
+    $('#mainPage .ui-header #statusLinkMainPage').addClass('ui-icon-' + statusNew);
+    
+    $('#mainPage .ui-header #statusLinkContatct').removeClass('ui-icon-' + statusOld);
+    $('#mainPage .ui-header #statusLinkContatct').addClass('ui-icon-' + statusNew);
+    
+    $('#mainPage .ui-header #statusLinkChat').removeClass('ui-icon-' + statusOld);
+    $('#mainPage .ui-header #statusLinkChat').addClass('ui-icon-' + statusNew);
+    
+    
 
 }
 
@@ -193,7 +206,7 @@ function updateFriendStatus(id, status) {
     var friend = getFriendById(id);
     if (friend) {
         friend.status = status;
-        $('#chatListT #friend_list_' + id + ' span.ui-icon').removeClass().addClass('ui-icon ui-icon-'+status+' ui-icon-shadow');
+        $('#chatListT #friend_list_' + id + ' span.user-status-icon').removeClass().addClass('user-status-icon ui-'+status+' ');
     }
     else
         console.log('friend status: user not exist');
@@ -245,9 +258,9 @@ function updateSelectedFriendView() {
 
 function openPGChat(groupName){
     if(selectedFriend.length){
-        /*if(selectedFriend.length<2)
+        if(selectedFriend.length<2)
             openPrivateChat(selectedFriend[0]);
-        else*/
+        else
             openGroupChat(groupName);
             
     }
@@ -302,4 +315,8 @@ function addGroupToMainList(group){
 
 function onAddToFriendGroup(){
     console.log('friend create group');
+}
+
+function updateHistoryTextUndeContact(id, message){
+     $('#chatListT #friend_list_'+id+' span.ui-li-message-text').html(message);
 }

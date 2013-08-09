@@ -117,6 +117,7 @@ function responsePrivateMessage(json) {
         for (var i = 0; i < user.friendList.length; i++) {
             if (user.friendList[i].id === json.data.senderId){
                 user.friendList[i].history.push(json.data);
+                updateHistoryTextUndeContact(json.data.senderId,json.data.message);
             }  
         }
     }
@@ -124,9 +125,11 @@ function responsePrivateMessage(json) {
         for (var i = 0; i < user.friendList.length; i++) {
             if (user.friendList[i].id === json.data.receiverId)
                 user.friendList[i].history.push(json.data);
+                updateHistoryTextUndeContact(json.data.receiverId,json.data.message);
         }
         $('#inputPrivateMessage').val('');
     }
+    
     if(json.data.senderId === getActiveConverastion() || json.data.receiverId === getActiveConverastion())
         showMessageInActivePrivateConversation(getActiveConverastion());
     else{

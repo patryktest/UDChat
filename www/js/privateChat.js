@@ -34,6 +34,7 @@ function addNotificationToPrivateChat(data){
         var friend = getFriendById(data.senderId);
         if(friend!== null){
             friend.newMessages++;
+            $('#chatListT #friend_list_'+data.senderId+' span.ui-li-message-count').removeClass('hidden');
             $('#chatListT #friend_list_'+data.senderId+' span.ui-li-message-count').html(friend.newMessages);
             
         }
@@ -56,6 +57,7 @@ function clearNotificationToPrivateChat(id){
     var friend = getFriendById(id);
     if(friend!== null){
         friend.newMessages = 0;
+        $('#chatListT #friend_list_'+id+' span.ui-li-message-count').addClass('hidden');
         $('#chatListT #friend_list_'+id+' span.ui-li-message-count').html(friend.newMessages);
     }
 }

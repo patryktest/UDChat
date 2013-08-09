@@ -45,8 +45,10 @@ function connect() {
     window.WebSocket = window.WebSocket || window.MozWebSocket;
 
     //connection = new WebSocket('ws://demo-project.patryktesting.c9.io');
+    //rtmp://dev.uniquedoc.com/UniqueDocChat
     try{
         connection = new WebSocket('ws://192.168.2.49:8180/UniquedocChat');
+        //connection = new WebSocket('ws://dev.uniquedoc.com/UniqueDocChat');
     }
     catch (e){
         console.log(e);
