@@ -33,7 +33,7 @@ function ShowChatList() {
             hidden = 'hidden';
         
         $('#chatListT').append('<li data-icon="false" id="friend_list_' + user.friendList[i].id + '"><a onclick="openPrivateChat(' + user.friendList[i].id + ');" href="">\n\
-        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '<p class="chat-list-friend-item"><span class="ui-li-message-count '+hidden+' ">' + user.friendList[i].newMessages + '</span><span class="ui-li-message-text">' + message + '</span></p></a><span class="user-status-icon ui-'+user.friendList[i].status+'">&#xEA01;</span></li>');
+        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '<p class="chat-list-friend-item"><span class="ui-li-message-count '+hidden+' ">' + user.friendList[i].newMessages + '</span><span class="ui-li-message-text">' + message + '</span></p></a><span class="user-status-icon ui-'+user.friendList[i].status+' device-mobile"></span></li>');
     }
     for (var i = 0; i < user.groupList.length; i++) {
         $('#chatListT').append('<li data-icon="false" id="group_list_'+user.groupList[i].groupId+'"><a onclick="onOpenGroupChatWindow(' + user.groupList[i].groupId + ')" href=""><h2>' + user.groupList[i].groupName + '</h2> Leader: ' + user.groupList[i].groupLeader.name + '</a></li>');
@@ -45,7 +45,7 @@ function showContactList() {
     $('#contactListT').text('');
     for (var i = 0; i < user.friendList.length; i++) {
         $('#contactListT').append('<li data-icon="false" id="friend_list_' + user.friendList[i].id + '"><a onclick="selectFriend(' + user.friendList[i].id + ');" href="">\n\
-        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '</a><span class="user-status-icon ui-'+user.friendList[i].status+'">&#xEA01;</span></li>');
+        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '</a><span class="user-status-icon ui-'+user.friendList[i].status+' device-mobile"></span></li>');
     }
     for (var i = 0; i < user.groupList.length; i++) {
         $('#contactListT').append('<li data-icon="false" id="group_list_'+user.groupList[i].groupId+'"><a onclick="onOpenGroupChatWindow(' + user.groupList[i].groupId + ')" href=""><h2>' + user.groupList[i].groupName + '</h2> Leader: ' + user.groupList[i].groupLeader.name + '</a></li>');

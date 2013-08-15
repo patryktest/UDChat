@@ -4,7 +4,8 @@
         <title>WebSockets - Simple chat</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css">
+        <link rel="stylesheet" href="css/UDTheme.css">
+         <link rel="stylesheet" href="css/jquery.mobile.structure-1.3.2.min.css" /> 
         <link rel="stylesheet" href="css/style.css">
         <script src="js/jquery-1.9.1.min.js"></script>
         <script src="js/jquery.mobile-1.3.1.min.js"></script>
@@ -57,7 +58,7 @@
                 margin-left: 25px;
 
             }
-            
+
             .ui-CHAT_STATUS_AVAILABLE{
                 color: #00CC99;
             }
@@ -73,53 +74,37 @@
             .ui-CHAT_STATUS_INVISIBLE {
                 color: #CCCCCC;
             }
-    
+
             .ui-icon-CHAT_STATUS_AVAILABLE{
-                background: url("./img/CHAT_STATUS_AVAILABLE.png") no-repeat scroll -12px -15px transparent;
-                display: block;
-                float: right;
-                height: 25px;
-                width: 25px;
+                background: none repeat scroll 0 0 #00CC99
             }
             .ui-icon-CHAT_STATUS_AWAY {
-                background: url("./img/CHAT_STATUS_BUSY.png") no-repeat scroll -12px -15px transparent;
-                display: block;
-                float: right;
-                height: 25px;
-                width: 25px;
+                background: none repeat scroll 0 0 #00CCCC
             }
             .ui-icon-CHAT_STATUS_DND {
-                background: url("./img/CHAT_STATUS_OFFLINE.png") no-repeat scroll -12px -15px transparent;
-                display: block;
-                float: right;
-                height: 25px;
-                width: 25px;
+                background: none repeat scroll 0 0 #FF6600
             }
             .ui-icon-CHAT_STATUS_BUSY {
-                background: url("./img/CHAT_STATUS_BUSY.png") no-repeat scroll -12px -15px transparent;
-                display: block;
-                float: right;
-                height: 25px;
-                width: 25px;
+                background: none repeat scroll 0 0 #00CC99
+            }
+            .ui-icon-CHAT_STATUS_INVISIBLE {
+                background: none repeat scroll 0 0 #FFFF99
             }
             .ui-icon-CHAT_STATUS_OFFLINE {
-                background: url("./img/CHAT_STATUS_OFFLINE.png") no-repeat scroll -12px -15px transparent;
-                display: block;
-                float: right;
-                height: 25px;
-                width: 25px;
+                background: none repeat scroll 0 0 #CCCCCC
             }
-            .ui-icon-CHAT_STATUS_ONLINE {
-                background: url("./img/CHAT_STATUS_ONLINE.png") no-repeat scroll -12px -15px transparent;
-                display: block;
-                float: right;
-                height: 25px;
-                width: 25px;
-            }
-            
+
             #chatListT .ui-li-icon{
+                left: 0;
                 max-height: 30px;
                 min-width: 30px;
+                top: 5px;
+            }
+            #contactListT .ui-li-icon{
+                left: 0;
+                max-height: 30px;
+                min-width: 30px;
+                top: -2px;
             }
             .ui-li-message-count {
                 background: none repeat scroll 0 0 lightgreen;
@@ -130,12 +115,13 @@
                 position: absolute;
             }
             .ui-li-message-text {
-                padding-left: 30px;
+                font-size: 11pt;
+                padding-left: 20px;
             }
             .chat-list-friend-item{
-                margin: 0;
+                margin: -3px 0 0;
             }
-            
+
             .ui-selectedFriend{
                 /*z-index: 1;
                 box-shadow: 0 0 3px #387BBE inset, 0 0 9px #387BBE;*/
@@ -148,30 +134,104 @@
             #groupName{
                 display: none;
             }
-            
+
             .user-status-icon {
                 font-family: SSPika;
                 position: absolute;
                 right: 10px;
                 top: 35%;
             }
+
             
-            .ui-header .ui-title {
-                margin-left: 20px;
-                text-align: left;
-            }
-            
+
             .hidden {
                 display: none;
             }
-            
-            #chatBack, #contactback{
-                font-family: SSPika;
+
+            #chatBack, #contactback {
+                background: url("./img/icons.svg") no-repeat scroll -115px 0 / 240px auto transparent;
+                border: medium none;
+                border-radius: 0 0 0 0;
+                box-shadow: none;
+                height: 18px;
+                left: 10px;
                 text-decoration: none;
+                top: 33%;
+                width: 18px;
             }
             .ui-controlgroup-controls{
                 font-family: SSPika; 
             }
+
+
+            #contactLink {
+                background: url("./img/icons.svg") no-repeat scroll -94px -20px / 240px auto transparent;
+                height: 20px;
+                position: absolute;
+                right: 25px;
+                top: 50%;
+                width: 19px;
+            }
+            #statusLinkMainPage{
+                border-radius: 16px 16px 16px 16px;
+                display: block;
+                height: 18px;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                width: 18px;       
+            }
+            #statusLinkContatct {
+                border: medium none;
+                border-radius: 16px 16px 16px 16px;
+                box-shadow: none;
+                display: block;
+                height: 18px;
+                right: 10px;
+                top: 33%;
+                width: 18px;
+            }
+            
+            .ui-body-c, .ui-overlay-c {
+            background: #FFFFFF;
+            color:green;
+            
+            
+            }
+            #chatListT li {
+                height: 40px;
+            }
+            #chatListT li a {
+                font-size: 13pt;
+                font-weight: normal;
+                padding: 0 0 0 35px;
+            }
+            #contactListT li {
+                height: 30px;
+            }
+            #contactListT li a {
+                font-size: 13pt;
+                font-weight: normal;
+                padding: 4px 0 0 35px;
+            }
+            
+            .device-mobile {
+                background: url("./img/icons.svg") repeat scroll 0 0 / 190px auto transparent;
+                height: 16px;
+                width: 11px;
+            }
+            .device-tablet {
+                background: url("../img/icons.svg") no-repeat scroll -134px -16px / 190px auto transparent;
+                height: 16px;
+                width: 16px;
+            }
+            .device-pc {
+                background: url("../img/icons.svg") no-repeat scroll -132px 0px / 190px auto transparent;
+                height: 15px;
+                width: 16px;
+            }
+            
+            
             
             /*.profilImg{
                 width: 30px;
@@ -183,16 +243,17 @@
     <body id="body">
 
 
-        <div data-role="page" id="loginPage" data-theme="c">
-            
+        <div data-role="page" id="loginPage" data-theme="d">
+
 
             <div data-role="content">
                 <p>
                     <input type="text" id="loginI" value="conan@cd.ef"/>
                     <input type="password" id="passwordI" value="123"/>
-                    <button onclick="login($('#loginI').val(), $('#passwordI').val());" id="loginButton">Login</button>
+                    <button onclick="login($('#loginI').val(), $('#passwordI').val(),'CHAT_STATUS_AVAILABLE');" id="loginButton">Login</button>
                     <span id="connectionON">Status...</span>                    
                 </p>
+                
             </div>
 
         </div>
@@ -201,18 +262,17 @@
 
 
 
-        <div data-role="page" id="mainPage" data-theme="c">
-            <div data-role="header" data-theme="c">
+        <div data-role="page" id="mainPage" data-theme="d">
+            <div data-role="header" data-theme="d">
                 <h1 id="mainPageHeadT">Chat</h1>  
                 <!-- <button onclick="logout();">Logout</button> -->
                 <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
-                    <a id="contactLink" onclick="onOpenContactList();"  href="" data-inline="true">&#x1F50E</a>
+                    <a id="contactLink" onclick="onOpenContactList();"  href="" data-inline="true"></a>
                     <a id="statusLinkMainPage"  href="#popupMenu" data-rel="popup" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE" class="ui-icon-CHAT_STATUS_AVAILABLE"></a>
                 </div>
             </div>
 
-            <div data-role="content">
-
+            <div data-role="content" data-theme="d">
                 <ul data-role="listview" id="chatListT">
                     <li class="ui-li ui-li-static ui-btn-up-c">test :message</li>
                 </ul>
@@ -231,20 +291,19 @@
 
 
         </div>
-        
-        <div data-role="page" id="contactPage" data-theme="c">
-            <div data-role="header" data-theme="c">
+
+        <div data-role="page" id="contactPage" data-theme="d">
+            <div data-role="header" data-theme="d">
                 <h1 id="contactT">Connections</h1>  
                 <!-- <button onclick="logout();">Logout</button> -->
-                <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
-                    <a id="contactback" onclick="onGoToMainPage();"  href=""  data-inline="true">&#x2B05;</a>
-                    <a id="statusLinkContatct"  href="#popupMenu" data-rel="popup"  data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE" class="ui-icon-CHAT_STATUS_AVAILABLE"></a>
-                </div>
+                <a id="contactback" onclick="onGoToMainPage();"  href=""  data-inline="true"></a>
+                <a id="statusLinkContatct"  href="#popupMenu" data-rel="popup"  data-inline="true" data-transition="slidedown" class="ui-icon-CHAT_STATUS_AVAILABLE"></a>
+
             </div>
 
             <div data-role="content">
                 <ul id="contactList-selectedFriendT" data-role="listview" class="ui-listview">
-                    
+
                 </ul>
                 <div id='contactPageSmallMenu'>
                     <div id="groupName"><input type="text" id='groupNameI' value="group name" /></div>
@@ -256,12 +315,12 @@
 
         </div>
 
-        <div data-role="page" id="chatPageTemplate" data-theme="c">
-            <div data-role="header" data-position="fixed" data-theme="c">
+        <div data-role="page" id="chatPageTemplate" data-theme="d">
+            <div data-role="header" data-position="fixed" data-theme="d">
                 <h1 id="chatPageT">Text chat</h1>  
                 <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
-                    
-                    <a id="chatBack" onclick="onGoToMainPage();"  href=""  data-inline="true">&#x2B05;</a>
+
+                    <a id="chatBack" onclick="onGoToMainPage();"  href=""  data-inline="true"></a>
                     <a id="statusLinkChat"  href="#popupMenu" data-rel="popup" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE" class="ui-icon-CHAT_STATUS_AVAILABLE"></a>
                 </div>
             </div>
@@ -290,7 +349,7 @@
             </div>
         </div>
 
-        
+
 
 
         <div data-role="page" id="groupChatPageTemplate">

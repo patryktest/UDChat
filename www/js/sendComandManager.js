@@ -1,8 +1,8 @@
-function login(login, pass) {
+function login(login, pass, status) {
     //var params = ['conan@cd.ef', '123'];
     try{
         if (login !== "" && pass !== "")
-            sendCommand('user.loginWS', [login, pass]);
+            sendCommand('user.loginWS', [login, pass, status]);
         else
             alert('Login or password missing!');
     }
@@ -121,12 +121,23 @@ function sendGroupMessage(groupId, message) {
      sendCommand('chat.setGroupName',[user.id,groupId,newName]); 
  }
  
+ /*
+  * 
+  * @param {int} friendId
+  * @param {string} type
+  * @returns {undefined}
+  *                                                          not used
+  */
+ function confirmPrivateMessage(friendId,type){
+     console.log('confirm message id: '+user.id+' friendId:'+friendId+' typ: '+type);
+     sendCommand('chat.confirmPrivateMessage',[user.id,groupId,newName]); 
+ }
 
 function sendCommand(command, params) {
 
     connection.send(JSON.stringify({command: command, parameters: params}));
     // parameters
-    /* connection.send(JSON.stringify({command: 'user.loginWS', parameters: param}));        [user,login]       status>0 login F,
+    /* connection.send(JSON.stringify({command: 'user.loginWS', parameters: param}));        [user,login, status]       status>0 login F,
      connection.send(JSON.stringify({command: 'user.logout', parameters: param}));           [id]
      
      connection.send(JSON.stringify({command: 'user.requestFriendList', parameters: param}));
@@ -147,6 +158,6 @@ function sendCommand(command, params) {
      connection.send(JSON.stringify({command: 'chat.sendGroupMessage', parameters: param}));            [user.id,group.id,message]
      connection.send(JSON.stringify({command: 'chat.setconversationMode', parameters: param}));         [id,idFriend,true/false]
      connection.send(JSON.stringify({command: 'chat.setGroupName', parameters: param}));                [id,idGroup,string new name] - send back responseGroupInfo()
-     
+     connection.send(JSON.stringify({command: 'chat.confirmPrivateMessage', parameters: param}));       [id,idFriend,timestamp,typ(SERVER_PRIVATE_MESSAGE_DELIVERED,SERVER_PRIVATE_MESSAGE_READ)]
      */
 }

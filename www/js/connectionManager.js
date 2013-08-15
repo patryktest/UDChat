@@ -48,7 +48,7 @@ function connect() {
     //rtmp://dev.uniquedoc.com/UniqueDocChat
     try{
         connection = new WebSocket('ws://192.168.2.49:8180/UniquedocChat');
-        //connection = new WebSocket('ws://dev.uniquedoc.com/UniqueDocChat');
+        //connection = new WebSocket('ws://dev.uniquedoc.com:8180/UniqueDocChat');
     }
     catch (e){
         console.log(e);

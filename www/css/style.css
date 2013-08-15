@@ -1,9 +1,19 @@
 @font-face {
-    font-family: "SSPika";
+    font-family: "MetaOT";
     font-style: normal;
     font-weight: normal;
-    src: url("ss-pika.eot?#iefix") format("embedded-opentype"), url("ss-pika.woff") format("woff"), url("ss-pika.ttf") format("truetype"), url("ss-pika.svg#SSPika") format("svg");
-}
+    /*src: url("ss-pika.eot?#iefix") format("embedded-opentype"), url("ss-pika.woff") format("woff"), url("ss-pika.ttf") format("truetype"), url("ss-pika.svg#SSPika") format("svg");
+   */
+    src: url("MetaOT-Book.otf") format("otf");
+}    
+@font-face {
+    font-family: "SSpika";
+    font-style: italic;
+    font-weight: bold;
+    /*src: url("ss-pika.eot?#iefix") format("embedded-opentype"), url("ss-pika.woff") format("woff"), url("ss-pika.ttf") format("truetype"), url("ss-pika.svg#SSPika") format("svg");
+   */
+    src: url("MetaOT-BoldIta.otf") format("otf");
+}  
 
 .ui-li-message {
     margin: 0;
