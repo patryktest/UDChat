@@ -28,10 +28,10 @@
 
   <name>example</name>
 
-  <author>Your Name Here</author>
+  <author>UniqueDoc chat</author>
 
   <description>
-       A sample Apache Cordova application that responds to the deviceready event.
+       UD app for chat.
   </description>
 
   <license href="http://opensource.org/licenses/alphabetical">
