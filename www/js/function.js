@@ -1,11 +1,12 @@
-var away = 'CHAT_STATUS_AWAY';
-var dnd = 'CHAT_STATUS_DND';
-var busy = 'CHAT_STATUS_BUSY';
-var available = 'CHAT_STATUS_AVAILABLE';
-var ofline = 'CHAT_STATUS_OFFLINE';
 var online = 'CHAT_STATUS_ONLINE';
+var available = 'CHAT_STATUS_AVAILABLE';
+var away = 'CHAT_STATUS_AWAY';
+var emergency = 'CHAT_STATUS_EMERGENCY';
+var invisible = 'CHAT_STATUS_INVISIBLE';
+var offline = 'CHAT_STATUS_OFFLINE';
+//var busy = 'CHAT_STATUS_BUSY';
 
-var global_status = online;
+var global_status = available;
 
 /*function showConversation() {
  messageArrayText.text('');
@@ -33,7 +34,7 @@ function ShowChatList() {
             hidden = 'hidden';
         
         $('#chatListT').append('<li data-icon="false" id="friend_list_' + user.friendList[i].id + '"><a onclick="openPrivateChat(' + user.friendList[i].id + ');" href="">\n\
-        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '<p class="chat-list-friend-item"><span class="ui-li-message-count '+hidden+' ">' + user.friendList[i].newMessages + '</span><span class="ui-li-message-text">' + message + '</span></p></a><span class="user-status-icon ui-'+user.friendList[i].status+' device-mobile"></span></li>');
+        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '<p class="chat-list-friend-item"><span class="ui-li-message-count '+hidden+' ">' + user.friendList[i].newMessages + '</span><span class="ui-li-message-text">' + message + '</span></p></a><span class="user-status-icon ui-icon-'+user.friendList[i].status+' device-mobile"></span></li>');
     }
     for (var i = 0; i < user.groupList.length; i++) {
         $('#chatListT').append('<li data-icon="false" id="group_list_'+user.groupList[i].groupId+'"><a onclick="onOpenGroupChatWindow(' + user.groupList[i].groupId + ')" href=""><h2>' + user.groupList[i].groupName + '</h2> Leader: ' + user.groupList[i].groupLeader.name + '</a></li>');
@@ -45,7 +46,7 @@ function showContactList() {
     $('#contactListT').text('');
     for (var i = 0; i < user.friendList.length; i++) {
         $('#contactListT').append('<li data-icon="false" id="friend_list_' + user.friendList[i].id + '"><a onclick="selectFriend(' + user.friendList[i].id + ');" href="">\n\
-        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '</a><span class="user-status-icon ui-'+user.friendList[i].status+' device-mobile"></span></li>');
+        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '</a><span class="user-status-icon ui-icon-'+user.friendList[i].status+' device-mobile"></span></li>');
     }
     for (var i = 0; i < user.groupList.length; i++) {
         $('#contactListT').append('<li data-icon="false" id="group_list_'+user.groupList[i].groupId+'"><a onclick="onOpenGroupChatWindow(' + user.groupList[i].groupId + ')" href=""><h2>' + user.groupList[i].groupName + '</h2> Leader: ' + user.groupList[i].groupLeader.name + '</a></li>');
@@ -189,14 +190,14 @@ function addMessageToActiveGroupChat(id) {
 
 function updateStatusIcon(statusNew, statusOld) {
     console.log('change status icon');
-    $('#mainPage .ui-header #statusLinkMainPage').removeClass('ui-icon-' + statusOld);
-    $('#mainPage .ui-header #statusLinkMainPage').addClass('ui-icon-' + statusNew);
+    $('#mainPage .ui-header #statusLinkMainPage').removeClass('ui-' + statusOld);
+    $('#mainPage .ui-header #statusLinkMainPage').addClass('ui-' + statusNew);
     
-    $('#mainPage .ui-header #statusLinkContatct').removeClass('ui-icon-' + statusOld);
-    $('#mainPage .ui-header #statusLinkContatct').addClass('ui-icon-' + statusNew);
+    $('#mainPage .ui-header #statusLinkContatct').removeClass('ui-' + statusOld);
+    $('#mainPage .ui-header #statusLinkContatct').addClass('ui-' + statusNew);
     
-    $('#mainPage .ui-header #statusLinkChat').removeClass('ui-icon-' + statusOld);
-    $('#mainPage .ui-header #statusLinkChat').addClass('ui-icon-' + statusNew);
+    $('#mainPage .ui-header #statusLinkChat').removeClass('ui-' + statusOld);
+    $('#mainPage .ui-header #statusLinkChat').addClass('ui-' + statusNew);
     
     
 
@@ -206,7 +207,7 @@ function updateFriendStatus(id, status) {
     var friend = getFriendById(id);
     if (friend) {
         friend.status = status;
-        $('#chatListT #friend_list_' + id + ' span.user-status-icon').removeClass().addClass('user-status-icon ui-'+status+' ');
+        $('#chatListT #friend_list_' + id + ' span.user-status-icon').removeClass().addClass('user-status-icon ui-icon-'+status+' device-mobile');
     }
     else
         console.log('friend status: user not exist');
@@ -234,23 +235,23 @@ function updateSelectedFriendView() {
         $('#contactPageSmallMenu').css({display:'block'});
     else
         $('#contactPageSmallMenu').css({display:'none'});
-    if(selectedFriend.length>1){
-        $('#groupName').css({display:'block'});
-        $('#smallMenu .ui-btn-text').text('start Group chat');
-    }
-    else{
-        $('#groupName').css({display:'none'});
-        $('#smallMenu .ui-btn-text').text('start chat');
-    }
         
     $('#contactList-selectedFriendT').text('');
     for (var i = 0; i < user.friendList.length; i++) {
         for (var j = 0; j < selectedFriend.length; j++) {
             if (user.friendList[i].id === selectedFriend[j]) {
-                $('#contactList-selectedFriendT').append('<li data-icon="' + user.friendList[i].status + '" id="friend_list_' + user.friendList[i].id + '" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-icon ui-first-child ui-btn-up-c" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-iconpos="right" data-theme="c">\n\
-                \n\<div class="ui-btn-inner ui-li"><div class="ui-btn-text">\n\
-                <a class="ui-link-inherit" onclick="selectFriend(' + user.friendList[i].id + ');" href="">\n\
-                <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '</a></div></div></li>');
+                 $('#contactList-selectedFriendT').append('<li id="friend_list_' + user.friendList[i].id + '" class="ui-btn ui-btn-icon-right ui-li ui-li-has-icon ui-btn-up-d" data-icon="false" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-iconpos="right" data-theme="d">\n\
+                 <div class="ui-btn-inner ui-li">\n\
+                    <div class="ui-btn-text">\n\
+                        <a class="ui-link-inherit" href="" onclick="selectFriend(' + user.friendList[i].id + ');">\n\
+                            <img class="ui-li-icon ui-li-thumb" alt="status" src="./img/profil_img.png">\n\
+                                ' + user.friendList[i].name + '\n\
+                            </a>\n\
+                            <span class="user-delet-icon"></span>\n\
+                            <span class="user-status-icon ui-icon-'+user.friendList[i].status+' device-mobile"></span>\n\
+                    </div>\n\
+                </div>\n\
+                </li>');
             }
         }
     }

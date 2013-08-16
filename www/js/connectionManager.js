@@ -100,10 +100,16 @@ function connect() {
                 responsePrivateMessage(json);
                 break;
 
-            case 'SERVER_GROUP_MESSAGE':
+            /*case 'SERVER_GROUP_MESSAGE':
                 responseGroupMessage(json);
                 break;
-
+            */
+           case 'SERVER_PRIVATE_MESSAGE_SENT':
+                responsePrivateMessageSent(json);
+                break;
+            case 'SERVER_PRIVATE_MESSAGE_NEW':
+                responsePrivateMessageNew(json);
+                break;           
             case 'SERVER_GROUP_INFO':
                 responseGroupInfo(json);
                 break;

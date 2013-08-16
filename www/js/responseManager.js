@@ -111,7 +111,7 @@ function responsePrivateHistory(json) {
     onOpenPrivateChatWindow(getActiveConverastion());
 }
 
-function responsePrivateMessage(json) {
+/*function responsePrivateMessage(json) {
     console.log('responsePrivateMessage: OK');
     if (user.id === json.data.receiverId) {
         for (var i = 0; i < user.friendList.length; i++) {
@@ -137,6 +137,27 @@ function responsePrivateMessage(json) {
         addNotificationToPrivateChat(json.data);
     }
 
+}*/
+
+function responsePrivateMessageNew(json){
+    console.log('responsePrivateMessageNew: OK');
+    friend = getFriendById(json.data.senderId);
+    friend.history.push(json.data);
+    updateHistoryTextUndeContact(json.data.senderId,json.data.message);
+    if(json.data.senderId === getActiveConverastion())
+        showMessageInActivePrivateConversation(getActiveConverastion());
+    else{
+        // TODO: zobraz upozornenie o neprecitanej sprave
+        addNotificationToPrivateChat(json.data);
+    }
+}
+function responsePrivateMessageSent(json){
+    console.log('responsePrivateMessageSent: OK');
+    friend = getFriendById(json.data.receiverId);
+    friend.history.push(json.data);
+    updateHistoryTextUndeContact(json.data.receiverId,json.data.message);
+    $('#inputPrivateMessage').val('');
+    showMessageInActivePrivateConversation(getActiveConverastion());
 }
 
 function responseStatusUpdate(json) {

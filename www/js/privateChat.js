@@ -72,7 +72,12 @@ function loadPrivateChat(id) {
 
     $('#chatHistory').html('');
     if (friend !== null) {
-        for (var i = 0; i < friend.history.length; i++) {
+        friendHistoryLength = friend.history.length;
+        var i = 0;
+        if(friendHistoryLength>4)
+            i = friendHistoryLength-4;
+            
+        for (i; i < friend.history.length; i++) {
             if (friend.history[i].senderId === user.id) {
                 name = user.name;
             }
@@ -84,11 +89,11 @@ function loadPrivateChat(id) {
             time = friend.history[i].date;
             if (lastSender !== name || lastSendTime !== time) {
                 if (i === 0)
-                    htmlString = '<li class="ui-li ui-li-static ui-btn-up-c ui-first-child">';
+                    htmlString = '<li class="ui-li ui-li-static ui-btn-up-d ui-first-child">';
                 if (i === friend.history.length - 1)
-                    htmlString = '<li class="ui-li ui-li-static ui-btn-up-c ui-last-child">';
+                    htmlString = '<li class="ui-li ui-li-static ui-btn-up-d ui-last-child">';
                 else
-                    htmlString = '<li class="ui-li ui-li-static ui-btn-up-c">';
+                    htmlString = '<li class="ui-li ui-li-static ui-btn-up-d">';
                 htmlString += '<p class="ui-li-aside ui-li-desc"><strong>' + time + '</strong></p>';
                 htmlString += '<p class="ui-li-left ui-li-desc">' + name + '</p>';
                 htmlString += '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
@@ -126,7 +131,7 @@ function showMessageInActivePrivateConversation(id){
         time = lastMessage.date;
 
         if (lastestMessage.senderId !== lastMessage.senderId) {
-            htmlString = '<li class="ui-li ui-li-static ui-btn-up-c">';
+            htmlString = '<li class="ui-li ui-li-static ui-btn-up-d">';
             htmlString += '<p class="ui-li-aside ui-li-desc"><strong>' + time + '</strong></p>';
             htmlString += '<p class="ui-li-left ui-li-desc">' + name + '</p>';
             htmlString += '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
