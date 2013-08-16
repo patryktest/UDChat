@@ -86,7 +86,9 @@ function loadPrivateChat(id) {
             }
 
             mess = friend.history[i].message;
-            time = friend.history[i].date;
+            date = friend.history[i].date;
+            time = friend.history[i].time;
+            
             if (lastSender !== name || lastSendTime !== time) {
                 if (i === 0)
                     htmlString = '<li class="ui-li ui-li-static ui-btn-up-d ui-first-child">';
@@ -94,14 +96,25 @@ function loadPrivateChat(id) {
                     htmlString = '<li class="ui-li ui-li-static ui-btn-up-d ui-last-child">';
                 else
                     htmlString = '<li class="ui-li ui-li-static ui-btn-up-d">';
-                htmlString += '<p class="ui-li-aside ui-li-desc"><strong>' + time + '</strong></p>';
-                htmlString += '<p class="ui-li-left ui-li-desc">' + name + '</p>';
-                htmlString += '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
+                if(friend.history[i].senderId === user.id){
+                    htmlString += '<p class="ui-li-right ui-li-desc"><img  src="./img/profil_img.png" alt="status" class="ui-li-profil-icon"></p>';
+                    htmlString += '<p class="ui-li-message-left ui-li-desc">' + mess + '</p>';
+                }
+                else{
+                    htmlString += '<p class="ui-li-left ui-li-desc"><img  src="./img/profil_img.png" alt="status" class="ui-li-profil-icon"></p>';
+                    htmlString += '<p class="ui-li-message-right ui-li-desc">' + mess + '</p>';
+                }          
+                htmlString += '<p class="ui-li-message-time ui-li-desc">' + time + '</p>';
                 htmlString += '</li>';
                 $('#chatHistory').append(htmlString);
             }
             else {
-                htmlString = '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
+                if(friend.history[i].senderId === user.id){
+                    htmlString = '<p class="ui-li-message-left ui-li-desc">' + mess + '</p>';
+                }
+                else{
+                    htmlString = '<p class="ui-li-message-right ui-li-desc">' + mess + '</p>';
+                }
                 $('#chatHistory li').last().append(htmlString);
             }
             lastSender = name;
@@ -128,19 +141,36 @@ function showMessageInActivePrivateConversation(id){
             name = friend.name;
         }
         mess = lastMessage.message;
-        time = lastMessage.date;
+        date = lastMessage.date;
+        time = lastMessage.time;
 
         if (lastestMessage.senderId !== lastMessage.senderId) {
             htmlString = '<li class="ui-li ui-li-static ui-btn-up-d">';
-            htmlString += '<p class="ui-li-aside ui-li-desc"><strong>' + time + '</strong></p>';
-            htmlString += '<p class="ui-li-left ui-li-desc">' + name + '</p>';
+            
+            if(lastMessage.senderId === user.id){
+                    htmlString += '<p class="ui-li-right ui-li-desc"><img  src="./img/profil_img.png" alt="status" class="ui-li-profil-icon"></p>';
+                    htmlString += '<p class="ui-li-message-left ui-li-desc">' + mess + '</p>';
+                }
+                else{
+                    htmlString += '<p class="ui-li-left ui-li-desc"><img  src="./img/profil_img.png" alt="status" class="ui-li-profil-icon"></p>';
+                    htmlString += '<p class="ui-li-message-right ui-li-desc">' + mess + '</p>';
+                }  
+            htmlString += '<p class="ui-li-message-time ui-li-desc">' + time + '</p>';
+            /*htmlString += '<p class="ui-li-left ui-li-desc">' + name + '</p>';
             htmlString += '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
-
+*/
             htmlString += '</li>';
             $('#chatHistory').append(htmlString);
         }
         else {
-            htmlString = '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
+            if(lastMessage.senderId === user.id){
+                    htmlString = '<p class="ui-li-message-left ui-li-desc">' + mess + '</p>';
+                }
+                else{
+                    htmlString = '<p class="ui-li-message-right ui-li-desc">' + mess + '</p>';
+                }
+                htmlString += '<p class="ui-li-message-time ui-li-desc">' + time + '</p>';
+            //htmlString = '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
             $('#chatHistory li').last().append(htmlString);
         }
         $("html, body").animate({ scrollTop: $(document).height() }, 100);
