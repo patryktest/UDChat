@@ -146,10 +146,10 @@
     margin: -3px 0 0;
 }
 
-.ui-selectedFriend{
+.ui-selectedFriend img{
     /*z-index: 1;
     box-shadow: 0 0 3px #387BBE inset, 0 0 9px #387BBE;*/
-    display: none;
+    box-shadow: 0 0 3px #00CC99 inset, 0 0 4px #00CC99;
 }
 #contactPageSmallMenu{
     display: none;
@@ -377,3 +377,14 @@
     width: 30px;
     height: 30px;
 }*/
+#contactListT li#letterDivider {
+    height: 12pt;
+}
+#letterDivider {
+    background: none repeat scroll 0 0 #F2F2F2;
+    color: #CCCCCC;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 11pt;
+}

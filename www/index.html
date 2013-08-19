@@ -11,10 +11,10 @@
         <script>
             var jq = jQuery.noConflict();
         </script>
-        <script src="js/jquery.mobile-1.3.1.min.js"></script>
+        
         <script type="text/javascript" src="cordova.js"></script>
         <script src="./js/jquery.min.js"></script>
-
+        <script src="js/jquery.mobile-1.3.1.min.js"></script>
         <script src="js/friend.js"></script>
         <script src="js/privateChat.js"></script>
         <script src="js/groupChat.js"></script>
@@ -34,7 +34,7 @@
                 <p>
                     <input type="text" id="loginI" value="conan@cd.ef"/>
                     <input type="password" id="passwordI" value="123"/>
-                    <button onclick="login($('#loginI').val(), $('#passwordI').val(), 'CHAT_STATUS_ONLINE');" id="loginButton">Login</button>
+                    <button onclick="login($('#loginI').val(), $('#passwordI').val(), 'CHAT_STATUS_ONLINE', device.mobile);" id="loginButton">Login</button>
                     <span id="connectionON">Status...</span>                    
                 </p>
 
@@ -56,9 +56,7 @@
                     <li class="ui-li ui-li-static ui-btn-up-c">test :message</li>
                 </ul>
 
-                <div data-role="popup" id="popupMenu">
-                    
-                </div>
+                <div data-role="popup" id="popupMenu"></div>
             </div>
 
 
@@ -83,16 +81,7 @@
 
                 <ul data-role="listview" id="contactListT" data-filter="true" data-theme="d"></ul>
 
-                <div data-role="popup" id="popupMenu2">
-                    <ul data-role="listview" data-inset="true" style="min-width:210px;" >
-                        <li data-role="divider" data-theme="e">Choose status</li>
-                        <li data-icon="false"><a onclick="setStatus(available);" href="#" data-rel="back">available</a></li>
-                        <li data-icon="false"><a onclick="setStatus(away);" href="#" data-rel="back">away</a></li>
-                        <li data-icon="false"><a onclick="setStatus(emergency);" href="#" data-rel="back">emergency</a></li>
-                        <li data-icon="false"><a onclick="setStatus(invisible);" href="#" data-rel="back">invisible</a></li>
-                        <li data-icon="false"><a onclick="setStatus(ofline);" href="#" data-rel="back">ofline</a></li>  
-                    </ul>
-                </div>
+                <div data-role="popup" id="popupMenu2"></div>
             </div>
         </div>
 <!-----------------------------------------------------------------------------------------------------------------------------chat page------->
@@ -115,16 +104,7 @@
                     <div class="block-input-send"><input type="text" id="inputPrivateMessage"/></div>
                 </div>-->
 
-                <div data-role="popup" id="popupMenu3">
-                    <ul data-role="listview" data-inset="true" style="min-width:210px;" >
-                        <li data-role="divider" data-theme="e">Choose status</li>
-                        <li data-icon="false"><a onclick="setStatus(available);" href="#" data-rel="back">available</a></li>
-                        <li data-icon="false"><a onclick="setStatus(away);" href="#" data-rel="back">away</a></li>
-                        <li data-icon="false"><a onclick="setStatus(emergency);" href="#" data-rel="back">emergency</a></li>
-                        <li data-icon="false"><a onclick="setStatus(invisible);" href="#" data-rel="back">invisible</a></li>
-                        <li data-icon="false"><a onclick="setStatus(ofline);" href="#" data-rel="back">ofline</a></li>  
-                    </ul>
-                </div>
+                <div data-role="popup" id="popupMenu3"></div>
             </div>
 
             <div data-role="panel" id="right-panel" data-display="overlay" data-position="right" data-theme="d">

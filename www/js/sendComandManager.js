@@ -1,8 +1,8 @@
-function login(login, pass, status) {
+function login(login, pass, status, device) {
     //var params = ['conan@cd.ef', '123'];
     try{
         if (login !== "" && pass !== "")
-            sendCommand('user.loginWS', [login, pass, status]);
+            sendCommand('user.loginWS', [login, pass, status, device]);
         else
             alert('Login or password missing!');
     }
@@ -137,7 +137,7 @@ function sendCommand(command, params) {
 
     connection.send(JSON.stringify({command: command, parameters: params}));
     // parameters
-    /* connection.send(JSON.stringify({command: 'user.loginWS', parameters: param}));        [user,login, status]       status>0 login F,
+    /* connection.send(JSON.stringify({command: 'user.loginWS', parameters: param}));        [user,login, status, device]       status>0 login F,device[mobile, tablet, desktop]
      connection.send(JSON.stringify({command: 'user.logout', parameters: param}));           [id]
      
      connection.send(JSON.stringify({command: 'user.requestFriendList', parameters: param}));

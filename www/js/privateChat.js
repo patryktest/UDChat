@@ -63,6 +63,7 @@ function clearNotificationToPrivateChat(id){
 }
 
 function loadPrivateChat(id) {
+    
     $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     $('.block-input-send').css({width:($(document).width()-$('.block-button-send').width()-50)+'px'});
     var friend = getFriendById(id);
@@ -70,6 +71,7 @@ function loadPrivateChat(id) {
     var lastSender = '';
     var lastSendTime = '';
 
+    $('#chatPageTitle').html(friend.name);
     $('#chatHistory').html('');
     if (friend !== null) {
         friendHistoryLength = friend.history.length;

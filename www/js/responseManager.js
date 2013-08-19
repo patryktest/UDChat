@@ -161,7 +161,7 @@ function responsePrivateMessageSent(json){
 }
 
 function responseStatusUpdate(json) {
-    if (json.result === 0){
+    if (json.result === "OK"){
         console.log('responseStatusUpdate OK');
         setUserStatus(global_status);
     }

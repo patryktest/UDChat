@@ -15,7 +15,8 @@ function onLogout(){
 
 function onGoToMainPage(){
     setActiveConverastion('');
-    window.location = '#mainPage';
+   // window.location = '#mainPage';
+    $.mobile.changePage( "index.html#mainPage", { transition: "slide"} );
 }
 
 function onOpenPrivateChatWindow(id){
@@ -48,7 +49,7 @@ function onCloseGroupChatWindow(){
 
 function onOpenContactList(){
     //window.location = '#contactPage';
-    jq.mobile.changePage( "index.html#contactPage", { transition: "slide"} );
+    $.mobile.changePage( "index.html#contactPage", { transition: "slide"} );
     
     updateSelectedFriendView();
     if($('#contactListT').html()==="")
