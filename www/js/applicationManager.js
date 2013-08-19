@@ -47,7 +47,9 @@ function onCloseGroupChatWindow(){
 }
 
 function onOpenContactList(){
-    window.location = '#contactPage';
+    //window.location = '#contactPage';
+    jq.mobile.changePage( "index.html#contactPage", { transition: "slide"} );
+    
     updateSelectedFriendView();
     if($('#contactListT').html()==="")
         showContactList();
