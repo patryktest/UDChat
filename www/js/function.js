@@ -95,8 +95,21 @@ $(function() {
         }
         ;
     });
+    
+    addPopupMenu();
 });
 
+function addPopupMenu(){
+    var html =     '<ul data-role="listview" data-inset="true" style="min-width:210px;" >\n\
+                        <li data-role="divider" data-theme="e">Choose status</li>\n\
+                        <li data-icon="false"><a onclick="setStatus(available);" href="#" data-rel="back">available</a></li>\n\
+                        <li data-icon="false"><a onclick="setStatus(away);" href="#" data-rel="back">away</a></li>\n\
+                        <li data-icon="false"><a onclick="setStatus(emergency);" href="#" data-rel="back">emergency</a></li>\n\
+                        <li data-icon="false"><a onclick="setStatus(invisible);" href="#" data-rel="back">invisible</a></li>\n\
+                        <li data-icon="false"><a onclick="setStatus(ofline);" href="#" data-rel="back">ofline</a></li>  \n\
+                    </ul>';
+    $('#popupMenu').html(html);
+}
 function setUserStatus(stat) {
     user.status = stat;
 }

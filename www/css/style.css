@@ -3,7 +3,7 @@
     font-style: normal;
     font-weight: normal;
     /*src: url("ss-pika.eot?#iefix") format("embedded-opentype"), url("ss-pika.woff") format("woff"), url("ss-pika.ttf") format("truetype"), url("ss-pika.svg#SSPika") format("svg");
-   */
+    */
     src: url("MetaOT-Book.otf") format("otf");
 }    
 @font-face {
@@ -11,7 +11,7 @@
     font-style: italic;
     font-weight: bold;
     /*src: url("ss-pika.eot?#iefix") format("embedded-opentype"), url("ss-pika.woff") format("woff"), url("ss-pika.ttf") format("truetype"), url("ss-pika.svg#SSPika") format("svg");
-   */
+    */
     src: url("MetaOT-BoldIta.otf") format("otf");
 }  
 
@@ -49,3 +49,324 @@
     padding: 0 0 5px;
     text-align: center;
 }
+.ui-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#chat_input{
+    bottom: 0;
+    display: block;
+    margin: 0 -20px;
+    padding: 0;
+    position: absolute;
+    width: 100%;
+
+}
+#chat_input .block-button-send{
+    float: right;
+    width: 90px;
+}
+#chat_input .block-input-send{
+    float: right;
+    margin: 3px 11px 0 0;
+    min-width: 200px;
+}
+
+
+.ui-CHAT_STATUS_AVAILABLE{
+    background: none repeat scroll 0 0 #00CC99;
+    color: #00CC99;
+}
+.ui-CHAT_STATUS_AWAY{
+    background: none repeat scroll 0 0 #00CCCC;
+    color: #00CCCC;
+}
+.ui-CHAT_STATUS_DND{
+    background: none repeat scroll 0 0 #FF6600;
+    color: #FF6600;
+}
+.ui-CHAT_STATUS_OFFLINE{
+    background: none repeat scroll 0 0 #CCCCCC;
+    color: #CCCCCC;
+}
+.ui-CHAT_STATUS_INVISIBLE {
+    background: none repeat scroll 0 0 #FFFF99;
+    color: #FFFF99;
+}
+
+.ui-icon-CHAT_STATUS_AVAILABLE{
+    background: url("../img/icons_online.svg") repeat scroll 0 0 transparent;
+}
+.ui-icon-CHAT_STATUS_ONLINE{
+    background: url("../img/icons_online.svg") repeat scroll 0 0 transparent;
+}
+.ui-icon-CHAT_STATUS_AWAY {
+    background: url("../img/icons_away.svg") repeat scroll 0 0 transparent;
+}
+.ui-icon-CHAT_STATUS_DND {
+    background: url("../img/icons_emergency.svg") repeat scroll 0 0 transparent;
+}
+.ui-icon-CHAT_STATUS_BUSY {
+    background: url("../img/icons_.svg") repeat scroll 0 0 transparent;
+}
+.ui-icon-CHAT_STATUS_INVISIBLE {
+    background: url("../img/icons_invisible.svg") repeat scroll 0 0 transparent;
+}
+.ui-icon-CHAT_STATUS_OFFLINE {
+    background: url("../img/icons.svg") repeat scroll 0 0 transparent;
+}
+
+#chatListT .ui-li-icon{
+    left: 0;
+    max-height: 30px;
+    min-width: 30px;
+    top: 5px;
+}
+#contactListT .ui-li-icon, #contactList-selectedFriendT .ui-li-icon{
+    left: 0;
+    max-height: 30px;
+    min-width: 30px;
+    top: -2px;
+}
+.ui-li-message-count {
+    background: none repeat scroll 0 0 lightgreen;
+    border-radius: 1em 1em 1em 1em;
+    color: white;
+    margin: 0 6px;
+    padding: 1px 6px;
+    position: absolute;
+}
+.ui-li-message-text {
+    font-size: 11pt;
+    padding-left: 20px;
+}
+.chat-list-friend-item{
+    margin: -3px 0 0;
+}
+
+.ui-selectedFriend{
+    /*z-index: 1;
+    box-shadow: 0 0 3px #387BBE inset, 0 0 9px #387BBE;*/
+    display: none;
+}
+#contactPageSmallMenu{
+    display: none;
+    margin: 15px -15px;
+}
+
+#contactPageSmallMenu li {
+    margin-bottom: 18px;
+}
+
+
+.user-status-icon {
+    font-family: SSPika;
+    position: absolute;
+    right: 10px;
+    top: 35%;
+}
+
+
+
+.hidden {
+    display: none;
+}
+
+#chatBack, #contactback {
+    background: url("../img/icons.svg") no-repeat scroll -115px 0px transparent;
+    border: medium none;
+    border-radius: 0 0 0 0;
+    box-shadow: none;
+    height: 18px;
+    left: 10px;
+    text-decoration: none;
+    top: 33%;
+    width: 18px;
+}
+#chatBack{
+    background-position: -45px -21px;
+    width: 19px;
+}
+.ui-controlgroup-controls{
+    font-family: SSPika; 
+}
+
+
+#contactLink {
+    background: url("../img/icons.svg") no-repeat scroll -94px -20px / 240px auto transparent;
+    height: 20px;
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    width: 19px;
+}
+#infoPrivateChat {
+    background: url("../img/icons.svg") no-repeat scroll -26px -20px / 240px auto transparent;
+    height: 20px;
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    width: 19px;
+}
+#statusLinkMainPage, #statusLinkChat{
+    border-radius: 16px 16px 16px 16px;
+    display: block;
+    height: 18px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 18px;       
+}
+#statusLinkContatct {
+    border: medium none;
+    border-radius: 16px 16px 16px 16px;
+    box-shadow: none;
+    display: block;
+    height: 18px;
+    right: 10px;
+    top: 33%;
+    width: 18px;
+}
+
+.ui-body-c, .ui-overlay-c {
+    background: #FFFFFF;
+    color:green;
+
+
+}
+#chatListT li {
+    height: 40px;
+}
+#chatListT li a {
+    font-size: 13pt;
+    font-weight: normal;
+    padding: 0 0 0 35px;
+}
+#contactListT li, #contactList-selectedFriendT li {
+    height: 30px;
+}
+#contactListT li a, #contactList-selectedFriendT li a {
+    font-size: 13pt;
+    font-weight: normal;
+    padding: 4px 0 0 35px;
+}
+
+.device-mobile {
+    background-position: 0 0;
+    background-size: 190px auto;
+    height: 16px;
+    width: 11px;
+}
+.device-tablet {
+    background-position: -134px -16px;
+    background-size: 190px auto;
+    height: 16px;
+    width: 16px;
+}
+.device-pc {
+    background-position: -132px 0px;
+    background-size: 190px auto;
+    height: 15px;
+    width: 16px;
+}
+
+.user-delet-icon {
+    background: url("../img/icons.svg") repeat scroll -83px 0 / 150px auto transparent;
+    height: 11px;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    width: 9px;
+}
+#contactList-selectedFriendT .user-status-icon {
+    background-size: 150px auto;
+    height: 12px;
+    top: 14px;
+    width: 9px;
+}
+
+
+.smallMenuBtn {
+    background: url("../img/icons.svg") repeat scroll -197px -20px / 250px auto transparent;
+    border: medium none;
+    border-radius: 0 0 0 0;
+    box-shadow: none;
+    display: block;
+    height: 20px;
+    margin: 0 auto;
+    width: 19px;
+}
+#contactPageSmallMenu a {
+    padding: 4px 0;
+}
+
+/******************************************************
+*   contact list search filter
+*******************************************************/
+
+.ui-listview-filter {
+    background: none repeat scroll 0 0 white;
+}
+
+.ui-input-search {
+    border: medium none;
+    box-shadow: none;
+}
+.ui-icon-searchfield:after{
+    background: none;
+}
+#contactPage .ui-icon-delete {
+    background: url("../img/icons.svg") repeat scroll -139px 0 / 250px auto transparent;
+    border: medium none;
+    border-radius: 0 0 0 0;
+    margin: 1px 5px;
+    width: 14px;
+}
+#contactPage form a {
+    background: none;
+    border: none;
+}
+
+#contactPage .ui-input-search.ui-focus{
+    box-shadow: none;
+}
+
+/*********************************************************************************************************/
+
+/******************************************************
+*   chat page footer
+*******************************************************/
+
+.block-input-send .ui-input-text {
+    background: none;
+    box-shadow: none;
+    border: none;
+}
+
+.block-button-send .ui-btn {
+    background: url("../img/icons.svg") repeat scroll -118px -20px / 250px auto transparent;
+    border: medium none;
+    border-radius: 0 0 0 0;
+    box-shadow: none;
+    height: 21px;
+    margin: 0;
+    padding: 0;
+    width: 20px;
+}
+
+.block-button-send{
+    float: right;
+    margin: 16px 22px 0 0;
+}
+.block-input-send{
+    float: left;
+    margin-left: 8px;
+
+}
+/*********************************************************************************************************/
+/*.profilImg{
+    width: 30px;
+    height: 30px;
+}*/
