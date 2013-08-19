@@ -184,7 +184,7 @@
     text-decoration: none;
     top: 33%;
     width: 18px;
-    background-position: 240px auto;
+    background-size: 240px auto;
 }
 #chatBack{
     background-position: -45px -21px;
