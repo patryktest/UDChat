@@ -196,20 +196,22 @@
 
 
 #contactLink {
-    background: url("../img/icons.svg") no-repeat scroll -94px -20px / 240px auto transparent;
+    background: url("../img/icons.svg") no-repeat scroll -94px -20px transparent;
     height: 20px;
     position: absolute;
     right: 25px;
     top: 50%;
     width: 19px;
+    background-size: 240px auto;
 }
 #infoPrivateChat {
-    background: url("../img/icons.svg") no-repeat scroll -26px -20px / 240px auto transparent;
+    background: url("../img/icons.svg") no-repeat scroll -26px -20px transparent;
     height: 20px;
     position: absolute;
     right: 25px;
     top: 50%;
     width: 19px;
+    background-size: 240px auto;
 }
 #statusLinkMainPage, #statusLinkChat{
     border-radius: 16px 16px 16px 16px;
@@ -274,12 +276,13 @@
 }
 
 .user-delet-icon {
-    background: url("../img/icons.svg") repeat scroll -83px 0 / 150px auto transparent;
+    background: url("../img/icons.svg") repeat scroll -83px 0px transparent;
     height: 11px;
     position: absolute;
     right: 10px;
     top: 0;
     width: 9px;
+    background-size: 150px auto;
 }
 #contactList-selectedFriendT .user-status-icon {
     background-size: 150px auto;
@@ -290,7 +293,7 @@
 
 
 .smallMenuBtn {
-    background: url("../img/icons.svg") repeat scroll -197px -20px / 250px auto transparent;
+    background: url("../img/icons.svg") repeat scroll -197px -20px transparent;
     border: medium none;
     border-radius: 0 0 0 0;
     box-shadow: none;
@@ -298,6 +301,7 @@
     height: 20px;
     margin: 0 auto;
     width: 19px;
+    background-size: 250px auto;
 }
 #contactPageSmallMenu a {
     padding: 4px 0;
@@ -319,11 +323,12 @@
     background: none;
 }
 #contactPage .ui-icon-delete {
-    background: url("../img/icons.svg") repeat scroll -139px 0 / 250px auto transparent;
+    background: url("../img/icons.svg") repeat scroll -139px 0px transparent;
     border: medium none;
     border-radius: 0 0 0 0;
     margin: 1px 5px;
     width: 14px;
+    background-size: 250px auto;
 }
 #contactPage form a {
     background: none;
@@ -347,7 +352,7 @@
 }
 
 .block-button-send .ui-btn {
-    background: url("../img/icons.svg") repeat scroll -118px -20px / 250px auto transparent;
+    background: url("../img/icons.svg") repeat scroll -118px -20px transparent;
     border: medium none;
     border-radius: 0 0 0 0;
     box-shadow: none;
@@ -355,6 +360,7 @@
     margin: 0;
     padding: 0;
     width: 20px;
+    background-size: 250px auto;
 }
 
 .block-button-send{
