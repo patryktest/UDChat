@@ -95,6 +95,10 @@ $(function() {
         }
         ;
     });
+    $('#contactPage').on( "swipeleft", swipeleftHandler );
+     function swipeleftHandler( event ){
+        jq.mobile.changePage( "index.html#mainPage", { transition: "slide"} );
+     };
     
     addPopupMenu();
 });
