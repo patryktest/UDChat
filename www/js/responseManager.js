@@ -55,8 +55,8 @@ function responseGroupInfo(json) {
         }
         else onAddToFriendGroup();
         
-        addGroupToContactList(json.data);
-        addGroupToMainList(json.data);
+        renderContactList($('#contactListT'));
+        updateRecentConversations(json.data);
     }
     
     
@@ -115,19 +115,23 @@ function responsePrivateMessageNew(json){
     console.log('responsePrivateMessageNew: OK');
     friend = getFriendById(json.data.senderId);
     friend.history.push(json.data);
-    if(json.data.senderId === getActiveConverastion())
-        showMessageInActivePrivateConversation(getActiveConverastion());
+    if(json.data.senderId === getActiveConverastion()){
+        updatePrivateChatWindow(getActiveConverastion());
+        updateRecentContactMessage(json.data.senderId, json.data.message);
+    }
     else{
         // TODO: zobraz upozornenie o neprecitanej sprave
-        addNotificationToPrivateChat(json.data);
+        addRecentNotification(json.data);
     }
+    
 }
 function responsePrivateMessageSent(json){
     console.log('responsePrivateMessageSent: OK');
     friend = getFriendById(json.data.receiverId);
     friend.history.push(json.data);
     $('#inputPrivateMessage').val('');
-    showMessageInActivePrivateConversation(getActiveConverastion());
+    updatePrivateChatWindow(getActiveConverastion());
+    updateRecentContactMessage(json.data.receiverId, json.data.message);
 }
 
 function responseStatusUpdate(json) {

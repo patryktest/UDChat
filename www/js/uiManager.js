@@ -4,6 +4,14 @@
 function onUserLogin() {
     $.mobile.changePage( "index.html#mainPage", { transition: "slide"} );
     renderRecentConversations($('#chatListT'));
+    /*if(isOpenConveresation()){
+        $.mobile.changePage( "index.html#mainPage", { transition: "slide"} );
+        renderRecentConversations($('#chatListT'));
+    }
+    else{
+        $.mobile.changePage( "index.html#contactPage", { transition: "slide"} );
+        renderContactList($('#contactListT'));
+    }*/
 }
 
 function onLogout(){
@@ -13,15 +21,13 @@ function onLogout(){
 
 function onGoToMainPage(){
     setActiveConverastion('');
-   // window.location = '#mainPage';
     $.mobile.changePage( "index.html#mainPage", { transition: "slide"} );
 }
 
 function onOpenPrivateChatWindow(id){
-    loadPrivateChat(id);
-    clearNotificationToPrivateChat(id);
-    //updateRightMenu();
-    window.location = '#chatPageTemplate';
+    renderPrivateChatWindow(id);
+    clearRecentNotification(id);
+    $.mobile.changePage( "index.html#chatPageTemplate", { transition: "slide"} );
 }
 
 function onClosePrivateChatWindow(){
@@ -36,12 +42,13 @@ function onOpenPageCreatingGroupChat(){
 }
 
 function onOpenGroupChatWindow(id){
+    $.mobile.changePage( "index.html#groupChatPageTemplate", { transition: "slide"} );
     setActiveGroupChat(id);
-    loadGroupChat(id);
-    window.location = '#groupChatPageTemplate';
+    renderGroupChatWindow(id);
 }
 function onCloseGroupChatWindow(){
-    window.location = '#mainPage';
+    $.mobile.changePage( "index.html#mainPage", { transition: "slide"} );
+    renderContactList($('#contactListT')); 
 }
 
 function onOpenContactList(){

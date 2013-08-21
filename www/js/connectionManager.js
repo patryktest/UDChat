@@ -1,15 +1,3 @@
-var back = false;
-var connection;
-
-var user = {};
-var friendList = {};
-var groupList = {};
-
-$(function() {
-    connect();
-    background();
-});
-
 function background() {
     back = true;
 }
@@ -96,14 +84,10 @@ function connect() {
             case 'SERVER_PRIVATE_HISTORY':
                 responsePrivateHistory(json);
                 break;
-            case 'SERVER_PRIVATE_MESSAGE':
-                responsePrivateMessage(json);
-                break;
-
-            /*case 'SERVER_GROUP_MESSAGE':
+            case 'SERVER_GROUP_MESSAGE':
                 responseGroupMessage(json);
                 break;
-            */
+            
            case 'SERVER_PRIVATE_MESSAGE_SENT':
                 responsePrivateMessageSent(json);
                 break;

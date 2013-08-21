@@ -12,7 +12,8 @@ var jsFiles = [
     "js/responseManager.js",
     "js/uiManager.js",
     "js/sendComandManager.js",
-    "js/renderElements.js"
+    "js/renderElements.js",
+    "js/updateElements.js"
 ];
 var scriptTags = new Array(jsFiles.length);
 for (var i = 0, len = jsFiles.length; i < len; i++) {
@@ -36,3 +37,10 @@ var invisible = 'CHAT_STATUS_INVISIBLE';
 var offline = 'CHAT_STATUS_OFFLINE';
 
 var global_status = available;
+
+var back = false;
+var connection;
+
+var user = {};
+var friendList = {};
+var groupList = {};

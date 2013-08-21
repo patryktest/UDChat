@@ -8,6 +8,9 @@
 
 $(function() {
 
+    connect();
+    background();
+    
     if (user)
         window.location = '#loginPage';
 
@@ -72,91 +75,9 @@ function setUserStatus(stat) {
 }
 
 
-function loadGroupChat(id) {
-    $("html, body").animate({scrollTop: $(document).height()}, 1000);
-    $('.block-input-send').css({width: ($(document).width() - $('.block-button-send').width() - 50) + 'px'});
-    $('#groupChatHistory').html('');
-    var time = '', mess = '', name = '', date = '';
-    var lastSender = '';
-    var lastSendTime = '';
-    var group = getGroupById(id);
 
-    if (group !== null) {
 
-        var history = group.history;
-        var lastSender = '';
-        var lastSendTime = '';
-        for (var i = 0; i < history.length; i++) {
-            if (history[i].senderId === user.id)
-                name = user.name;
-            else
-                name = getFriendName(history[i].senderId);
 
-            mess = history[i].message;
-            time = history[i].time;
-            date = history[i].date;
-
-            if (lastSender !== name || lastSendTime !== date) {
-                if (i === 0)
-                    htmlString = '<li class="ui-li ui-li-static ui-btn-up-c ui-first-child">';
-                if (i === history.length - 1)
-                    htmlString = '<li class="ui-li ui-li-static ui-btn-up-c ui-last-child">';
-                else
-                    htmlString = '<li class="ui-li ui-li-static ui-btn-up-c">';
-                htmlString += '<p class="ui-li-aside ui-li-desc"><strong>' + time + '/' + date + '</strong></p>';
-                htmlString += '<p class="ui-li-left ui-li-desc">' + name + '</p>';
-                htmlString += '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
-                htmlString += '</li>';
-                $('#groupChatHistory').append(htmlString);
-            }
-            else {
-                htmlString = '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
-                $('#groupChatHistory li').last().append(htmlString);
-            }
-            lastSender = name;
-            lastSendTime = date;
-
-        }
-    }
-}
-
-function addMessageToActiveGroupChat(id) {
-    var group = getGroupById(id);
-    if (group !== null) {
-        var history = group.history;
-        var time = '', mess = '', name = '', date = '';
-
-        var lastMessage = history[history.length - 1];
-        var lastestMessage = "";
-        if (history.length > 1)
-            lastestMessage = history[history.length - 2];
-
-        if (lastMessage.senderId === user.id) {
-            name = user.name;
-        }
-        else {
-            name = getFriendName(lastMessage.senderId);
-        }
-        mess = lastMessage.message;
-        time = lastMessage.time;
-        date = lastMessage.date;
-
-        if (lastestMessage.senderId !== lastMessage.senderId) {
-            htmlString = '<li class="ui-li ui-li-static ui-btn-up-c">';
-            htmlString += '<p class="ui-li-aside ui-li-desc"><strong>' + time + '/ ' + date + '</strong></p>';
-            htmlString += '<p class="ui-li-left ui-li-desc">' + name + '</p>';
-            htmlString += '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
-
-            htmlString += '</li>';
-            $('#groupChatHistory').append(htmlString);
-        }
-        else {
-            htmlString = '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
-            $('#groupChatHistory li').last().append(htmlString);
-        }
-        $("html, body").animate({scrollTop: $(document).height()}, 100);
-    }
-}
 
 function updateStatusIcon(statusNew, statusOld) {
     console.log('change status icon');
@@ -255,39 +176,9 @@ function removeGroupFromMainList(id) {
     $('#chatListT #group_list_' + id).remove();
 }
 
-function addGroupToContactList(group) {
-    $('#contactListT').append('\n\
-        <li id="group_list_' + group.groupId + '" class="ui-btn ui-btn-icon-right ui-li ui-last-child ui-btn-up-c" data-icon="false" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-iconpos="right" data-theme="c">\n\
-            <div class="ui-btn-inner ui-li">\n\
-                <div class="ui-btn-text">\n\
-                    <a class="ui-link-inherit" href="" onclick="onOpenGroupChatWindow(' + group.groupId + ')">\n\
-                        <h2 class="ui-li-heading">' + group.groupName + '</h2>\n\
-                        Leader: ' + group.groupLeader.name + '\n\
-                    </a>\n\
-                </div>\n\
-            </div>\n\
-        </li>\n\
-    ');
-}
-function addGroupToMainList(group) {
-    $('#chatListT').append('\n\
-        <li id="group_list_' + group.groupId + '" class="ui-btn ui-btn-icon-right ui-li ui-last-child ui-btn-up-c" data-icon="false" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-iconpos="right" data-theme="c">\n\
-            <div class="ui-btn-inner ui-li">\n\
-                <div class="ui-btn-text">\n\
-                    <a class="ui-link-inherit" href="" onclick="onOpenGroupChatWindow(' + group.groupId + ')">\n\
-                        <h2 class="ui-li-heading">' + group.groupName + '</h2>\n\
-                        Leader: ' + group.groupLeader.name + '\n\
-                    </a>\n\
-                </div>\n\
-            </div>\n\
-        </li>\n\
-    ');
-}
+
 
 function onAddToFriendGroup() {
     console.log('friend create group');
 }
 
-function updateHistoryTextUndeContact(id, message) {
-    $('#chatListT #friend_list_' + id + ' span.ui-li-message-text').html(message);
-}

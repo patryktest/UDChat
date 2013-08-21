@@ -48,12 +48,17 @@ function closePrivateChat(friendId) {
 }
 
 function sendPrivateMessage(message) {
-    if (getActiveConverastion() !== '') {
+    if (getActiveConverastion() !== '' && message) {
         console.log('send private message to ' + actualOpeningChat + ' with text ' + message);
         sendCommand('chat.sendPrivateMessage', [user.id, actualOpeningChat, message]);
     }
-    else
-        console.log('ERR send private message friend ID missing');
+    else{
+        if(getActiveConverastion()==="")
+            console.log('ERR send private message: friend ID missing');
+        if(!message)
+            console.log('ERR send private message: message missing');
+    }
+        
 
 }
 

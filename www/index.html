@@ -83,11 +83,6 @@
             <div data-role="content">
                 <ul data-role="listview" id="chatHistory">                        
                 </ul>
-                <!--<div id="chat_input">
-                    <div class="block-button-send"><button onclick="sendPrivateMessage($('#inputPrivateMessage').val());">send</button></div>
-                    <div class="block-input-send"><input type="text" id="inputPrivateMessage"/></div>
-                </div>-->
-
                 <div data-role="popup" id="popupMenu3"></div>
             </div>
 
@@ -98,11 +93,14 @@
         </div>
 
 <!-----------------------------------------------------------------------------------------------------------------------------groupchat page------->
-        <div data-role="page" id="groupChatPageTemplate">
-            <div data-role="header" data-position="fixed">
+        <div data-role="page" id="groupChatPageTemplate" data-theme="d">
+            <div data-role="header" data-position="fixed" data-theme="d">
                 <h1 id="groupChatPageT"></h1>  
-                <button onclick="onGoToMainPage();">Back</button>
-                <a href="#groupRight-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false">Menu</a>
+                <a id="groupChatBack" onclick="onGoToMainPage();"  href=""  data-inline="true" data-transition="slide"></a>
+                <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
+                    <a id="infoGroupChat" onclick="onOpenContactList();"  href="" data-inline="true" data-transition="slide"></a>
+                    <a id="statusLinkGroupChat"     href="#popupMenu3" data-rel="popup" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE" class="ui-CHAT_STATUS_AVAILABLE"></a>
+                </div>
             </div>
 
             <div data-role="content">
@@ -110,18 +108,9 @@
                 </ul>
             </div>
 
-            <div data-role="panel" id="groupRight-panel" data-display="overlay" data-position="right" data-theme="c">
-                <div class="ui-panel-inner">
-                    <ul data-role="listview" data-theme="d" data-icon="false">
-                        <li data-icon="delete"><a href="#" data-rel="close"></a></li>
-                        <li><a onclick="closeGroupChat(getActiveGroupChat());" href="#">Close this group</a></li>                 
-                    </ul>
-                </div>
-            </div><!-- /panel -->
-
-            <div data-role="footer" data-position="fixed">
-                <div class="block-input-send"><input type="text" id="groupInputPrivateMessage"/></div>
-                <div class="block-button-send"><button onclick="sendGroupMessage(getActiveGroupChat(), $('#groupInputPrivateMessage').val());">send</button></div>
+            <div data-role="footer" data-position="fixed" data-theme="d">
+                <div class="block-input-send"><input type="text" id="inputGroupMessage" placeholder="send message"/></div>
+                <div class="block-button-send"><button onclick="sendGroupMessage(getActiveGroupChat(), $('#inputGroupMessage').val());"></button></div>
             </div>
         </div>
 <!--------------------------------------------------------------------------------------------------------------------------------- page------->

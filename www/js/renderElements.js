@@ -72,7 +72,7 @@ function renderContactList(element) {
         letterDivider = contactList[i].name[0];
         
     }
-   element.listview('refresh');
+   //element.listview('refresh');
    $( 'body' ).trigger( 'FilterInputCreated' );
 }
 
@@ -92,4 +92,125 @@ function renderPopupMenu() {
     $('#popupMenu').html(html);
     $('#popupMenu2').html(html);
     $('#popupMenu3').html(html);
+}
+
+
+function renderPrivateChatWindow(id) {
+    
+    var friend = getFriendById(id);
+    var time = '', mess = '', name = '';
+    var lastSender = '';
+    var lastSendTime = '';
+
+    $('#chatPageTitle').html(friend.name);
+    $('#chatHistory').html('');
+    if (friend !== null) {
+        friendHistoryLength = friend.history.length;
+        var i = 0;
+        //if(friendHistoryLength>4)
+        //    i = friendHistoryLength-4;
+            
+        for (i; i < friend.history.length; i++) {
+            if (friend.history[i].senderId === user.id) {
+                name = user.name;
+            }
+            else {
+                name = friend.name;
+            }
+
+            mess = friend.history[i].message;
+            date = friend.history[i].date;
+            time = friend.history[i].time;
+            
+            if (lastSender !== name || lastSendTime !== time) {
+                if (i === 0)
+                    htmlString = '<li class="ui-li ui-li-static ui-btn-up-d ui-first-child">';
+                if (i === friend.history.length - 1)
+                    htmlString = '<li class="ui-li ui-li-static ui-btn-up-d ui-last-child">';
+                else
+                    htmlString = '<li class="ui-li ui-li-static ui-btn-up-d">';
+                if(friend.history[i].senderId === user.id){
+                    htmlString += '<p class="ui-li-right ui-li-desc"><img  src="./img/profil_img.png" alt="status" class="ui-li-profil-icon"></p>';
+                    htmlString += '<p class="ui-li-message-left ui-li-desc">' + mess + '</p>';
+                }
+                else{
+                    htmlString += '<p class="ui-li-left ui-li-desc"><img  src="./img/profil_img.png" alt="status" class="ui-li-profil-icon"></p>';
+                    htmlString += '<p class="ui-li-message-right ui-li-desc">' + mess + '</p>';
+                }          
+                htmlString += '<p class="ui-li-message-time ui-li-desc">' + time + '</p>';
+                htmlString += '</li>';
+                $('#chatHistory').append(htmlString);
+            }
+            else {
+                if(friend.history[i].senderId === user.id){
+                    htmlString = '<p class="ui-li-message-left ui-li-desc">' + mess + '</p>';
+                }
+                else{
+                    htmlString = '<p class="ui-li-message-right ui-li-desc">' + mess + '</p>';
+                }
+                $('#chatHistory li').last().append(htmlString);
+            }
+            lastSender = name;
+            lastSendTime = time;
+
+
+        }
+
+    }    
+    $('#chatPageTemplate').on('pageshow',function(){
+        $.mobile.silentScroll($('#chatHistory').height());
+        $('.block-input-send').css({width:($(document).width()-$('.block-button-send .ui-btn').width()-50)+'px'});
+    });
+}
+
+function renderGroupChatWindow(id) {
+    
+    $('#groupChatHistory').html('');
+    var time = '', mess = '', name = '', date = '';
+    var lastSender = '';
+    var lastSendTime = '';
+    var group = getGroupById(id);
+
+    if (group !== null) {
+
+        var history = group.history;
+        var lastSender = '';
+        var lastSendTime = '';
+        for (var i = 0; i < history.length; i++) {
+            if (history[i].senderId === user.id)
+                name = user.name;
+            else
+                name = getFriendName(history[i].senderId);
+
+            mess = history[i].message;
+            time = history[i].time;
+            date = history[i].date;
+
+            if (lastSender !== name || lastSendTime !== date) {
+                if (i === 0)
+                    htmlString = '<li class="ui-li ui-li-static ui-btn-up-d ui-first-child">';
+                if (i === history.length - 1)
+                    htmlString = '<li class="ui-li ui-li-static ui-btn-up-d ui-last-child">';
+                else
+                    htmlString = '<li class="ui-li ui-li-static ui-btn-up-d">';
+                htmlString += '<p class="ui-li-aside ui-li-desc"><strong>' + time + '/' + date + '</strong></p>';
+                htmlString += '<p class="ui-li-left ui-li-desc">' + name + '</p>';
+                htmlString += '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
+                htmlString += '</li>';
+                $('#groupChatHistory').append(htmlString);
+            }
+            else {
+                htmlString = '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
+                $('#groupChatHistory li').last().append(htmlString);
+            }
+            lastSender = name;
+            lastSendTime = date;
+
+        }
+    }
+    $('#groupChatPageTemplate').on('pageshow',function(){
+        $.mobile.silentScroll($('#groupChatHistory').height());
+        $('.block-input-send').css({width:($(document).width()-$('.block-button-send .ui-btn').width()-50)+'px'});
+    });
+    
 }

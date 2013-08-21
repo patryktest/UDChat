@@ -174,7 +174,7 @@
     display: none;
 }
 
-#chatBack, #contactback {
+#chatBack, #contactback, #groupChatBack {
     background: url("../img/icons.svg") no-repeat scroll -115px 0px transparent;
     border: medium none;
     border-radius: 0 0 0 0;
@@ -204,7 +204,7 @@
     width: 19px;
     background-size: 240px auto;
 }
-#infoPrivateChat {
+#infoPrivateChat, #infoGroupChat {
     background: url("../img/icons.svg") no-repeat scroll -26px -20px transparent;
     height: 20px;
     position: absolute;
@@ -213,7 +213,7 @@
     width: 19px;
     background-size: 240px auto;
 }
-#statusLinkMainPage, #statusLinkChat{
+#statusLinkMainPage, #statusLinkChat, #statusLinkGroupChat{
     border-radius: 16px 16px 16px 16px;
     display: block;
     height: 18px;
