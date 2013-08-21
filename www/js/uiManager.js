@@ -2,10 +2,8 @@
  * After login response open main chat page with friend list and group list
  */
 function onUserLogin() {
-    window.location = '#mainPage';
-    ShowChatList();
-    
-   // ShowUserGroupList();
+    $.mobile.changePage( "index.html#mainPage", { transition: "slide"} );
+    renderRecentConversations($('#chatListT'));
 }
 
 function onLogout(){
@@ -43,7 +41,6 @@ function onOpenGroupChatWindow(id){
     window.location = '#groupChatPageTemplate';
 }
 function onCloseGroupChatWindow(){
-    //ShowUserGroupList();
     window.location = '#mainPage';
 }
 
@@ -53,7 +50,7 @@ function onOpenContactList(){
     
     updateSelectedFriendView();
     if($('#contactListT').html()==="")
-        showContactList();
+        renderContactList($('#contactListT'));
     else
         updateContactListView();
 }

@@ -36,21 +36,10 @@ function addNotificationToPrivateChat(data){
             friend.newMessages++;
             $('#chatListT #friend_list_'+data.senderId+' span.ui-li-message-count').removeClass('hidden');
             $('#chatListT #friend_list_'+data.senderId+' span.ui-li-message-count').html(friend.newMessages);
-            
+            updateHistoryTextUndeContact(data.senderId,"new message");
         }
             
     }
-    //nepotrebne -->
-    if (user.id === data.senderId) {
-        var friend = getFriendById(data.receiverId);
-        if(friend!== null){
-            friend.newMessages++;
-            $('#chatListT #friend_list_'+data.receiverId+' span.ui-li-message-count').html('text');
-            
-        }
-            
-    }
-    // <---
 }
 
 function clearNotificationToPrivateChat(id){
@@ -63,9 +52,7 @@ function clearNotificationToPrivateChat(id){
 }
 
 function loadPrivateChat(id) {
-    
-    $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-    $('.block-input-send').css({width:($(document).width()-$('.block-button-send').width()-50)+'px'});
+    console.log($('.block-button-send .ui-btn').width());
     var friend = getFriendById(id);
     var time = '', mess = '', name = '';
     var lastSender = '';
@@ -76,8 +63,8 @@ function loadPrivateChat(id) {
     if (friend !== null) {
         friendHistoryLength = friend.history.length;
         var i = 0;
-        if(friendHistoryLength>4)
-            i = friendHistoryLength-4;
+        //if(friendHistoryLength>4)
+        //    i = friendHistoryLength-4;
             
         for (i; i < friend.history.length; i++) {
             if (friend.history[i].senderId === user.id) {
@@ -125,7 +112,12 @@ function loadPrivateChat(id) {
 
         }
 
-    }
+    }    
+    $('#chatPageTemplate').on('pageshow',function(){
+        $.mobile.silentScroll($('#chatHistory').height());
+        //console.log($('.block-button-send .ui-btn').width());
+        $('.block-input-send').css({width:($(document).width()-$('.block-button-send .ui-btn').width()-50)+'px'});
+    });
 }
 
 function showMessageInActivePrivateConversation(id){

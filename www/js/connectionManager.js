@@ -40,15 +40,10 @@ function connect() {
     var statusOnConnect = $('#connectionON');
     statusOnConnect.text('');
 
-    input = $('#input');
     // if user is running mozilla then use it's built-in WebSocket
     window.WebSocket = window.WebSocket || window.MozWebSocket;
-
-    //connection = new WebSocket('ws://demo-project.patryktesting.c9.io');
-    //rtmp://dev.uniquedoc.com/UniqueDocChat
     try{
-        connection = new WebSocket('ws://192.168.2.49:8180/UniquedocChat');
-        //connection = new WebSocket('ws://dev.uniquedoc.com:8180/UniqueDocChat');
+        connection = new WebSocket(WEBSOCKETLINK);
     }
     catch (e){
         console.log(e);
@@ -60,6 +55,9 @@ function connect() {
         statusOnConnect.text('Connected');
         console.log('connected to ws');
        // $('#loginButton').removeClass('ui-disabled');
+       $('#loginButton').button('enable');
+       $('#loginButton').button( "refresh" );
+       
         
     };
 
@@ -68,6 +66,8 @@ function connect() {
         // an error occurred when sending/receiving data
         console.log(error);
        // alert(error);
+       $('#loginButton').button('disable');
+       $('#loginButton').button( "refresh" );
     };
 
     connection.onmessage = function(message) {
