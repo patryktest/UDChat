@@ -21,22 +21,20 @@ $(function() {
             if (!msg) {
                 return;
             }
-            // send the message as an ordinary text
-            //connection.send(msg);
+           
             sendPrivateMessage(msg);
         }
         ;
     });
 
-    $('#groupInputPrivateMessage').keydown(function(e) {
+    $('#inputGroupMessage').keydown(function(e) {
         if (e.keyCode === 13) {
             console.log(e.keyCode);
             var msg = $(this).val();
             if (!msg) {
                 return;
             }
-            // send the message as an ordinary text
-            //connection.send(msg);
+            
             sendGroupMessage(getActiveGroupChat(), msg);
         }
         ;
@@ -46,6 +44,8 @@ $(function() {
     
     monitor_events();
     renderPopupMenu();
+    
+    //$('#contactback').addClass('hidden');
 });
 
 function monitor_events() {

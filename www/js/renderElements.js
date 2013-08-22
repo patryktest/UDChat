@@ -2,8 +2,9 @@
  * render list of recent conversations
  */
 function renderRecentConversations(element) {
+    //$('#contactback').removeClass('hidden');
     element.text('');
-    element.listview();
+    
     for (var i = 0; i < user.friendList.length; i++) {
         if (user.friendList[i].history.length)
             var message = user.friendList[i].history[user.friendList[i].history.length - 1].message;
@@ -14,13 +15,35 @@ function renderRecentConversations(element) {
         if (user.friendList[i].newMessages < 1)
             hidden = 'hidden';
 
-        element.append('<li data-icon="false" id="friend_list_' + user.friendList[i].id + '"><a onclick="openPrivateChat(' + user.friendList[i].id + ');" href="">\n\
-        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '<p class="chat-list-friend-item"><span class="ui-li-message-count ' + hidden + ' ">' + user.friendList[i].newMessages + '</span><span class="ui-li-message-text">' + message + '</span></p></a><span class="user-status-icon ui-icon-' + user.friendList[i].status + ' device-mobile"></span></li>');
+        element.append('\
+            <li data-icon="false" id="friend_list_' + user.friendList[i].id + '">\n\
+                <a onclick="openPrivateChat(' + user.friendList[i].id + ');" href="">\n\
+                    <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + user.friendList[i].name + '\
+                    <p class="chat-list-friend-item">\n\
+                        <span class="ui-li-message-count ' + hidden + ' ">' + user.friendList[i].newMessages + '</span>\n\
+                        <span class="ui-li-message-text">' + message + '</span>\n\
+                    </p>\n\
+                </a>\n\
+                <span class="user-status-icon ui-icon-' + user.friendList[i].status + ' device-mobile"></span>\n\
+            </li>');
     }
     for (var i = 0; i < user.groupList.length; i++) {
-        element.append('<li data-icon="false" id="group_list_' + user.groupList[i].groupId + '"><a onclick="onOpenGroupChatWindow(' + user.groupList[i].groupId + ')" href=""><strong>' + user.groupList[i].groupName + '</strong></a></li>');
+        element.append('\
+            <li data-icon="false" id="group_list_' + user.groupList[i].groupId + '">\n\
+                <a onclick="onOpenGroupChatWindow(' + user.groupList[i].groupId + ')" href="">\n\
+                    <img  src="./img/profil_img.png" alt="status" class="ui-li-icon"><strong>' + user.groupList[i].groupName + '</strong>\n\
+                    <p class="chat-list-group-item">\n\
+                        <span class="ui-li-message-count ' + hidden + ' ">' + user.groupList[i].newMessages + '</span>\n\
+                        <span class="ui-li-message-text">' + message + '</span>\n\
+                    </p>\n\
+                </a>\n\
+            </li>');
     }
-    element.listview('refresh');
+    
+    if ((element).hasClass('ui-listview')){
+        element.listview('refresh');
+        element.listview();
+    }
 
 }
 
@@ -30,7 +53,7 @@ function renderRecentConversations(element) {
 function renderContactList(element) {
     element.text('');
     
-    element.listview();
+    
     
     var contactList = [];
     for (var i = 0; i < user.friendList.length; i++) {
@@ -72,7 +95,10 @@ function renderContactList(element) {
         letterDivider = contactList[i].name[0];
         
     }
-   //element.listview('refresh');
+    if ((element).hasClass('ui-listview')) {
+    element.listview();
+    element.listview('refresh');
+    };
    $( 'body' ).trigger( 'FilterInputCreated' );
 }
 
@@ -193,14 +219,26 @@ function renderGroupChatWindow(id) {
                     htmlString = '<li class="ui-li ui-li-static ui-btn-up-d ui-last-child">';
                 else
                     htmlString = '<li class="ui-li ui-li-static ui-btn-up-d">';
-                htmlString += '<p class="ui-li-aside ui-li-desc"><strong>' + time + '/' + date + '</strong></p>';
-                htmlString += '<p class="ui-li-left ui-li-desc">' + name + '</p>';
-                htmlString += '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
+                
+                 if(history[i].senderId === user.id){
+                    htmlString += '<p class="ui-li-right ui-li-desc"><img  src="./img/profil_img.png" alt="status" class="ui-li-profil-icon"></p>';
+                    htmlString += '<p class="ui-li-message-left ui-li-desc">' + mess + '</p>';
+                }
+                else{
+                    htmlString += '<p class="ui-li-left ui-li-desc"><img  src="./img/profil_img.png" alt="status" class="ui-li-profil-icon"></p>';
+                    htmlString += '<p class="ui-li-message-right ui-li-desc">' + mess + '</p>';
+                }          
+                htmlString += '<p class="ui-li-message-time ui-li-desc">' + time + '</p>';
                 htmlString += '</li>';
                 $('#groupChatHistory').append(htmlString);
             }
             else {
-                htmlString = '<p class="ui-li-message ui-li-desc">' + mess + '</p>';
+                if(history[i].senderId === user.id){
+                    htmlString = '<p class="ui-li-message-left ui-li-desc">' + mess + '</p>';
+                }
+                else{
+                    htmlString = '<p class="ui-li-message-right ui-li-desc">' + mess + '</p>';
+                }
                 $('#groupChatHistory li').last().append(htmlString);
             }
             lastSender = name;

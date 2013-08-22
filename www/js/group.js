@@ -70,3 +70,10 @@ function groupLeader(idGroup){
     
 }
 
+function checkUpdateGroupName(idGroup){
+    group = getGroupById(idGroup);
+    
+    if(group.groupName===group.groupLeader.name)
+        group.groupName = group.groupLeader.name+ ' + '+ (group.users.length-1);
+}
+

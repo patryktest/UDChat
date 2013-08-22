@@ -33,7 +33,7 @@
     float: right;
     margin: 0;
 }
-#chatHistory li {
+#chatHistory li, #groupChatHistory li {
     margin: 0;
     padding: 0;
     min-height: 25px;
@@ -142,7 +142,7 @@
     font-size: 11pt;
     padding-left: 20px;
 }
-.chat-list-friend-item{
+.chat-list-friend-item, .chat-list-group-item{
     margin: -3px 0 0;
 }
 
@@ -170,9 +170,10 @@
 
 
 
-.hidden {
+.hidden, #contactback.hidden {
     display: none;
 }
+
 
 #chatBack, #contactback, #groupChatBack {
     background: url("../img/icons.svg") no-repeat scroll -115px 0px transparent;

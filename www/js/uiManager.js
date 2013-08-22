@@ -4,6 +4,7 @@
 function onUserLogin() {
     $.mobile.changePage( "index.html#mainPage", { transition: "slide"} );
     renderRecentConversations($('#chatListT'));
+    
     /*if(isOpenConveresation()){
         $.mobile.changePage( "index.html#mainPage", { transition: "slide"} );
         renderRecentConversations($('#chatListT'));
@@ -26,6 +27,7 @@ function onGoToMainPage(){
 
 function onOpenPrivateChatWindow(id){
     renderPrivateChatWindow(id);
+    renderRecentConversations($('#chatListT'));
     clearRecentNotification(id);
     $.mobile.changePage( "index.html#chatPageTemplate", { transition: "slide"} );
 }
