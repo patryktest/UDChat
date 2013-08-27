@@ -50,7 +50,7 @@
             <div data-role="header" data-theme="d">
                 <h1 id="contactT">Connections</h1>  
                 <!-- <button onclick="logout();">Logout</button> -->
-                <a id="contactback" onclick="onGoToMainPage();"  href=""  data-inline="true" data-transition="slide"></a>
+                <a id="contactback" onclick="onGoToMainPage();"  href=""  data-inline="true" data-transition="slide" ></a>
                 <a id="statusLinkContatct"  href="#popupMenu2" data-rel="popup"  data-inline="true" data-transition="slidedown" class="ui-CHAT_STATUS_AVAILABLE"></a>
 
             </div>
@@ -73,7 +73,7 @@
             <div data-role="header" data-position="fixed" data-theme="d">
                 <h1 id="chatPageTitle">Text chat</h1>  
                 
-                <a id="chatBack" onclick="onGoToMainPage();"  href=""  data-inline="true" data-transition="slide"></a>
+                <a id="chatBack"  href=""  data-inline="true" data-transition="slide" data-rel="back"></a>
                 <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
                     <a id="infoPrivateChat" onclick="onOpenContactList();"  href="" data-inline="true" data-transition="slide"></a>
                     <a id="statusLinkChat"     href="#popupMenu3" data-rel="popup" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE" class="ui-CHAT_STATUS_AVAILABLE"></a>
@@ -96,9 +96,9 @@
         <div data-role="page" id="groupChatPageTemplate" data-theme="d">
             <div data-role="header" data-position="fixed" data-theme="d">
                 <h1 id="groupChatPageT"></h1>  
-                <a id="groupChatBack" onclick="onGoToMainPage();"  href=""  data-inline="true" data-transition="slide"></a>
+                <a id="groupChatBack"  href=""  data-inline="true" data-transition="slide" data-rel="back"></a>
                 <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
-                    <a id="infoGroupChat" onclick="onOpenContactList();"  href="" data-inline="true" data-transition="slide"></a>
+                    <a id="infoGroupChat" onclick="onOpenGroupMenu(getActiveGroupChat());"  href="" data-inline="true" data-transition="slide"></a>
                     <a id="statusLinkGroupChat"     href="#popupMenu3" data-rel="popup" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE" class="ui-CHAT_STATUS_AVAILABLE"></a>
                 </div>
             </div>
@@ -111,6 +111,37 @@
             <div data-role="footer" data-position="fixed" data-theme="d">
                 <div class="block-input-send"><input type="text" id="inputGroupMessage" placeholder="send message"/></div>
                 <div class="block-button-send"><button onclick="sendGroupMessage(getActiveGroupChat(), $('#inputGroupMessage').val());"></button></div>
+            </div>
+        </div>
+
+<!-----------------------------------------------------------------------------------------------------------------------------groupchat menu------->
+        <div data-role="page" id="groupMenuPageTemplate" data-theme="d">
+            <div data-role="header" data-position="fixed" data-theme="d">
+                <h1 id="groupMenuPageT"></h1>  
+                <a id="groupMenuBack"  href=""  data-inline="true" data-transition="slide" data-rel="back"></a>
+                <a id="statusLinkContatct"  href="#popupMenuGMPT" data-rel="popup"  data-inline="true" data-transition="slidedown" class="ui-CHAT_STATUS_AVAILABLE"></a>
+                
+            </div>
+
+            <div data-role="content">
+                <ul data-role="listview" id="groupMenuConnections">                        
+                </ul>
+                <div data-role="popup" id="popupMenuGMPT"></div>
+               
+                <div data-role="popup" id="popupGroupMenu" data-overlay-theme="a" data-theme="d" data-dismissible="false" style="max-width:400px;">
+                    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+                        <p>This action cannot be undone.</p>
+                        <a class="left_btn" href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c">Cancel</a>
+                        <a class="right_btn" onclick="test();" href="#" data-role="button" data-inline="true" data-theme="b">Delete</a>
+                    </div>
+                </div>
+            </div>
+
+            <div data-role="footer" data-position="fixed" data-theme="d">
+                <a id="groupChatMenuBtn_manage" onclick="onGroupPopupMenu('manage');"  href=""  data-inline="true" data-transition="slide" data-corners="false">manage connections</a>
+                <a id="groupChatMenuBtn_rename" onclick="onGroupPopupMenu('rename');"  href=""  data-inline="true" data-transition="slide" data-corners="false">rename group</a>
+                <a id="groupChatMenuBtn_leave" onclick="onGroupPopupMenu('leave');"  href=""  data-inline="true" data-transition="slide" data-corners="false">leave group</a>
+                <a id="groupChatMenuBtn_close" onclick="onGroupPopupMenu('close');"  href=""  data-inline="true" data-transition="slide" data-corners="false">close group</a>
             </div>
         </div>
 <!--------------------------------------------------------------------------------------------------------------------------------- page------->

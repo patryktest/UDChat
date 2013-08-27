@@ -31,7 +31,7 @@ function renderRecentConversations(element) {
         element.append('\
             <li data-icon="false" id="group_list_' + user.groupList[i].groupId + '">\n\
                 <a onclick="onOpenGroupChatWindow(' + user.groupList[i].groupId + ')" href="">\n\
-                    <img  src="./img/profil_img.png" alt="status" class="ui-li-icon"><strong>' + user.groupList[i].groupName + '</strong>\n\
+                    <img  src="./img/profil_img.png" alt="status" class="ui-li-icon"><strong class="name">' + user.groupList[i].displayGroupName + '</strong>\n\
                     <p class="chat-list-group-item">\n\
                         <span class="ui-li-message-count ' + hidden + ' ">' + user.groupList[i].newMessages + '</span>\n\
                         <span class="ui-li-message-text">' + message + '</span>\n\
@@ -60,7 +60,7 @@ function renderContactList(element) {
         contactList.push({id: user.friendList[i].id, name: user.friendList[i].name, group:0, status: user.friendList[i].status});
     }
     for (var i = 0; i < user.groupList.length; i++) {
-        contactList.push({id: user.groupList[i].groupId, name: user.groupList[i].groupName, group:1});
+        contactList.push({id: user.groupList[i].groupId, name: user.groupList[i].displayGroupName, group:1});
     }
     contactList.sort(function(a,b){
         var nameA = a.name.toLowerCase();
@@ -88,7 +88,7 @@ function renderContactList(element) {
             element.append('\
                 <li data-icon="false" id="group_list_' + contactList[i].id + '">\n\
                     <a onclick="onOpenGroupChatWindow(' + contactList[i].id + ')" href="">\n\
-                        <strong>' + contactList[i].name + '</strong>\n\
+                        <strong class="name">' + contactList[i].name + '</strong>\n\
                     </a>\n\
                 </li>\n\
             ');
@@ -196,6 +196,8 @@ function renderGroupChatWindow(id) {
     var lastSender = '';
     var lastSendTime = '';
     var group = getGroupById(id);
+    console.info(group);
+    $('#groupChatPageT').html(group.displayGroupName);
 
     if (group !== null) {
 
@@ -251,4 +253,52 @@ function renderGroupChatWindow(id) {
         $('.block-input-send').css({width:($(document).width()-$('.block-button-send .ui-btn').width()-50)+'px'});
     });
     
+}
+
+function renderGroupMenu(group){
+    element = $(groupMenuConnections);
+    html = '';
+    for(var i=0;i<group.users.length;i++){
+        html +='\
+                <li data-icon="false" id="friend_list_' + group.users[i].id + '">\n\
+                    <a onclick="selectFriend(' + group.users[i].id + ');" href="">\n\
+                        <img  src="./img/profil_img.png" alt="status" class="ui-li-icon">' + group.users[i].name + '\
+                    </a>\n\
+                </li>\n\
+               ';
+    }
+    element.html(html);
+    if ((element).hasClass('ui-listview')){
+        element.listview('refresh');
+        element.listview();
+    }
+    $('#groupMenuPageTemplate').on('pageshow',function(){
+       $('#groupChatMenuBtn_manage').css({width:($(document).width()-30)+'px'});
+       $('#groupChatMenuBtn_rename').css({width:($(document).width()-30)+'px'});
+       $('#groupChatMenuBtn_leave').css({width:($(document).width()-30)+'px'});
+       $('#groupChatMenuBtn_close').css({width:($(document).width()-30)+'px'});
+       if(group.groupLeader.id===user.id){
+           $('#groupChatMenuBtn_leave').hide();
+           $('#groupChatMenuBtn_close').show();
+       }
+       else{
+           $('#groupChatMenuBtn_leave').show();
+           $('#groupChatMenuBtn_close').hide();
+       }
+           
+       
+    });
+}
+
+function renderPopupGroupMenu(content,left_btn,right_btn, add_function){
+    $('#popupGroupMenu p').html('<span class="ui-btn-inner"><span class="ui-btn-text">'+content+'</span></span>');
+    $('#popupGroupMenu a.left_btn').html('<span class="ui-btn-inner"><span class="ui-btn-text">'+left_btn+'</span></span>');
+    $('#popupGroupMenu a.right_btn').html('<span class="ui-btn-inner"><span class="ui-btn-text">'+right_btn+'</span></span>');
+    $('#popupGroupMenu a.right_btn').attr('onclick', add_function)
+    
+    
+    
+}
+function test(){
+    alert('test');
 }

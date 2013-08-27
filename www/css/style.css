@@ -175,7 +175,7 @@
 }
 
 
-#chatBack, #contactback, #groupChatBack {
+#chatBack, #contactback, #groupChatBack, #groupMenuBack {
     background: url("../img/icons.svg") no-repeat scroll -115px 0px transparent;
     border: medium none;
     border-radius: 0 0 0 0;
@@ -388,4 +388,47 @@
     padding: 0;
     text-align: center;
     font-size: 11pt;
+}
+
+/*********************************************************************************************************/
+
+/******************************************************
+*   group chat menu footer
+*******************************************************/
+#groupChatMenuBtn_manage:before{
+    background: url("../img/icons.svg") no-repeat scroll -56px 0 / 240px auto transparent;
+    content: "";
+    float: left;
+    height: 20px;
+    margin: 6px 0 0;
+    width: 20px;
+}
+#groupChatMenuBtn_rename:before{
+    background: url("../img/icons.svg") no-repeat scroll -64px -19px / 240px auto transparent;
+    content: "";
+    float: left;
+    height: 20px;
+    margin: 6px 0 0;
+    width: 20px;
+}
+#groupChatMenuBtn_leave:before{
+    background: url("../img/icons.svg") no-repeat scroll -206px 0 / 240px auto transparent;
+    content: "";
+    float: left;
+    height: 20px;
+    margin: 6px 0 0;
+    width: 20px;
+}
+#groupChatMenuBtn_close:before {
+    background: url("../img/icons.svg") no-repeat scroll -147px 0 / 240px auto transparent;
+    content: "";
+    float: left;
+    height: 20px;
+    margin: 6px 0 0;
+    width: 20px;
+}
+#groupChatMenuBtn_manage, #groupChatMenuBtn_rename, #groupChatMenuBtn_leave, #groupChatMenuBtn_close {
+    margin: 5px 10px;
+    padding: 0 0 0 8px;
+    text-align: left;
 }

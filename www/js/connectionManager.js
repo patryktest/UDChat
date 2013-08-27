@@ -50,6 +50,7 @@ function connect() {
     };
 
     connection.onerror = function(error) {
+        onLogout();
         statusOnConnect.text('Not Connected');
         // an error occurred when sending/receiving data
         console.log(error);

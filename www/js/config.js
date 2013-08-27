@@ -26,7 +26,8 @@ var WEBSOCKETLINK = 'ws://192.168.2.49:8180/UniquedocChat'; //link for online ch
 var device = {
     mobile: 'mobile',
     tablet: 'tablet',
-    desktop: 'desktop'
+    desktop: 'desktop',
+    none: 'USER_DEVICE_NONE'
 };
 
 var online = 'CHAT_STATUS_ONLINE';

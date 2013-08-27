@@ -49,7 +49,14 @@ function responseGroupInfo(json) {
     console.log('responseGroupInfo: OK');
     group = getGroupById(json.data.groupId);
     if (group) {
-        group = json.data;
+        for (var i = 0; i < user.groupList.length; i++) {
+            if (user.groupList[i].groupId === json.data.groupId)
+                user.groupList[i]= json.data;
+        }
+        
+        
+        console.info(group);
+        checkUpdateGroupName(json.data.groupId);
     }
     else {
         user.groupList.push(json.data);
@@ -59,11 +66,12 @@ function responseGroupInfo(json) {
         }
         else
             onAddToFriendGroup();
-
+            
+        checkUpdateGroupName(json.data.groupId);
         renderContactList($('#contactListT'));
         updateRecentConversations(json.data);
     }
-    checkUpdateGroupName(json.data.groupId);
+    
 
 
 }
@@ -74,8 +82,12 @@ function responseGroupInfo(json) {
 function responseGroupJoin(json) {
     console.log('responseGroupJoin: OK');
     for (var i = 0; i < user.groupList.length; i++) {
-        if (user.groupList[i].groupId === json.data.groupId)
+        if (user.groupList[i].groupId === json.data.groupId){
             user.groupList[i].users.push(json.data.user);
+            checkUpdateGroupName(json.data.groupId);
+        }
+            
+        
     }
     console.log(user);
 }

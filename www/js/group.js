@@ -72,8 +72,15 @@ function groupLeader(idGroup){
 
 function checkUpdateGroupName(idGroup){
     group = getGroupById(idGroup);
+    group.displayGroupName = group.groupName;
+    console.info(group);
     
     if(group.groupName===group.groupLeader.name)
-        group.groupName = group.groupLeader.name+ ' + '+ (group.users.length-1);
+        group.displayGroupName = group.groupLeader.name+ ' + '+ (group.users.length-1);
+    
+    updateRecentConversationGroupName(group);
+    if(group.groupId === getActiveGroupChat()){
+        updtateGroupChatWindowName(group);
+    }
 }
 

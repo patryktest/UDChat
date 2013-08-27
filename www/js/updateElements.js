@@ -139,13 +139,24 @@ function updateRecentConversations(group) {
     $('#chatListT').append('\n\
         <li id="group_list_' + group.groupId + '" data-icon="false">\n\
             <a href="" onclick="onOpenGroupChatWindow(' + group.groupId + ')">\n\
-                <img  src="./img/profil_img.png" alt="status" class="ui-li-icon"><strong>' + group.groupName + '</strong>\n\\n\
+                <img  src="./img/profil_img.png" alt="status" class="ui-li-icon"><strong class="name">' + group.displayGroupName + '</strong>\n\
                  <p class="chat-list-group-item">\n\
-                    <span class="ui-li-message-count hide">' + /*groupList[i].newMessages*/ + '</span>\n\
+                    <span class="ui-li-message-count hidden"></span>\n\
                     <span class="ui-li-message-text">' + message + '</span>\n\
                 </p>\n\
             </a>\n\
         </li>\n\
     ');
     $('#chatListT').listview('refresh');
+}
+
+function updateRecentConversationGroupName(group){
+    $('#group_list_'+group.groupId+' .name').html(group.displayGroupName);
+}
+function updateContactListGroupName(group){
+    $('#group_list_'+group.groupId+' .name').html(group.displayGroupName);
+}
+
+function updtateGroupChatWindowName(group){
+    $('#groupChatPageTemplate #groupChatPageT').html(group.displayGroupName);
 }
