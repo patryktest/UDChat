@@ -402,6 +402,7 @@
     height: 20px;
     margin: 6px 0 0;
     width: 20px;
+    background-size: 240px auto;
 }
 #groupChatMenuBtn_rename:before{
     background: url("../img/icons.svg") no-repeat scroll -64px -19px / 240px auto transparent;
@@ -410,6 +411,7 @@
     height: 20px;
     margin: 6px 0 0;
     width: 20px;
+    background-size: 240px auto;
 }
 #groupChatMenuBtn_leave:before{
     background: url("../img/icons.svg") no-repeat scroll -206px 0 / 240px auto transparent;
@@ -418,6 +420,7 @@
     height: 20px;
     margin: 6px 0 0;
     width: 20px;
+    background-size: 240px auto;
 }
 #groupChatMenuBtn_close:before {
     background: url("../img/icons.svg") no-repeat scroll -147px 0 / 240px auto transparent;
@@ -426,9 +429,11 @@
     height: 20px;
     margin: 6px 0 0;
     width: 20px;
+    background-size: 240px auto;
 }
 #groupChatMenuBtn_manage, #groupChatMenuBtn_rename, #groupChatMenuBtn_leave, #groupChatMenuBtn_close {
     margin: 5px 10px;
     padding: 0 0 0 8px;
     text-align: left;
+    background-size: 240px auto;
 }

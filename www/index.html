@@ -18,7 +18,7 @@
                 <p>
                     <input type="text" id="loginI" value="conan@cd.ef"/>
                     <input type="password" id="passwordI" value="123"/>
-                    <button onclick="login($('#loginI').val(), $('#passwordI').val(), 'CHAT_STATUS_ONLINE', device.mobile);" id="loginButton" disabled="">Login</button>
+                    <button onclick="login($('#loginI').val(), $('#passwordI').val(), 'CHAT_STATUS_ONLINE', 'mobile');" id="loginButton" disabled="">Login</button>
                     <span id="connectionON">Status...</span>                    
                 </p>
 
@@ -73,7 +73,7 @@
             <div data-role="header" data-position="fixed" data-theme="d">
                 <h1 id="chatPageTitle">Text chat</h1>  
                 
-                <a id="chatBack"  href=""  data-inline="true" data-transition="slide" data-rel="back"></a>
+                <a id="chatBack" onclick="onGoToMainPage();"  href=""  data-inline="true" data-transition="slide"></a>
                 <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
                     <a id="infoPrivateChat" onclick="onOpenContactList();"  href="" data-inline="true" data-transition="slide"></a>
                     <a id="statusLinkChat"     href="#popupMenu3" data-rel="popup" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE" class="ui-CHAT_STATUS_AVAILABLE"></a>
@@ -96,7 +96,7 @@
         <div data-role="page" id="groupChatPageTemplate" data-theme="d">
             <div data-role="header" data-position="fixed" data-theme="d">
                 <h1 id="groupChatPageT"></h1>  
-                <a id="groupChatBack"  href=""  data-inline="true" data-transition="slide" data-rel="back"></a>
+                <a id="groupChatBack" onclick="onGoToMainPage();" href=""  data-inline="true" data-transition="slide"></a>
                 <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
                     <a id="infoGroupChat" onclick="onOpenGroupMenu(getActiveGroupChat());"  href="" data-inline="true" data-transition="slide"></a>
                     <a id="statusLinkGroupChat"     href="#popupMenu3" data-rel="popup" data-inline="true" data-transition="slidedown" data-icon="CHAT_STATUS_AVAILABLE" class="ui-CHAT_STATUS_AVAILABLE"></a>
@@ -118,7 +118,7 @@
         <div data-role="page" id="groupMenuPageTemplate" data-theme="d">
             <div data-role="header" data-position="fixed" data-theme="d">
                 <h1 id="groupMenuPageT"></h1>  
-                <a id="groupMenuBack"  href=""  data-inline="true" data-transition="slide" data-rel="back"></a>
+                <a id="groupMenuBack" href=""  data-inline="true" data-transition="slide" data-rel="back"></a>
                 <a id="statusLinkContatct"  href="#popupMenuGMPT" data-rel="popup"  data-inline="true" data-transition="slidedown" class="ui-CHAT_STATUS_AVAILABLE"></a>
                 
             </div>

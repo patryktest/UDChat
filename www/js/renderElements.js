@@ -126,7 +126,9 @@ function renderPrivateChatWindow(id) {
     var friend = getFriendById(id);
     var time = '', mess = '', name = '';
     var lastSender = '';
+    var lastDate = '';
     var lastSendTime = '';
+    
 
     $('#chatPageTitle').html(friend.name);
     $('#chatHistory').html('');
@@ -145,10 +147,21 @@ function renderPrivateChatWindow(id) {
             }
 
             mess = friend.history[i].message;
-            date = friend.history[i].date;
-            time = friend.history[i].time;
+            var newDate = new Date(friend.history[i].timeId);
+            time = newDate.getUTCFullYear()+':'+newDate.getUTCDate()+':'+newDate.getUTCMonth()+':'+newDate.getUTCHours()+':'+newDate.getUTCMinutes();
+            date = newDate.getUTCDate()+'.'+newDate.getUTCMonth()+'.'+newDate.getUTCFullYear();
+            if(lastDate === date){
+                date = "";
+            }
+            else{
+                lastDate = date;
+            }
+                
             
-            if (lastSender !== name || lastSendTime !== time) {
+            
+            console.log(newDate.getHours()+':'+newDate.getHours()+':'+newDate.getMinutes());
+            
+            if (lastSender !== name) {
                 if (i === 0)
                     htmlString = '<li class="ui-li ui-li-static ui-btn-up-d ui-first-child">';
                 if (i === friend.history.length - 1)
@@ -163,21 +176,29 @@ function renderPrivateChatWindow(id) {
                     htmlString += '<p class="ui-li-left ui-li-desc"><img  src="./img/profil_img.png" alt="status" class="ui-li-profil-icon"></p>';
                     htmlString += '<p class="ui-li-message-right ui-li-desc">' + mess + '</p>';
                 }          
-                htmlString += '<p class="ui-li-message-time ui-li-desc">' + time + '</p>';
+                htmlString += '<p class="ui-li-message-time ui-li-desc">' + (newDate.getHours()<10?'0':'')+newDate.getHours()+':'+(newDate.getMinutes()<10?'0':'')+newDate.getMinutes() + ' '+date +'</p>';
                 htmlString += '</li>';
                 $('#chatHistory').append(htmlString);
             }
             else {
                 if(friend.history[i].senderId === user.id){
                     htmlString = '<p class="ui-li-message-left ui-li-desc">' + mess + '</p>';
+                    
                 }
                 else{
                     htmlString = '<p class="ui-li-message-right ui-li-desc">' + mess + '</p>';
                 }
-                $('#chatHistory li').last().append(htmlString);
+                element = $('#chatHistory li').last();
+                if(lastSendTime === time)
+                    element.find('.ui-li-message-time').last().remove();
+                htmlString += '<p class="ui-li-message-time ui-li-desc">' + (newDate.getHours()<10?'0':'')+newDate.getHours()+':'+(newDate.getMinutes()<10?'0':'')+newDate.getMinutes() + ' '+date +'</p>';
+                
+                    
+                element.append(htmlString);
             }
             lastSender = name;
             lastSendTime = time;
+           
 
 
         }
@@ -204,6 +225,7 @@ function renderGroupChatWindow(id) {
         var history = group.history;
         var lastSender = '';
         var lastSendTime = '';
+        var lastDate = '';
         for (var i = 0; i < history.length; i++) {
             if (history[i].senderId === user.id)
                 name = user.name;
@@ -211,10 +233,20 @@ function renderGroupChatWindow(id) {
                 name = getFriendName(history[i].senderId);
 
             mess = history[i].message;
-            time = history[i].time;
-            date = history[i].date;
+            
+            
+            
+            var newDate = new Date(history[i].timeId);
+            time = newDate.getUTCFullYear()+':'+newDate.getUTCDate()+':'+newDate.getUTCMonth()+':'+newDate.getUTCHours()+':'+newDate.getUTCMinutes();
+            date = newDate.getUTCDate()+'.'+newDate.getUTCMonth()+'.'+newDate.getUTCFullYear();
+            if(lastDate === date){
+                date = "";
+            }
+            else{
+                lastDate = date;
+            }
 
-            if (lastSender !== name || lastSendTime !== date) {
+            if (lastSender !== name) {
                 if (i === 0)
                     htmlString = '<li class="ui-li ui-li-static ui-btn-up-d ui-first-child">';
                 if (i === history.length - 1)
@@ -230,7 +262,7 @@ function renderGroupChatWindow(id) {
                     htmlString += '<p class="ui-li-left ui-li-desc"><img  src="./img/profil_img.png" alt="status" class="ui-li-profil-icon"></p>';
                     htmlString += '<p class="ui-li-message-right ui-li-desc">' + mess + '</p>';
                 }          
-                htmlString += '<p class="ui-li-message-time ui-li-desc">' + time + '</p>';
+                htmlString += '<p class="ui-li-message-time ui-li-desc">'+ (newDate.getHours()<10?'0':'')+newDate.getHours()+':'+(newDate.getMinutes()<10?'0':'')+newDate.getMinutes() + ' '+date +'</p>';
                 htmlString += '</li>';
                 $('#groupChatHistory').append(htmlString);
             }
@@ -240,11 +272,17 @@ function renderGroupChatWindow(id) {
                 }
                 else{
                     htmlString = '<p class="ui-li-message-right ui-li-desc">' + mess + '</p>';
-                }
-                $('#groupChatHistory li').last().append(htmlString);
+                }                
+                element = $('#groupChatHistory li').last();
+                if(lastSendTime === time)
+                    element.find('.ui-li-message-time').last().remove();
+                htmlString += '<p class="ui-li-message-time ui-li-desc">' + (newDate.getHours()<10?'0':'')+newDate.getHours()+':'+(newDate.getMinutes()<10?'0':'')+newDate.getMinutes() + ' '+date +'</p>';
+                
+                    
+                element.append(htmlString);
             }
             lastSender = name;
-            lastSendTime = date;
+            lastSendTime = time;
 
         }
     }
