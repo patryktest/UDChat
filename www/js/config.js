@@ -21,7 +21,7 @@ for (var i = 0, len = jsFiles.length; i < len; i++) {
 }
 document.write(scriptTags.join(""));
 
-var WEBSOCKETLINK = 'ws://192.168.2.49:8180/UniquedocChat'; //link for online chat 'ws://dev.uniquedoc.com:8180/UniqueDocChat';
+var WEBSOCKETLINK = 'ws://192.168.2.40:8180/UniquedocChat'; //link for online chat 'ws://dev.uniquedoc.com:8180/UniqueDocChat';
 
 var device = {
     mobile: 'mobile',

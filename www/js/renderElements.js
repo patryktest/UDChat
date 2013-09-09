@@ -158,9 +158,6 @@ function renderPrivateChatWindow(id) {
             }
                 
             
-            
-            console.log(newDate.getHours()+':'+newDate.getHours()+':'+newDate.getMinutes());
-            
             if (lastSender !== name) {
                 if (i === 0)
                     htmlString = '<li class="ui-li ui-li-static ui-btn-up-d ui-first-child">';
@@ -217,7 +214,7 @@ function renderGroupChatWindow(id) {
     var lastSender = '';
     var lastSendTime = '';
     var group = getGroupById(id);
-    console.info(group);
+    
     $('#groupChatPageT').html(group.displayGroupName);
 
     if (group !== null) {
