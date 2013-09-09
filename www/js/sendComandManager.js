@@ -1,5 +1,7 @@
-function login(login, pass, status, device) {
+function login(login, pass) {
     //var params = ['conan@cd.ef', '123'];
+    var status = user_status.online; 
+    var device = user_device.blackberry;
     try{
         if (login !== "" && pass !== "")
             sendCommand('user.loginWS', [login, pass, status, device]);
@@ -9,27 +11,21 @@ function login(login, pass, status, device) {
     catch(e){
         alert('Not conneted');
     } 
-        
-
 }
 
 function logout() {
-    //console.log('logout user: ' + user.id);
     sendCommand('user.logout', [user.id]);
     onLogout();
-
 }
 
 function setStatus(status) {
     
     updateStatusIcon(status,global_status);
     global_status =status;
-    //console.log('set status: ' + status);
     sendCommand('user.updateStatus', [user.id, status]);
 }
 
 function openPrivateChat(friendId) {
-    //console.log('open private chat: ' + user.id + ' with ' + friendId);
     setActiveConverastion(friendId);
     if (!findConverasation(friendId)) {
         sendCommand('chat.openPrivateConversation', [user.id, friendId]);
@@ -130,14 +126,14 @@ function sendGroupMessage(groupId, message) {
  
  /*
   * 
-  * @param {int} friendId
-  * @param {string} type
+  * @param {type} friendId
+  * @param {type} timestamp
+  * @param {type} type
   * @returns {undefined}
-  *                                                          not used
   */
- function confirmPrivateMessage(friendId,type){
-     //console.log('confirm message id: '+user.id+' friendId:'+friendId+' typ: '+type);
-     sendCommand('chat.confirmPrivateMessage',[user.id,groupId,newName]); 
+ function confirmPrivateMessage(senderId,receiverId,timestamp,type){
+     console.log('confirm message id: '+senderId+' friendId:'+receiverId+' typ: '+type);
+     sendCommand('chat.confirmPrivateMessage',[receiverId,senderId,timestamp,type]); 
  }
 
 function sendCommand(command, params) {
@@ -165,6 +161,8 @@ function sendCommand(command, params) {
      connection.send(JSON.stringify({command: 'chat.sendGroupMessage', parameters: param}));            [user.id,group.id,message]
      connection.send(JSON.stringify({command: 'chat.setconversationMode', parameters: param}));         [id,idFriend,true/false]
      connection.send(JSON.stringify({command: 'chat.setGroupName', parameters: param}));                [id,idGroup,string new name] - send back responseGroupInfo()
-     connection.send(JSON.stringify({command: 'chat.confirmPrivateMessage', parameters: param}));       [id,idFriend,timestamp,typ(SERVER_PRIVATE_MESSAGE_DELIVERED,SERVER_PRIVATE_MESSAGE_READ)]
+     connection.send(JSON.stringify({command: 'chat.confirmPrivateMessage', parameters: param}));       [senderId,receiverId,timestamp,typ(private_message_status)]
+    
+  
      */
 }

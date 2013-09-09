@@ -4,6 +4,16 @@ var selectedFriend=[];
  * Create new friend createFriend(id,name,newMessage,status)
  * return object friend
  */
+
+function Friend(id, name, newMessages, status){
+    this.id= id;
+    this.name= name;
+    this.newMessages= newMessages;
+    this.status= status;
+    this.history= [];
+    this.incognito= false;
+}
+
 function createFriend(id, name, newMessages, status) {
     var friend = {
         id: id,

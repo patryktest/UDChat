@@ -1,19 +1,22 @@
 function responseLogin(json) {
-    friendList = new Array();
+    var friendList = new Array();
     for (var i = 0; i < json.friendList.length; i++) {
-        friendList.push(createFriend(json.friendList[i].id, json.friendList[i].name, json.friendList[i].newMessages, json.friendList[i].status));
+        friendList.push(new Friend(json.friendList[i].id, json.friendList[i].name, json.friendList[i].newMessages, json.friendList[i].status));
     }
-    groupList = new Array();
+    var groupList = new Array();
     groupList = json.groupList;
     
-
-    user = {
+    var lastConversation = new Array();
+    lastConversation = json.lastConversation;
+    
+    user = new User(json.user.id, json.user.name, user_status.online, friendList, groupList, lastConversation);
+    /*user = {
         id: json.user.id,
         name: json.user.name,
         friendList: friendList,
         groupList: groupList,
-        status: available
-    };
+        status: user_status.online
+    };*/
     for(var i=0;i<groupList.length;i++){
         checkUpdateGroupName(groupList[i].groupId);
     }
@@ -140,9 +143,11 @@ function responsePrivateMessageNew(json) {
     console.log('responsePrivateMessageNew: OK');
     friend = getFriendById(json.data.senderId);
     friend.history.push(json.data);
+    confirmPrivateMessage(json.data.senderId,json.data.receiverId,json.data.timeId,private_message_status.delivered);
     if (json.data.senderId === getActiveConverastion()) {
         updatePrivateChatWindow(getActiveConverastion());
         updateRecentContactMessage(json.data.senderId, json.data.message);
+        confirmPrivateMessage(json.data.senderId,json.data.receiverId,json.data.timeId,private_message_status.read);
     }
     else {
         // TODO: zobraz upozornenie o neprecitanej sprave
@@ -157,6 +162,16 @@ function responsePrivateMessageSent(json) {
     $('#inputPrivateMessage').val('');
     updatePrivateChatWindow(getActiveConverastion());
     updateRecentContactMessage(json.data.receiverId, json.data.message);
+    //confirmPrivateMessage(json.data.senderId,json.data.receiverId,json.data.timeId,private_message_status.delivered);
+    //confirmPrivateMessage(json.data.senderId,json.data.receiverId,json.data.timeId,private_message_status.read);
+}
+
+function responsePrivateMessageDelivered(json){
+    
+}
+
+function responsePrivateMessageRead(json){
+    
 }
 
 function responseStatusUpdate(json) {

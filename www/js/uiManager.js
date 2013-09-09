@@ -1,3 +1,20 @@
+function onConnectionOpen(){
+    var statusOnConnect = $('#connectionON');
+    statusOnConnect.text('Connected');
+    console.log('connected to ws');
+    $('#loginButton').button('enable');
+    $('#loginButton').button( "refresh" );
+}
+
+function onConnectionError(){
+    var statusOnConnect = $('#connectionON');
+    statusOnConnect.text('Not Connected');
+    console.log(error);
+   // alert(error);
+   $('#loginButton').button('disable');
+   $('#loginButton').button( "refresh" );
+    
+}
 /*
  * After login response open main chat page with friend list and group list
  */

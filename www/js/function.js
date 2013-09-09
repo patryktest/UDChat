@@ -7,9 +7,8 @@
 }*/
 
 $(function() {
-
+    
     connect();
-    background();
     
     if (user)
         window.location = '#loginPage';
@@ -38,12 +37,8 @@ $(function() {
         ;
     });
     
-    
-    
     monitor_events();
     renderPopupMenu();
-    
-    //$('#contactback').addClass('hidden');
 });
 
 function monitor_events() {

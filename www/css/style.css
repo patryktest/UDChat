@@ -263,6 +263,12 @@
     height: 16px;
     width: 11px;
 }
+.device-blackberry {
+    background-position: 0 0;
+    background-size: 190px auto;
+    height: 16px;
+    width: 11px;
+}
 .device-tablet {
     background-position: -134px -16px;
     background-size: 190px auto;

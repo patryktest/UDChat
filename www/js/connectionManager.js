@@ -1,33 +1,7 @@
-function background() {
-    back = true;
-}
-/*$(function() {
- 
- document.addEventListener("deviceready", onDeviceReady, true);
- 
- //connect();
- });*/
-
-function hide() {
-    back = true;
-}
-function show() {
-    back = false;
-}
-
-function onDeviceReady()
-{
-    connect();
-    document.addEventListener("pause", hide, false);
-    document.addEventListener("resume", show, false);
-
-}
-
 function connect() {
     //$('#loginButton').button ("disable");
-    var statusOnConnect = $('#connectionON');
-    statusOnConnect.text('');
-
+    
+    console.log('onconnect');
     // if user is running mozilla then use it's built-in WebSocket
     window.WebSocket = window.WebSocket || window.MozWebSocket;
     try{
@@ -40,23 +14,12 @@ function connect() {
 
 
     connection.onopen = function() {
-        statusOnConnect.text('Connected');
-        console.log('connected to ws');
-       // $('#loginButton').removeClass('ui-disabled');
-       $('#loginButton').button('enable');
-       $('#loginButton').button( "refresh" );
-       
-        
+        onConnectionOpen();        
     };
 
     connection.onerror = function(error) {
         onLogout();
-        statusOnConnect.text('Not Connected');
-        // an error occurred when sending/receiving data
-        console.log(error);
-       // alert(error);
-       $('#loginButton').button('disable');
-       $('#loginButton').button( "refresh" );
+        onConnectionError();
     };
 
     connection.onmessage = function(message) {
@@ -91,6 +54,12 @@ function connect() {
             
            case 'SERVER_PRIVATE_MESSAGE_SENT':
                 responsePrivateMessageSent(json);
+                break;
+            case 'SERVER_PRIVATE_MESSAGE_DELIVERED':
+                responsePrivateMessageDelivered(json);
+                break;
+            case 'SERVER_PRIVATE_MESSAGE_READ':
+                responsePrivateMessageRead(json);
                 break;
             case 'SERVER_PRIVATE_MESSAGE_NEW':
                 responsePrivateMessageNew(json);

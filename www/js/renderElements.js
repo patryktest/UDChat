@@ -135,8 +135,8 @@ function renderPrivateChatWindow(id) {
     if (friend !== null) {
         friendHistoryLength = friend.history.length;
         var i = 0;
-        //if(friendHistoryLength>4)
-        //    i = friendHistoryLength-4;
+        if(friendHistoryLength>4)
+            i = friendHistoryLength-4;
             
         for (i; i < friend.history.length; i++) {
             if (friend.history[i].senderId === user.id) {
