@@ -25,7 +25,7 @@ function setStatus(status) {
     sendCommand('user.updateStatus', [user.id, status]);
 }
 
-function openPrivateChat(friendId) {
+function commandOpenPrivateChat(friendId) {
     setActiveConverastion(friendId);
     if (!findConverasation(friendId)) {
         sendCommand('chat.openPrivateConversation', [user.id, friendId]);
@@ -43,18 +43,18 @@ function closePrivateChat(friendId) {
     onClosePrivateChatWindow(friendId);
 }
 
-function sendPrivateMessage(message) {
+function commandSendPrivateMessage(message) {
     if (getActiveConverastion() !== '' && message) {
         //console.log('send private message to ' + actualOpeningChat + ' with text ' + message);
         sendCommand('chat.sendPrivateMessage', [user.id, actualOpeningChat, message]);
     }
     else{
         if(getActiveConverastion()==="")
-            //console.log('ERR send private message: friend ID missing');
-                alert('ERR send private message: friend ID missing');
+            console.log('ERR send private message: friend ID missing');
+                //alert('ERR send private message: friend ID missing');
         if(!message)
-            //console.log('ERR send private message: message missing');
-                alert('ERR send private message: message missing');
+            console.log('ERR send private message: message missing');
+                //alert('ERR send private message: message missing');
     }
         
 

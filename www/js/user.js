@@ -1,8 +1,57 @@
-function User(id, name, status, friendList, groupList, lastConversation){
+function User(id, name, status, friendListA, groupListA, lastConversationA){
+    var lastConversationArray = new Array();
+    lastConversationArray = lastConversationA;
+    
+    var friendListArray = new Array();
+    for (var i = 0; i < friendListA.length; i++) {
+        var history = new Array();
+        var recent = false;
+        for(var j = 0;j<lastConversationArray.length;j++){
+            if(lastConversationArray[j].userId===friendListA[i].id){
+                history.push(lastConversationArray[j].lastMessage);
+                recent = true;
+            }
+        }
+        console.log(friendListA[i].id,history);
+        friendListArray.push(new Friend(friendListA[i].id, friendListA[i].name, friendListA[i].newMessages, friendListA[i].status, history, recent));
+    }
+    var groupListArray = new Array();
+    for (var i = 0; i < groupListA.length; i++) {
+        groupListArray.push(new Group(groupListA[i].displayGroupName, groupListA[i].groupId, groupListA[i].groupLeader, groupListA[i].groupName, groupListA[i].groupStream,groupListA[i].groupStreamStatus,groupListA[i].history,groupListA[i].limit,groupListA[i].ongoingVideo,groupListA[i].users));
+    }
+    
     this.id = id;
     this.name = name;
     this.status = status;
-    this.friendList = friendList;
-    this.groupList = groupList;
-    this.lastConversation = lastConversation;    
+    this.friendList = friendListArray;
+    this.groupList = groupListArray;
+    this.lastConversation = lastConversationArray;    
+    
+    this.setUserStatus = setUserStatusF;
+    this.getFriendById = getFriendByIdF;
+    this.getGroupById = getGroupByIdF;    
+    
+    
+    function setUserStatusF(stat) {
+        this.status = stat;
+    }
+    
+    function getFriendByIdF(id) {
+        for (var i = 0; i < this.friendList.length; i++) {
+            if (this.friendList[i].id === id)
+                return this.friendList[i];
+        }
+        return null;
+    }
+    
+    function getGroupByIdF(id) {
+        for (var i = 0; i < this.groupList.length; i++)
+        {
+            if (this.groupList[i].groupId === id)
+                return this.groupList[i];
+        }
+        return null;
+    }
+    
+    
 }

@@ -5,26 +5,38 @@ var selectedFriend=[];
  * return object friend
  */
 
-function Friend(id, name, newMessages, status){
+function Friend(id, name, newMessages, status, history, recent){
     this.id= id;
     this.name= name;
     this.newMessages= newMessages;
     this.status= status;
-    this.history= [];
+    this.history= history;
     this.incognito= false;
+    this.recent = recent;
+    
+    this.updateHistory = updateHistoryF;
+    this.addToHistory = addToHistoryF;
+    this.updateStatus = updateStatusF;
+    this.startChat = 'commandOpenPrivateChat('+this.id+')';
+    this.selectFriend = 'selectFriend('+this.id+')';
+    
+    function updateHistoryF(data){
+        this.history = data;
+    }
+    
+    function addToHistoryF(data){
+        this.history.push(data);
+    }
+    
+    function updateStatusF(status) {
+        this.status = status;    
+    }
+    
+    function openPrivateChatF(){
+        openPrivateChat(this.id);
+    }
 }
 
-function createFriend(id, name, newMessages, status) {
-    var friend = {
-        id: id,
-        name: name,
-        newMessages: newMessages,
-        status: status,
-        history: [],
-        incognito: false
-    };
-    return friend;
-}
 
 function getFriendById(id) {
     for (var i = 0; i < user.friendList.length; i++) {

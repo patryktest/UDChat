@@ -20,7 +20,7 @@ $(function() {
                 return;
             }
            
-            sendPrivateMessage(msg);
+            commandSendPrivateMessage(msg);
         }
         ;
     });
@@ -63,9 +63,7 @@ function showLetterDividers(){
     $('#contactListT #letterDivider').css({display:'block'});
 }
 
-function setUserStatus(stat) {
-    user.status = stat;
-}
+
 
 
 
@@ -87,18 +85,7 @@ function updateStatusIcon(statusNew, statusOld) {
 
 }
 
-function updateFriendStatus(id, status) {
-    var friend = getFriendById(id);
-    if (friend) {
-        friend.status = status;
-        $('#chatListT #friend_list_' + id + ' span.user-status-icon').removeClass().addClass('user-status-icon ui-icon-' + status + ' device-mobile');
-    }
-    else{
-        //console.log('friend status: user not exist');
-    }
-        
 
-}
 
 function selectFriend(id) {
     if (isSelectedFriend(id)) {
@@ -145,8 +132,9 @@ function updateSelectedFriendView() {
 
 function openPGChat(groupName) {
     if (selectedFriend.length) {
-        if (selectedFriend.length < 2)
-            openPrivateChat(selectedFriend[0]);
+        if (selectedFriend.length < 2){
+            commandOpenPrivateChat(selectedFriend[0]);
+        }
         else
             openGroupChat(groupName);
 

@@ -20,16 +20,7 @@ function onConnectionError(){
  */
 function onUserLogin() {
     $.mobile.changePage( "index.html#mainPage", { transition: "slide"} );
-    renderRecentConversations($('#chatListT'));
-    
-    /*if(isOpenConveresation()){
-        $.mobile.changePage( "index.html#mainPage", { transition: "slide"} );
-        renderRecentConversations($('#chatListT'));
-    }
-    else{
-        $.mobile.changePage( "index.html#contactPage", { transition: "slide"} );
-        renderContactList($('#contactListT'));
-    }*/
+    renderRecentConversations();
 }
 
 function onLogout(){
@@ -40,13 +31,21 @@ function onLogout(){
 function onGoToMainPage(){
     setActiveConverastion('');
     $.mobile.changePage( "index.html#mainPage", { transition: "slide"} );
+    renderRecentConversations();
 }
 
 function onOpenPrivateChatWindow(id){
     renderPrivateChatWindow(id);
-    renderRecentConversations($('#chatListT'));
-    clearRecentNotification(id);
     $.mobile.changePage( "index.html#chatPageTemplate", { transition: "slide"} );
+    
+    //renderRecentConversations();
+    var friend = user.getFriendById(id);
+    if(friend){
+        friend.newMessages = 0;
+        friend.recent = true;
+        clearRecentNotification(friend);
+    }
+    
 }
 
 function onClosePrivateChatWindow(){
@@ -67,7 +66,7 @@ function onOpenGroupChatWindow(id){
 }
 function onCloseGroupChatWindow(){
     $.mobile.changePage( "index.html#mainPage", { transition: "slide"} );
-    renderContactList($('#contactListT')); 
+    renderContactList(); 
 }
 
 function onOpenContactList(){
@@ -76,7 +75,7 @@ function onOpenContactList(){
     
     updateSelectedFriendView();
     if($('#contactListT').html()==="")
-        renderContactList($('#contactListT'));
+        renderContactList();
     else
         updateContactListView();
 }

@@ -1,6 +1,21 @@
 var activeGroupChat;
 var openGroupChat;
 
+function Group(displayGroupName,groupId,groupLeader,groupName,groupStream,groupStreamStatu,history,limit,ongoingVideo,users){
+    this.displayGroupName = displayGroupName;
+    this.groupId = groupId;
+    this.groupName = groupName;
+    this.groupLeader = groupLeader;
+    this.groupStream = groupStream;
+    this.groupStreamStatus = groupStreamStatu;
+    this.history = history;
+    this.limit = limit;
+    this.ongoingVideo = ongoingVideo;
+    this.users = users;
+    this.newMessages = 0;
+    this.startGroupChat = 'onOpenGroupChatWindow(' + this.groupId + ')';
+}
+
 function setActiveGroupChat(id) {
     activeGroupChat = id;
 }
@@ -21,14 +36,7 @@ function closeOpenGroupChat(id){
 }
 
 
-function getGroupById(id) {
-    for (var i = 0; i < user.groupList.length; i++)
-    {
-        if (user.groupList[i].groupId === id)
-            return user.groupList[i];
-    }
-    return null;
-}
+
 
 function isUserInGroup(idUser,idGroup){
     var group = getGroupById(idGroup);
@@ -71,7 +79,7 @@ function groupLeader(idGroup){
 }
 
 function checkUpdateGroupName(idGroup){
-    group = getGroupById(idGroup);
+    group = user.getGroupById(idGroup);
     group.displayGroupName = group.groupName;
     console.info(group);
     

@@ -1,22 +1,9 @@
 function responseLogin(json) {
-    var friendList = new Array();
-    for (var i = 0; i < json.friendList.length; i++) {
-        friendList.push(new Friend(json.friendList[i].id, json.friendList[i].name, json.friendList[i].newMessages, json.friendList[i].status));
-    }
+        
+    user = new User(json.user.id, json.user.name, user_status.online, json.friendList, json.groupList, json.lastConversation);
+    
     var groupList = new Array();
     groupList = json.groupList;
-    
-    var lastConversation = new Array();
-    lastConversation = json.lastConversation;
-    
-    user = new User(json.user.id, json.user.name, user_status.online, friendList, groupList, lastConversation);
-    /*user = {
-        id: json.user.id,
-        name: json.user.name,
-        friendList: friendList,
-        groupList: groupList,
-        status: user_status.online
-    };*/
     for(var i=0;i<groupList.length;i++){
         checkUpdateGroupName(groupList[i].groupId);
     }
@@ -130,23 +117,20 @@ function responseGroupMessage(json) {
  */
 function responsePrivateHistory(json) {
     console.log('responsePrivateHistory: OK');
-    for (var i = 0; i < user.friendList.length; i++) {
-        if (user.friendList[i].id === getActiveConverastion())
-            user.friendList[i].history = json.history;
-    }
-    console.log(user.friendList);
+    var friend = user.getFriendById(getActiveConverastion());
+    friend.updateHistory(json.history);
     addNewConversation(getActiveConverastion());
     onOpenPrivateChatWindow(getActiveConverastion());
 }
 
 function responsePrivateMessageNew(json) {
-    console.log('responsePrivateMessageNew: OK');
-    friend = getFriendById(json.data.senderId);
-    friend.history.push(json.data);
+    console.log('responsePrivateMessageNew: OK');    
+    var friend = user.getFriendById(json.data.senderId);
+    friend.addToHistory(jason.data);
     confirmPrivateMessage(json.data.senderId,json.data.receiverId,json.data.timeId,private_message_status.delivered);
     if (json.data.senderId === getActiveConverastion()) {
         updatePrivateChatWindow(getActiveConverastion());
-        updateRecentContactMessage(json.data.senderId, json.data.message);
+        //updateRecentContactMessage(json.data.senderId, json.data.message);
         confirmPrivateMessage(json.data.senderId,json.data.receiverId,json.data.timeId,private_message_status.read);
     }
     else {
@@ -157,13 +141,11 @@ function responsePrivateMessageNew(json) {
 }
 function responsePrivateMessageSent(json) {
     console.log('responsePrivateMessageSent: OK');
-    friend = getFriendById(json.data.receiverId);
-    friend.history.push(json.data);
+    var friend = user.getFriendById(json.data.receiverId);
+    friend.addToHistory(json.data);
     $('#inputPrivateMessage').val('');
     updatePrivateChatWindow(getActiveConverastion());
-    updateRecentContactMessage(json.data.receiverId, json.data.message);
-    //confirmPrivateMessage(json.data.senderId,json.data.receiverId,json.data.timeId,private_message_status.delivered);
-    //confirmPrivateMessage(json.data.senderId,json.data.receiverId,json.data.timeId,private_message_status.read);
+    //updateRecentContactMessage(json.data.receiverId, json.data.message);
 }
 
 function responsePrivateMessageDelivered(json){
@@ -177,10 +159,19 @@ function responsePrivateMessageRead(json){
 function responseStatusUpdate(json) {
     if (json.result === "OK") {
         console.log('responseStatusUpdate OK');
-        setUserStatus(global_status);
+        user.setUserStatus(global_status);
     }
     else if (json.userId) {
-        updateFriendStatus(json.userId, json.chatStatus);
+        var change_status = false;
+        for(var status in user_status){
+            if(json.chatStatus === user_status[status])
+                change_status = true;
+        }
+        if(change_status){ 
+            var friend = user.getFriendById(json.userId);
+            friend.updateStatus(json.chatStatus);
+            viewUpdateFriendStatus(friend);
+        }
     }
     else
         console.log('responseStatusUpdate ERR result: ' + json.result);
