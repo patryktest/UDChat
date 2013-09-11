@@ -1,5 +1,6 @@
 var actualOpeningChat = "";
 var openConversation = [];
+numberMessageItemGroup = 0;
 
 function isOpenConveresation(){
     if(openConversation.length) return true;

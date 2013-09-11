@@ -87,81 +87,23 @@ function updateStatusIcon(statusNew, statusOld) {
 
 
 
-function selectFriend(id) {
-    if (isSelectedFriend(id)) {
-        removeFromSelectedFriend(id);
-        $('#contactListT #friend_list_' + id).removeClass('ui-selectedFriend');
-    }
-    else {
-        addToSelectedFriend(id);
-        $('#contactListT #friend_list_' + id).addClass('ui-selectedFriend');
-    }
-    updateSelectedFriendView();
 
-}
 function updateContactListView() {
     for (var i = 0; i < user.friendList.length; i++)
         $('#contactListT #friend_list_' + user.friendList[i].id).removeClass('ui-selectedFriend');
 }
-function updateSelectedFriendView() {
-    if (selectedFriend.length)
-        $('#contactPageSmallMenu').css({display: 'block'});
-    else
-        $('#contactPageSmallMenu').css({display: 'none'});
 
-    $('#contactList-selectedFriendT').text('');
-    for (var i = 0; i < user.friendList.length; i++) {
-        for (var j = 0; j < selectedFriend.length; j++) {
-            if (user.friendList[i].id === selectedFriend[j]) {
-                $('#contactList-selectedFriendT').append('<li id="friend_list_' + user.friendList[i].id + '" class="ui-btn ui-btn-icon-right ui-li ui-li-has-icon ui-btn-up-d" data-icon="false" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-iconpos="right" data-theme="d">\n\
-                 <div class="ui-btn-inner ui-li">\n\
-                    <div class="ui-btn-text">\n\
-                        <a class="ui-link-inherit" href="" onclick="selectFriend(' + user.friendList[i].id + ');">\n\
-                            <img class="ui-li-icon ui-li-thumb" alt="status" src="./img/profil_img.png">\n\
-                                ' + user.friendList[i].name + '\n\
-                            </a>\n\
-                            <span class="user-delet-icon"></span>\n\
-                            <span class="user-status-icon ui-icon-' + user.friendList[i].status + ' device-mobile"></span>\n\
-                    </div>\n\
-                </div>\n\
-                </li>');
-            }
-        }
-    }
-}
 
-function openPGChat(groupName) {
-    if (selectedFriend.length) {
-        if (selectedFriend.length < 2){
-            commandOpenPrivateChat(selectedFriend[0]);
-        }
-        else
-            openGroupChat(groupName);
 
-    }
-}
 
 /*
  * add friends to group
  */
-function onGroupCreate() {
-    for (var i = 0; i < selectedFriend.length; i++)
-        addUserToGroup(selectedFriend[i], getActiveGroupChat());
-    onOpenGroupChatWindow(getActiveGroupChat());
-    clearSelectedFriend();
-}
-
-function removeGroupFromContactList(id) {
-    $('#contactListT #group_list_' + id).remove();
-}
-
-function removeGroupFromMainList(id) {
-    $('#chatListT #group_list_' + id).remove();
-}
 
 
 
-function onAddToFriendGroup() {
-   // console.log('friend create group');
-}
+
+
+
+
 

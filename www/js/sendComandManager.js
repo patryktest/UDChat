@@ -67,13 +67,13 @@ function commandSendPrivateMessage(message) {
  * @returns {undefined}
  */
 
-function openGroupChat(groupName) {
+function commandOpenGroupChat(groupName) {
     if(groupName!==""){
         //console.log('creating Group with name: ' + groupName);
         sendCommand('chat.openGroupConversation', [user.id, groupName]);
     }
     else{
-        alert('Missing Group name');
+        console.log('Missing Group name');
     }    
 }
 
@@ -83,7 +83,7 @@ function openGroupChat(groupName) {
  * @param {type} groupId
  * @returns {undefined}
  */
-function closeGroupChat(groupId) {
+function commandCloseGroupChat(groupId) {
     //console.log('close Group with ID: ' + groupId);
     sendCommand('chat.closeGroupConversation', [user.id, groupId]);
 }
@@ -95,7 +95,7 @@ function closeGroupChat(groupId) {
  * @param {type} groupId
  * @returns {undefined}
  */
-function addUserToGroup(friendId, groupId) {
+function commandAddUserToGroup(friendId, groupId) {
     //console.log('add user : ' + friendId + ' to group: ' + groupId);
     sendCommand('chat.addUserToConversation', [friendId, groupId]);
 }
@@ -106,7 +106,7 @@ function addUserToGroup(friendId, groupId) {
  * @param {type} groupId
  * @returns {undefined}
  */
-function leaveConversation(groupId) {
+function commandLeaveConversation(groupId) {
     //console.log('leave group ' + groupId);
     sendCommand('chat.leaveConversation', [groupId, user.id]);
 }
@@ -119,7 +119,7 @@ function sendGroupMessage(groupId, message) {
      //console.log('set inkognito with: '+friendId+' to'+mode);
      sendCommand('chat.setconversationMode',[user.id,friendId,mode]);
  }
- function setGroupName(groupId,newName){
+ function commandSetGroupName(groupId,newName){
      //console.log('set new Group Name to group: '+groupId+' name:'+newName);
      sendCommand('chat.setGroupName',[user.id,groupId,newName]); 
  }
@@ -132,7 +132,7 @@ function sendGroupMessage(groupId, message) {
   * @returns {undefined}
   */
  function confirmPrivateMessage(senderId,receiverId,timestamp,type){
-     console.log('confirm message id: '+senderId+' friendId:'+receiverId+' typ: '+type);
+     console.log('confirm message id: '+senderId+' friendId:'+receiverId+' typ: '+type+' timeid: '+timestamp);
      sendCommand('chat.confirmPrivateMessage',[receiverId,senderId,timestamp,type]); 
  }
 

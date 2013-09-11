@@ -38,6 +38,9 @@
     padding: 0;
     min-height: 25px;
 }
+#chatHistory li.dark, #groupChatHistory li.dark {
+    background: #EFF9FF;
+}
 
 .ui-li-left .ui-li-profil-icon, .ui-li-right .ui-li-profil-icon {
     height: 20px;

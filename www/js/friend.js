@@ -75,3 +75,16 @@ function getSelectedFriend(){
 function clearSelectedFriend(){
     selectedFriend = [];
 }
+
+function selectFriend(id) {
+    if (isSelectedFriend(id)) {
+        removeFromSelectedFriend(id);
+        updateContactListSelectFriend(id,'remove');
+    }
+    else {
+        addToSelectedFriend(id);
+        updateContactListSelectFriend(id,'add');
+    }
+    updateSelectedFriendView();
+
+}

@@ -2,11 +2,6 @@ function responseLogin(json) {
         
     user = new User(json.user.id, json.user.name, user_status.online, json.friendList, json.groupList, json.lastConversation);
     
-    var groupList = new Array();
-    groupList = json.groupList;
-    for(var i=0;i<groupList.length;i++){
-        checkUpdateGroupName(groupList[i].groupId);
-    }
     console.log("responseLogin OK ");
     console.log(user);
     if (user !== null) {
@@ -26,40 +21,31 @@ function responseFriendListUpdate() {
 }
 function responseGroupClose(json) {
     console.log('responseGroupClose: OK');
-    for (var i = 0; i < user.groupList.length; i++) {
-        if (user.groupList[i].groupId === json.data.groupId)
-            user.groupList.splice(i, 1);
-    }
-    removeGroupFromContactList(json.data.groupId);
-    removeGroupFromMainList(json.data.groupId);
+    user.removeGroup(json.data.groupId)
     onCloseGroupChatWindow();
 
 }
 function responseGroupInfo(json) {
     console.log('responseGroupInfo: OK');
-    group = getGroupById(json.data.groupId);
+    var group = user.getGroupById(json.data.groupId);
     if (group) {
-        for (var i = 0; i < user.groupList.length; i++) {
-            if (user.groupList[i].groupId === json.data.groupId)
-                user.groupList[i]= json.data;
-        }
-        
-        
+        group.update(json.data.groupId, json.data.groupLeader, json.data.groupName, json.data.groupStream,json.data.groupStreamStatus,json.data.history,json.data.limit,json.data.ongoingVideo,json.data.users);
         console.info(group);
-        checkUpdateGroupName(json.data.groupId);
     }
     else {
-        user.groupList.push(json.data);
-        if (groupLeader(json.data.groupId)) {
+        var group = new Group(json.data.groupId, json.data.groupLeader, json.data.groupName, json.data.groupStream,json.data.groupStreamStatus,json.data.history,json.data.limit,json.data.ongoingVideo,json.data.users);
+        user.groupList.push(group);
+        if (group.isgroupLeader()) {
             setActiveGroupChat(json.data.groupId);
-            onGroupCreate();
+            onAfterGroupCreate();
         }
-        else
+        else{
             onAddToFriendGroup();
+            renderContactList();
+            updateRecentConversations(group);
+        }
             
-        checkUpdateGroupName(json.data.groupId);
-        renderContactList($('#contactListT'));
-        updateRecentConversations(json.data);
+        
     }
     
 
@@ -71,22 +57,18 @@ function responseGroupInfo(json) {
  */
 function responseGroupJoin(json) {
     console.log('responseGroupJoin: OK');
-    for (var i = 0; i < user.groupList.length; i++) {
-        if (user.groupList[i].groupId === json.data.groupId){
-            user.groupList[i].users.push(json.data.user);
-            checkUpdateGroupName(json.data.groupId);
-        }
-            
-        
-    }
+    var group = user.getGroupById(json.data.groupId);
+    if(group!==null)
+        group.addSelectedFriend(json.data.user);
     console.log(user);
 }
 
 function responseGroupLeave(json) {
     console.log('responseGroupLeave: OK');
-    if (removeUserFromGroup(json.data.id, json.data.groupId)){
+    var group = user.getGroupById(json.data.groupId);
+    
+    if (group.removeUser(json.data.id)){
         console.log('user with id:' + json.data.id + ' leaved group');
-        checkUpdateGroupName(json.data.groupId);
     }
     else
         console.log('ERROR in leave group');
@@ -94,22 +76,20 @@ function responseGroupLeave(json) {
 }
 function responseGroupMessage(json) {
     console.log('responseGroupMessage: OK');
-    group = getGroupById(json.data.groupId);
+    var group = user.getGroupById(json.data.groupId);
     if (group) {
         group.history.push(json.data);
-    }
-    if (json.data.groupId === getActiveGroupChat()) {
-        if (json.data.senderId === user.id) {
-            $('#inputGroupMessage').val('');
+        if (group.groupId === getActiveGroupChat()) {
+            if (json.data.senderId === user.id) {
+                $('#inputGroupMessage').val('');
+            }
+                addMessageToActiveGroupChat(group);
         }
-        addMessageToActiveGroupChat(getActiveGroupChat());
+        else {
+            group.newMessages++;
+            addRecentNotification('group',json.data);
+        }
     }
-    else {
-        //addRecentNotification(json.data);
-        // TODO: zobraz upozornenie o neprecitanej sprave
-    }
-
-
 }
 
 /*
@@ -126,16 +106,15 @@ function responsePrivateHistory(json) {
 function responsePrivateMessageNew(json) {
     console.log('responsePrivateMessageNew: OK');    
     var friend = user.getFriendById(json.data.senderId);
-    friend.addToHistory(jason.data);
-    confirmPrivateMessage(json.data.senderId,json.data.receiverId,json.data.timeId,private_message_status.delivered);
+    friend.addToHistory(json.data);    
     if (json.data.senderId === getActiveConverastion()) {
         updatePrivateChatWindow(getActiveConverastion());
-        //updateRecentContactMessage(json.data.senderId, json.data.message);
         confirmPrivateMessage(json.data.senderId,json.data.receiverId,json.data.timeId,private_message_status.read);
     }
     else {
-        // TODO: zobraz upozornenie o neprecitanej sprave
-        addRecentNotification(json.data);
+        confirmPrivateMessage(json.data.senderId,json.data.receiverId,json.data.timeId,private_message_status.delivered);
+        friend.newMessages++;
+        addRecentNotification('friend',json.data);
     }
 
 }
@@ -145,7 +124,6 @@ function responsePrivateMessageSent(json) {
     friend.addToHistory(json.data);
     $('#inputPrivateMessage').val('');
     updatePrivateChatWindow(getActiveConverastion());
-    //updateRecentContactMessage(json.data.receiverId, json.data.message);
 }
 
 function responsePrivateMessageDelivered(json){

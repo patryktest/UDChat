@@ -6,18 +6,22 @@ function User(id, name, status, friendListA, groupListA, lastConversationA){
     for (var i = 0; i < friendListA.length; i++) {
         var history = new Array();
         var recent = false;
-        for(var j = 0;j<lastConversationArray.length;j++){
-            if(lastConversationArray[j].userId===friendListA[i].id){
-                history.push(lastConversationArray[j].lastMessage);
-                recent = true;
+        if(lastConversationArray.length){
+            for(var j = 0;j<lastConversationArray.length;j++){
+                if(lastConversationArray[j].userId===friendListA[i].id){
+                    if(lastConversationArray[j].lastMessage)
+                        history.push(lastConversationArray[j].lastMessage);
+                    if(friendListA[i].newMessages>0)
+                        confirmPrivateMessage(lastConversationArray[j].lastMessage.senderId,lastConversationArray[j].lastMessage.receiverId,lastConversationArray[j].lastMessage.timeId,private_message_status.delivered);
+                    recent = true;
+                }
             }
         }
-        console.log(friendListA[i].id,history);
         friendListArray.push(new Friend(friendListA[i].id, friendListA[i].name, friendListA[i].newMessages, friendListA[i].status, history, recent));
     }
     var groupListArray = new Array();
     for (var i = 0; i < groupListA.length; i++) {
-        groupListArray.push(new Group(groupListA[i].displayGroupName, groupListA[i].groupId, groupListA[i].groupLeader, groupListA[i].groupName, groupListA[i].groupStream,groupListA[i].groupStreamStatus,groupListA[i].history,groupListA[i].limit,groupListA[i].ongoingVideo,groupListA[i].users));
+        groupListArray.push(new Group(groupListA[i].groupId, groupListA[i].groupLeader, groupListA[i].groupName, groupListA[i].groupStream,groupListA[i].groupStreamStatus,groupListA[i].history,groupListA[i].limit,groupListA[i].ongoingVideo,groupListA[i].users));
     }
     
     this.id = id;
@@ -29,7 +33,8 @@ function User(id, name, status, friendListA, groupListA, lastConversationA){
     
     this.setUserStatus = setUserStatusF;
     this.getFriendById = getFriendByIdF;
-    this.getGroupById = getGroupByIdF;    
+    this.getGroupById = getGroupByIdF;   
+    this.removeGroup = removeGroupF();
     
     
     function setUserStatusF(stat) {
@@ -51,6 +56,16 @@ function User(id, name, status, friendListA, groupListA, lastConversationA){
                 return this.groupList[i];
         }
         return null;
+    }
+    
+    function removeGroupF(id){
+        for (var i = 0; i < this.groupList.length; i++) {
+            if (this.groupList[i].groupId === id)
+                this.groupList.splice(i, 1);
+        }
+        removeGroupFromContactList(id);
+        removeGroupFromMainList(id);
+        
     }
     
     
