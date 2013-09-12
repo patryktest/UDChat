@@ -35,8 +35,8 @@ function addRecentNotification(command, data) {
     }
 }
 
-function clearRecentNotification(command,item) {
-    switch(command){
+function clearRecentNotification(command, item) {
+    switch (command) {
         case 'friend':
             $('#chatListT #friend_list_' + item.id + ' span.ui-li-message-count').addClass('hidden');
             $('#chatListT #friend_list_' + item.id + ' span.ui-li-message-count').html(item.newMessages);
@@ -45,22 +45,22 @@ function clearRecentNotification(command,item) {
             $('#chatListT #group_list_' + item.groupId + ' span.ui-li-message-count').addClass('hidden');
             $('#chatListT #group_list_' + item.groupId + ' span.ui-li-message-count').html(item.newMessages);
             break;
-            
-            
+
+
     }
-    
+
 }
 
 function updatePrivateChatWindow(id) {
     var friend = user.getFriendById(id);
-    var time = '', mess = '', name = '';
+    var time = '', mess = '', name = '',status = '';
     var userIsSender = false;
     var htmlString;
 
     if (friend !== null) {
         var lastMessage = friend.history[friend.history.length - 1];
         var lastestMessage = '';
-        if(friend.history.length>2)
+        if (friend.history.length > 2)
             lastestMessage = friend.history[friend.history.length - 2];
 
         if (lastMessage.senderId === user.id) {
@@ -72,6 +72,8 @@ function updatePrivateChatWindow(id) {
             userIsSender = false;
         }
         mess = lastMessage.message;
+        status = lastMessage.status;
+        var statusElement = lastMessage.statusElement;
 
         var newDate = new Date(lastMessage.timeId);
         var lastDate = new Date(lastestMessage.timeId);
@@ -84,7 +86,7 @@ function updatePrivateChatWindow(id) {
 
         if (lastestMessage.senderId !== lastMessage.senderId) {
             numberMessageItemGroup++;
-            $('#chatHistory').append(messageTemplate(userIsSender, mess, (newDate.getHours() < 10 ? '0' : '') + newDate.getHours() + ':' + (newDate.getMinutes() < 10 ? '0' : '') + newDate.getMinutes() + ' ' + date, numberMessageItemGroup));
+            $('#chatHistory').append(messageTemplate(userIsSender, mess, statusElement, (newDate.getHours() < 10 ? '0' : '') + newDate.getHours() + ':' + (newDate.getMinutes() < 10 ? '0' : '') + newDate.getMinutes() + ' ' + date, numberMessageItemGroup));
         }
         else {
             if (userIsSender) {
@@ -94,12 +96,17 @@ function updatePrivateChatWindow(id) {
                 htmlString = '<p class="ui-li-message-right ui-li-desc">' + mess + '</p>';
             }
             var element = $('#chatHistory li').last();
+            element.append(htmlString);
             if (oldTime === time)
                 element.find('.ui-li-message-time').last().remove();
-            htmlString += '<p class="ui-li-message-time ui-li-desc">' + (newDate.getHours() < 10 ? '0' : '') + newDate.getHours() + ':' + (newDate.getMinutes() < 10 ? '0' : '') + newDate.getMinutes() + ' ' + date + '</p>';
+            
+            //htmlString += '<p class="ui-li-message-time ui-li-desc">' + (newDate.getHours() < 10 ? '0' : '') + newDate.getHours() + ':' + (newDate.getMinutes() < 10 ? '0' : '') + newDate.getMinutes() + ' ' + date + ' '+status+'</p>';
 
-
-            element.append(htmlString);
+            var element2 = document.createElement('p');
+            element2.setAttribute('class','ui-li-message-time ui-li-desc');
+            element2.innerHTML = (newDate.getHours()<10?'0':'')+newDate.getHours()+':'+(newDate.getMinutes()<10?'0':'')+newDate.getMinutes() + ' '+date;
+            element2.appendChild(statusElement);
+            element.append(element2);
         }
         $("html, body").animate({scrollTop: $(document).height()}, 100);
     }
@@ -139,14 +146,14 @@ function addMessageToActiveGroupChat(group) {
 
         if (lastestMessage.senderId !== lastMessage.senderId) {
             numberMessageItemGroup++;
-            $('#groupChatHistory').append(messageTemplate(userIsSender, mess, (newDate.getHours() < 10 ? '0' : '') + newDate.getHours() + ':' + (newDate.getMinutes() < 10 ? '0' : '') + newDate.getMinutes() + ' ' + date, numberMessageItemGroup));
+            $('#groupChatHistory').append(messageTemplate(userIsSender, lastMessage.message, '', (newDate.getHours() < 10 ? '0' : '') + newDate.getHours() + ':' + (newDate.getMinutes() < 10 ? '0' : '') + newDate.getMinutes() + ' ' + date, numberMessageItemGroup));
         }
         else {
             if (userIsSender) {
-                htmlString = '<p class="ui-li-message-left ui-li-desc">' + mess + '</p>';
+                htmlString = '<p class="ui-li-message-left ui-li-desc">' + lastMessage.message + '</p>';
             }
             else {
-                htmlString = '<p class="ui-li-message-right ui-li-desc">' + mess + '</p>';
+                htmlString = '<p class="ui-li-message-right ui-li-desc">' + lastMessage.message + '</p>';
             }
             var element = $('#groupChatHistory li').last();
             if (oldTime === time)
@@ -211,11 +218,20 @@ function updateContactListSelectFriend(id, command) {
 }
 
 function updateSelectedFriendView() {
-    if (selectedFriend.length)
-        $('#contactPageSmallMenu').css({display: 'block'});
-    else
-        $('#contactPageSmallMenu').css({display: 'none'});
-
+    if (mannage_group_conntact) {
+        $('#contactT').html('Manage Group');
+        $('.manageGroupMembers').removeClass('hidden');
+        $('.btn_openPrivateGroupChat').addClass('hidden');
+    } else {
+        $('#contactT').html('Connections');
+        $('.manageGroupMembers').addClass('hidden');
+        $('.btn_openPrivateGroupChat').removeClass('hidden');
+    }
+        if (selectedFriend.length)
+            $('#contactPageSmallMenu').css({display: 'block'});
+        else
+            $('#contactPageSmallMenu').css({display: 'none'});
+    
     $('#contactList-selectedFriendT').text('');
     for (var i = 0; i < user.friendList.length; i++) {
         for (var j = 0; j < selectedFriend.length; j++) {
@@ -235,6 +251,7 @@ function updateSelectedFriendView() {
             }
         }
     }
+
 }
 
 function removeGroupFromContactList(id) {

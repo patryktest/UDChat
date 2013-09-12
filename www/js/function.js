@@ -93,7 +93,13 @@ function updateContactListView() {
         $('#contactListT #friend_list_' + user.friendList[i].id).removeClass('ui-selectedFriend');
 }
 
-
+function isGroupUserInSelectFriend(user){
+    for (var i = 0; i < selectedFriend.length; i++){
+        if(user.id === selectedFriend[i])
+            return true;
+    }
+    return false;
+}
 
 
 /*

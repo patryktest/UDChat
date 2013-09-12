@@ -95,7 +95,7 @@ function renderPopupMenu() {
 function renderPrivateChatWindow(id) {
     
     var friend = user.getFriendById(id);
-    var time = '',date = '', mess = '', name = '';
+    var time = '',date = '', mess = '', name = '',status = '',statusElement ='';
     var lastSender = '';
     var lastDate = '';
     var lastSendTime = '';
@@ -125,6 +125,8 @@ function renderPrivateChatWindow(id) {
             }
 
             mess = friend.history[i].message;
+            status = friend.history[i].status;
+            statusElement = friend.history[i].statusElement;
             var newDate = new Date(friend.history[i].timeId);
             time = newDate.getUTCFullYear()+':'+newDate.getUTCDate()+':'+newDate.getUTCMonth()+':'+newDate.getUTCHours()+':'+newDate.getUTCMinutes();
             date = newDate.getUTCDate()+'.'+newDate.getUTCMonth()+'.'+newDate.getUTCFullYear();
@@ -138,7 +140,8 @@ function renderPrivateChatWindow(id) {
             
             if (lastSender !== name) {
                 numberMessageItemGroup++;
-                element_chatHistory.append(messageTemplate(userIsSender,mess,(newDate.getHours()<10?'0':'')+newDate.getHours()+':'+(newDate.getMinutes()<10?'0':'')+newDate.getMinutes() + ' '+date,numberMessageItemGroup));
+                var element = messageTemplate(userIsSender,mess,statusElement,(newDate.getHours()<10?'0':'')+newDate.getHours()+':'+(newDate.getMinutes()<10?'0':'')+newDate.getMinutes() + ' '+date,numberMessageItemGroup);
+                element_chatHistory.append(element);    
             }
             else {
                 if(userIsSender){
@@ -149,12 +152,18 @@ function renderPrivateChatWindow(id) {
                     htmlString = '<p class="ui-li-message-right ui-li-desc">' + mess + '</p>';
                 }
                 element = $('#chatHistory li').last();
+                element.append(htmlString);
                 if(lastSendTime === time)
                     element.find('.ui-li-message-time').last().remove();
-                htmlString += '<p class="ui-li-message-time ui-li-desc">' + (newDate.getHours()<10?'0':'')+newDate.getHours()+':'+(newDate.getMinutes()<10?'0':'')+newDate.getMinutes() + ' '+date +'</p>';
+                //htmlString += '<p class="ui-li-message-time ui-li-desc">' + (newDate.getHours()<10?'0':'')+newDate.getHours()+':'+(newDate.getMinutes()<10?'0':'')+newDate.getMinutes() + ' '+date +' '+status+'</p>';
+                var element2 = document.createElement('p');
+                element2.setAttribute('class','ui-li-message-time ui-li-desc');
+                element2.innerHTML = (newDate.getHours()<10?'0':'')+newDate.getHours()+':'+(newDate.getMinutes()<10?'0':'')+newDate.getMinutes() + ' '+date;
+                element2.appendChild(statusElement);
+                element.append(element2);
                 
                     
-                element.append(htmlString);
+                
             }
             lastSender = name;
             lastSendTime = time;
@@ -185,6 +194,7 @@ function renderGroupChatWindow(id) {
         var lastSender = '';
         var lastSendTime = '';
         var lastDate = '';
+        var status = '';
         var htmlString;
         var userIsSender = false;
         numberMessageItemGroup=0;
@@ -214,7 +224,7 @@ function renderGroupChatWindow(id) {
 
             if (lastSender !== name) {
                 numberMessageItemGroup++;
-                element_groupChatHistory.append(messageTemplate(userIsSender, mess, (newDate.getHours()<10?'0':'')+newDate.getHours()+':'+(newDate.getMinutes()<10?'0':'')+newDate.getMinutes() + ' '+date,numberMessageItemGroup));
+                element_groupChatHistory.append(messageTemplate(userIsSender, mess, status, (newDate.getHours()<10?'0':'')+newDate.getHours()+':'+(newDate.getMinutes()<10?'0':'')+newDate.getMinutes() + ' '+date,numberMessageItemGroup));
             }
             else {
                 if(history[i].senderId === user.id){
@@ -317,22 +327,30 @@ function itemTemplate(id_string,id,fun,name,countNewMessage,status,message){
     return temp;
 }
 
-function messageTemplate(userIsSender, message, date, num){
+function messageTemplate(userIsSender, message, status, date, num){
     var color = 'light';
     if(num%2) color = 'dark';
     else color = 'light';
-    var temp = '<li class="ui-li ui-li-static ui-btn-up-d '+color+'">';
+    var element = document.createElement('li');
+    element.setAttribute('class','ui-li ui-li-static ui-btn-up-d '+color); //('ui-li ui-li-static ui-btn-up-d '+color);
+    //var temp = '<li class="ui-li ui-li-static ui-btn-up-d '+color+'">';
     if(userIsSender){
-        temp += '<p class="ui-li-right ui-li-desc"><img  src="./img/profil_img.png" alt="status" class="ui-li-profil-icon"></p>';
+        temp = '<p class="ui-li-right ui-li-desc"><img  src="./img/profil_img.png" alt="status" class="ui-li-profil-icon"></p>';
         temp += '<p class="ui-li-message-left ui-li-desc">' + message + '</p>';
     }
     else{
-        temp += '<p class="ui-li-left ui-li-desc"><img  src="./img/profil_img.png" alt="status" class="ui-li-profil-icon"></p>';
+        temp = '<p class="ui-li-left ui-li-desc"><img  src="./img/profil_img.png" alt="status" class="ui-li-profil-icon"></p>';
         temp += '<p class="ui-li-message-right ui-li-desc">' + message + '</p>';
     }          
-    temp += '<p class="ui-li-message-time ui-li-desc">' + date +'</p>';
-    temp += '</li>';
     
-    return temp;
+    element.innerHTML =temp;
+    var elementP = document.createElement('p');
+    elementP.setAttribute('class','ui-li-message-time ui-li-desc');
+    elementP.innerHTML = date;
+    elementP.appendChild(status)
+    element.appendChild(elementP);
+    //temp += '</li>';
+    
+    return element;
 }
 

@@ -21,16 +21,21 @@ function responseFriendListUpdate() {
 }
 function responseGroupClose(json) {
     console.log('responseGroupClose: OK');
-    user.removeGroup(json.data.groupId)
+    user.removeGroup(json.data.groupId);
     onCloseGroupChatWindow();
 
 }
 function responseGroupInfo(json) {
     console.log('responseGroupInfo: OK');
     var group = user.getGroupById(json.data.groupId);
+    var nameChanged = false;
     if (group) {
-        group.update(json.data.groupId, json.data.groupLeader, json.data.groupName, json.data.groupStream,json.data.groupStreamStatus,json.data.history,json.data.limit,json.data.ongoingVideo,json.data.users);
+        nameChanged = group.update(json.data.groupId, json.data.groupLeader, json.data.groupName, json.data.groupStream,json.data.groupStreamStatus,json.data.history,json.data.limit,json.data.ongoingVideo,json.data.users);
         console.info(group);
+        if(mannage_group_name && nameChanged){
+            onOpenGroupChatWindow(getActiveGroupChat());
+            mannage_group_name = false;
+        }    
     }
     else {
         var group = new Group(json.data.groupId, json.data.groupLeader, json.data.groupName, json.data.groupStream,json.data.groupStreamStatus,json.data.history,json.data.limit,json.data.ongoingVideo,json.data.users);
@@ -110,9 +115,11 @@ function responsePrivateMessageNew(json) {
     if (json.data.senderId === getActiveConverastion()) {
         updatePrivateChatWindow(getActiveConverastion());
         confirmPrivateMessage(json.data.senderId,json.data.receiverId,json.data.timeId,private_message_status.read);
+        friend.updateMessageStatus(user.id,json.data.timeId,private_message_status.read);
     }
     else {
         confirmPrivateMessage(json.data.senderId,json.data.receiverId,json.data.timeId,private_message_status.delivered);
+        friend.updateMessageStatus(user.id,json.data.timeId,private_message_status.delivered);
         friend.newMessages++;
         addRecentNotification('friend',json.data);
     }
@@ -127,11 +134,13 @@ function responsePrivateMessageSent(json) {
 }
 
 function responsePrivateMessageDelivered(json){
-    
+    var friend = user.getFriendById(json.data.senderId);
+    friend.updateMessageStatus(json.data.timeId,json.type);
 }
 
 function responsePrivateMessageRead(json){
-    
+    var friend = user.getFriendById(json.data.senderId);
+    friend.updateMessageStatus(json.data.timeId,json.type);
 }
 
 function responseStatusUpdate(json) {

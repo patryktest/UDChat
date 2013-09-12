@@ -6,6 +6,7 @@ var jsFiles = [
     "js/function.js",
     "js/user.js",
     "js/friend.js",
+    "js/message.js",
     "js/privateChat.js",
     "js/groupChat.js",
     "js/group.js",
@@ -62,3 +63,5 @@ var connection;
 var user = {};
 var friendList = {};
 var groupList = {};
+mannage_group_conntact = false;
+mannage_group_name = false;

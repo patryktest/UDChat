@@ -96,7 +96,7 @@ function commandCloseGroupChat(groupId) {
  * @returns {undefined}
  */
 function commandAddUserToGroup(friendId, groupId) {
-    //console.log('add user : ' + friendId + ' to group: ' + groupId);
+    console.log('add user : ' + friendId + ' to group: ' + groupId);
     sendCommand('chat.addUserToConversation', [friendId, groupId]);
 }
 
@@ -106,9 +106,9 @@ function commandAddUserToGroup(friendId, groupId) {
  * @param {type} groupId
  * @returns {undefined}
  */
-function commandLeaveConversation(groupId) {
-    //console.log('leave group ' + groupId);
-    sendCommand('chat.leaveConversation', [groupId, user.id]);
+function commandLeaveConversation(groupId, friendId) {
+    console.log('leave group ' + groupId);
+    sendCommand('chat.leaveConversation', [groupId, friendId]);
 }
 
 function sendGroupMessage(groupId, message) {

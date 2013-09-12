@@ -34,7 +34,7 @@ function User(id, name, status, friendListA, groupListA, lastConversationA){
     this.setUserStatus = setUserStatusF;
     this.getFriendById = getFriendByIdF;
     this.getGroupById = getGroupByIdF;   
-    this.removeGroup = removeGroupF();
+    this.removeGroup = removeGroupF;
     
     
     function setUserStatusF(stat) {

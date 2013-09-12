@@ -60,7 +60,13 @@
 
                 </ul>
                 <ul data-role="listview" id="contactPageSmallMenu">
-                    <li data-icon="false"><a onclick="onOpenPrivateGroupChat();" href=""><span class="smallMenuBtn"></span></a></li>
+                    <li data-icon="false" class="btn_openPrivateGroupChat"><a onclick="onOpenPrivateGroupChat();" href=""><span class="smallMenuBtn"></span></a></li>
+                    <li data-icon="false" class="manageGroupMembers">
+                        <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
+                            <a onclick="onOkManageGroupMembers();" href=""><span class="manageGroupMembers_ok"></span></a>
+                            <a onclick="onCancelManageGroupMembers();" href=""><span class="manageGroupMembers_cancel"></span></a>
+                        </div>
+                    </li>
                 </ul>
 
                 <ul data-role="listview" id="contactListT" data-filter="true" data-theme="d" data-filter-placeholder="search for connections"></ul>

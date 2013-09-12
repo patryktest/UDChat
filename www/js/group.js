@@ -19,6 +19,7 @@ function Group(groupId,groupLeader,groupName,groupStream,groupStreamStatu,histor
     this.addSelectedFriend = addSelectedFriendF;
     this.removeUser = removeUserF;
     this.update = updateF;
+    this.hasUser = hasUserF;
 
     this.checkUpdateGroupName();
     
@@ -54,6 +55,9 @@ function Group(groupId,groupLeader,groupName,groupStream,groupStreamStatu,histor
         return false;   
     }
     function updateF(groupId,groupLeader,groupName,groupStream,groupStreamStatu,history,limit,ongoingVideo,users){
+        var nameChanged = false;
+        if(this.groupName !== groupName)
+            nameChanged = true;
         this.displayGroupName = groupName;
         this.groupId = groupId;
         this.groupName = groupName;
@@ -66,6 +70,17 @@ function Group(groupId,groupLeader,groupName,groupStream,groupStreamStatu,histor
         this.users = users;
         this.newMessages = 0;
         this.checkUpdateGroupName();
+        return nameChanged;
+    }
+    
+    function hasUserF(idUser){
+        var users= this.users;
+        for(var i=0;i<users.length;i++){
+            if(users[i].id===idUser){
+                return true;
+            }
+        }         
+        return false; 
     }
 }
 

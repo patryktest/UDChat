@@ -173,7 +173,7 @@
 
 
 
-.hidden, #contactback.hidden {
+.hidden, #contactback.hidden, #contactPageSmallMenu li.hidden{
     display: none;
 }
 
@@ -316,6 +316,40 @@
 #contactPageSmallMenu a {
     padding: 4px 0;
 }
+#contactPageSmallMenu .ui-controlgroup-controls a {
+    padding: 4px 0 4px 24px;
+    float: left;
+}
+#contactPageSmallMenu .ui-controlgroup-controls{
+    margin: 0 0 0 -50px;
+    padding-left: 50%;
+}
+#contactPageSmallMenu .ui-controlgroup{
+    width: 100%;
+}
+
+.manageGroupMembers_ok {
+    background: url("../img/icons.svg") repeat scroll -158px -20px transparent;
+    border: medium none;
+    border-radius: 0 0 0 0;
+    box-shadow: none;
+    display: block;
+    height: 20px;
+    margin: 0 auto;
+    width: 19px;
+    background-size: 250px auto;
+}
+.manageGroupMembers_cancel {
+    background: url("../img/icons.svg") repeat scroll -138px 0px transparent;
+    border: medium none;
+    border-radius: 0 0 0 0;
+    box-shadow: none;
+    display: block;
+    height: 20px;
+    margin: 0 auto;
+    width: 16px;
+    background-size: 250px auto;
+}
 
 /******************************************************
 *   contact list search filter
@@ -405,7 +439,7 @@
 *   group chat menu footer
 *******************************************************/
 #groupChatMenuBtn_manage:before{
-    background: url("../img/icons.svg") no-repeat scroll -56px 0 / 240px auto transparent;
+    background: url("../img/icons.svg") no-repeat scroll -56px 0 transparent;
     content: "";
     float: left;
     height: 20px;
@@ -414,7 +448,7 @@
     background-size: 240px auto;
 }
 #groupChatMenuBtn_rename:before{
-    background: url("../img/icons.svg") no-repeat scroll -64px -19px / 240px auto transparent;
+    background: url("../img/icons.svg") no-repeat scroll -64px -19px transparent;
     content: "";
     float: left;
     height: 20px;
@@ -423,7 +457,7 @@
     background-size: 240px auto;
 }
 #groupChatMenuBtn_leave:before{
-    background: url("../img/icons.svg") no-repeat scroll -206px 0 / 240px auto transparent;
+    background: url("../img/icons.svg") no-repeat scroll -206px 0 transparent;
     content: "";
     float: left;
     height: 20px;
@@ -432,7 +466,7 @@
     background-size: 240px auto;
 }
 #groupChatMenuBtn_close:before {
-    background: url("../img/icons.svg") no-repeat scroll -147px 0 / 240px auto transparent;
+    background: url("../img/icons.svg") no-repeat scroll -147px 0 transparent;
     content: "";
     float: left;
     height: 20px;
@@ -445,4 +479,26 @@
     padding: 0 0 0 8px;
     text-align: left;
     background-size: 240px auto;
+}
+
+.message_status_SERVER_PRIVATE_MESSAGE_READ{
+    background: url("../img/icons.svg") no-repeat scroll 0 -13px transparent;
+    display: inline-block;
+    height: 13px;
+    width: 17px;
+    background-size: 160px auto;
+}
+.message_status_SERVER_PRIVATE_MESSAGE_DELIVERED{
+    background: url("../img/icons.svg") no-repeat scroll -10px 0px transparent;
+    display: inline-block;
+    height: 13px;
+    width: 14px;
+    background-size: 160px auto;
+}
+.message_status_SERVER_PRIVATE_MESSAGE_SENT{
+    background: url("../img/icons.svg") no-repeat scroll -101px -13px transparent;
+    display: inline-block;
+    height: 13px;
+    width: 12px;
+    background-size: 160px auto;
 }
