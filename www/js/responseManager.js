@@ -135,12 +135,12 @@ function responsePrivateMessageSent(json) {
 
 function responsePrivateMessageDelivered(json){
     var friend = user.getFriendById(json.data.senderId);
-    friend.updateMessageStatus(json.data.timeId,json.type);
+    friend.updateMessageStatus(user.id,json.data.timeId,json.type);
 }
 
 function responsePrivateMessageRead(json){
     var friend = user.getFriendById(json.data.senderId);
-    friend.updateMessageStatus(json.data.timeId,json.type);
+    friend.updateMessageStatus(user.id,json.data.timeId,json.type);
 }
 
 function responseStatusUpdate(json) {

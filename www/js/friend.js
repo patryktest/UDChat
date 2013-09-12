@@ -28,12 +28,12 @@ function Friend(id, name, newMessages, status, history, recent) {
     function updateHistoryF(history) {
         var historyA = new Array();
         for (var i = 0; i < history.length; i++)
-            historyA.push(new Message(id, history[i].date, history[i].groupId, history[i].message, history[i].receiverId, history[i].senderId, history[i].status, history[i].time, history[i].timeId, history[i].timestamp));
+            historyA.push(new Message(user.id, history[i].date, history[i].groupId, history[i].message, history[i].receiverId, history[i].senderId, history[i].status, history[i].time, history[i].timeId, history[i].timestamp));
         this.history = historyA;
     }
 
     function addToHistoryF(history) {
-        this.history.push(new Message(id, history.date, history.groupId, history.message, history.receiverId, history.senderId, history.status, history.time, history.timeId, history.timestamp));
+        this.history.push(new Message(user.id, history.date, history.groupId, history.message, history.receiverId, history.senderId, history.status, history.time, history.timeId, history.timestamp));
     }
 
     function updateStatusF(status) {
