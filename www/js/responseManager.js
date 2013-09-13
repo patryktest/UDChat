@@ -39,7 +39,8 @@ function responseGroupInfo(json) {
     }
     else {
         var group = new Group(json.data.groupId, json.data.groupLeader, json.data.groupName, json.data.groupStream,json.data.groupStreamStatus,json.data.history,json.data.limit,json.data.ongoingVideo,json.data.users);
-        user.groupList.push(group);
+        
+        user.addGroup(group);
         if (group.isgroupLeader()) {
             setActiveGroupChat(json.data.groupId);
             onAfterGroupCreate();
@@ -47,7 +48,7 @@ function responseGroupInfo(json) {
         else{
             onAddToFriendGroup();
             renderContactList();
-            updateRecentConversations(group);
+            //updateRecentConversations(group);
         }
             
         
@@ -83,16 +84,14 @@ function responseGroupMessage(json) {
     console.log('responseGroupMessage: OK');
     var group = user.getGroupById(json.data.groupId);
     if (group) {
-        group.history.push(json.data);
+        group.addToHistory(json.data);
         if (group.groupId === getActiveGroupChat()) {
             if (json.data.senderId === user.id) {
                 $('#inputGroupMessage').val('');
             }
-                addMessageToActiveGroupChat(group);
         }
         else {
-            group.newMessages++;
-            addRecentNotification('group',json.data);
+            group.setNewMessages('+');
         }
     }
 }
@@ -113,15 +112,13 @@ function responsePrivateMessageNew(json) {
     var friend = user.getFriendById(json.data.senderId);
     friend.addToHistory(json.data);    
     if (json.data.senderId === getActiveConverastion()) {
-        updatePrivateChatWindow(getActiveConverastion());
         confirmPrivateMessage(json.data.senderId,json.data.receiverId,json.data.timeId,private_message_status.read);
         friend.updateMessageStatus(user.id,json.data.timeId,private_message_status.read);
     }
     else {
         confirmPrivateMessage(json.data.senderId,json.data.receiverId,json.data.timeId,private_message_status.delivered);
         friend.updateMessageStatus(user.id,json.data.timeId,private_message_status.delivered);
-        friend.newMessages++;
-        addRecentNotification('friend',json.data);
+        friend.setNewMessages('+');
     }
 
 }
@@ -130,7 +127,6 @@ function responsePrivateMessageSent(json) {
     var friend = user.getFriendById(json.data.receiverId);
     friend.addToHistory(json.data);
     $('#inputPrivateMessage').val('');
-    updatePrivateChatWindow(getActiveConverastion());
 }
 
 function responsePrivateMessageDelivered(json){
@@ -157,7 +153,6 @@ function responseStatusUpdate(json) {
         if(change_status){ 
             var friend = user.getFriendById(json.userId);
             friend.updateStatus(json.chatStatus);
-            viewUpdateFriendStatus(friend);
         }
     }
     else

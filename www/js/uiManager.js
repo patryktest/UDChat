@@ -36,11 +36,9 @@ function onGoToMainPage(){
 }
 
 function onOpenPrivateChatWindow(id){
-    renderPrivateChatWindow(id);
     $.mobile.changePage( "index.html#chatPageTemplate", { transition: "slide"} );
-    
-    //renderRecentConversations();
     var friend = user.getFriendById(id);
+    $('#chatHistoryElementPlace').html(friend.historyElement);
     if(friend){
         var history = friend.history;
         var historyL = history.length-1;
@@ -48,9 +46,8 @@ function onOpenPrivateChatWindow(id){
         if(countMessage>0){
             confirmPrivateMessage(history[historyL].senderId,history[historyL].receiverId,history[historyL].timeId,private_message_status.read);
             friend.updateMessageStatus(user.id,history[historyL].timeId,private_message_status.read);
-            friend.newMessages = 0;
+            friend.setNewMessages(0);
             friend.recent = true;
-            clearRecentNotification('friend',friend);
         }
         
     }
@@ -71,11 +68,12 @@ function onOpenPageCreatingGroupChat(){
 function onOpenGroupChatWindow(id){
     $.mobile.changePage( "index.html#groupChatPageTemplate", { transition: "slide"} );
     setActiveGroupChat(id);
-    renderGroupChatWindow(id);
+    //renderGroupChatWindow(id);
+    
     var group = user.getGroupById(id);
-    if(group){
-        group.newMessages = 0;
-        clearRecentNotification('group',group);
+    $('#groupHistoryElementPlace').html(group.historyElement);
+    if(group){        
+        group.setNewMessages(0);
     }
     
 }
