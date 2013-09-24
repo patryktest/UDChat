@@ -4,6 +4,8 @@ function onConnectionOpen(){
     console.log('connected to ws');
     $('#loginButton').button('enable');
     $('#loginButton').button( "refresh" );
+    //if(USER_ID!=null && USER_SESSION!=null)
+    //        commandLogin();
 }
 
 function onConnectionError(){
@@ -36,10 +38,13 @@ function onGoToMainPage(){
 }
 
 function onOpenPrivateChatWindow(id){
+    
     $.mobile.changePage( "index.html#chatPageTemplate", { transition: "slide"} );
     var friend = user.getFriendById(id);
+    
     $('#chatHistoryElementPlace').html(friend.historyElement);
     if(friend){
+        friend.recent = true;
         var history = friend.history;
         var historyL = history.length-1;
         var countMessage = friend.newMessages;

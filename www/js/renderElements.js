@@ -13,11 +13,11 @@ function renderRecentConversations() {
         elementUl.appendChild(array[i]);
     element.append(elementUl);
     user.recentConversationElement = elementUl;
-    var element = $('#chatListT');
+    /*var element = $('#chatListT');
     if ((element).hasClass('ui-listview')) {
         element.listview();
         element.listview('refresh');
-    }
+    }*/
 
 }
 
@@ -55,11 +55,11 @@ function renderContactList() {
         letterDivider = contactList[i].name[0];
 
     }
-    if ((element).hasClass('ui-listview')) {
+    /*if ((element).hasClass('ui-listview')) {
         element.listview();
         element.listview('refresh');
-    }
-    ;
+    }*/
+    
     $('body').trigger('FilterInputCreated');
 }
 
@@ -140,8 +140,11 @@ function itemTemplate(id_string, id, fun, name, countNewMessage, status, message
     var element = document.createElement('li');
     element.setAttribute('data-icon', 'false');
     element.setAttribute('id', id_string + id);
+    element.setAttribute('class','ui-btn ui-btn-icon-right ui-li ui-li-has-icon ui-first-child ui-last-child ui-btn-up-d');
+    var temp = '<div class="ui-btn-inner ui-li">\n\
+                <div class="ui-btn-text">';
 
-    var temp = '<a onclick="' + fun + ';" href="">\n\
+    temp += '<a onclick="' + fun + ';" href="" class="ui-link-inherit">\n\
                     <img  src="./img/profil_img.png" alt="status" class="ui-li-icon"><span class="name">' + name + '</span>';
     if (countNewMessage !== null)
         temp += '<p class="chat-list-friend-item">\n\
@@ -150,7 +153,7 @@ function itemTemplate(id_string, id, fun, name, countNewMessage, status, message
                     </p>';
     temp += '</a>';
     if (status !== null)
-        temp += '<span class="user-status-icon ui-icon-' + status + ' device-mobile"></span>\n';
+        temp += '<span class="user-status-icon ui-icon-' + status + ' device-mobile"></span></div></div>\n';
 
     element.innerHTML = temp;
     return element;

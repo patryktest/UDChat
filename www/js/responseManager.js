@@ -39,9 +39,9 @@ function responseGroupInfo(json) {
     }
     else {
         var group = new Group(json.data.groupId, json.data.groupLeader, json.data.groupName, json.data.groupStream,json.data.groupStreamStatus,json.data.history,json.data.limit,json.data.ongoingVideo,json.data.users);
-        
         user.addGroup(group);
         if (group.isgroupLeader()) {
+            
             setActiveGroupChat(json.data.groupId);
             onAfterGroupCreate();
         }

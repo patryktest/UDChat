@@ -13,6 +13,9 @@ function login(login, pass) {
     } 
 }
 
+function commandLogin(){
+    sendCommand('user.login', [USER_ID, USER_SESSION, user_status.available, user_device.desktop]);
+}
 function logout() {
     sendCommand('user.logout', [user.id]);
     onLogout();
@@ -141,6 +144,7 @@ function sendCommand(command, params) {
     connection.send(JSON.stringify({command: command, parameters: params}));
     // parameters
     /* connection.send(JSON.stringify({command: 'user.loginWS', parameters: param}));        [user,login, status, device]       status>0 login F,device[mobile, tablet, desktop]
+     connection.send(JSON.stringify({command: 'user.login', parameters: param}));        [userID,sessionID, status, device]       status>0 login F,device[mobile, tablet, desktop]
      connection.send(JSON.stringify({command: 'user.logout', parameters: param}));           [id]
      
      connection.send(JSON.stringify({command: 'user.requestFriendList', parameters: param}));

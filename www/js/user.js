@@ -74,11 +74,11 @@ function User(id, name, status, friendListA, groupListA, lastConversationA) {
     function addGroupF(group){
         user.groupList.push(group);
         this.recentConversationElement.appendChild(group.itemElement);
-        var element = $('#chatListT');
+        /*var element = $('#chatListT');
         if ((element).hasClass('ui-listview')) {
             //element.listview();
             element.listview('refresh');
-        }
+        }*/
     }
 
     function recentConversationElementInitF() {

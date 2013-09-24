@@ -38,7 +38,7 @@ function Group(groupId, groupLeader, groupName, groupStream, groupStreamStatu, h
    
     this.renderGroupName = renderGroupNameF;
     
-     this.checkUpdateGroupName();
+    this.checkUpdateGroupName();
 
     function addToHistoryF(history) {
         this.history.push(new Message(user.id, history.date, history.groupId, history.message, history.receiverId, history.senderId, history.status, history.time, history.timeId, history.timestamp));
@@ -141,7 +141,6 @@ function Group(groupId, groupLeader, groupName, groupStream, groupStreamStatu, h
             }
 
         }
-        console.log('namechange',elements);
     }
     function createHistoryElementF() {
 

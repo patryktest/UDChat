@@ -14,7 +14,7 @@ function connect() {
 
 
     connection.onopen = function() {
-        onConnectionOpen();        
+        onConnectionOpen();   
     };
 
     connection.onerror = function(error) {
