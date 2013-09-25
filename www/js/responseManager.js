@@ -1,7 +1,6 @@
 function responseLogin(json) {
         
     user = new User(json.user.id, json.user.name, user_status.online, json.friendList, json.groupList, json.lastConversation);
-    
     console.log("responseLogin OK ");
     console.log(user);
     if (user !== null) {
@@ -31,8 +30,9 @@ function responseGroupInfo(json) {
     var nameChanged = false;
     if (group) {
         nameChanged = group.update(json.data.groupId, json.data.groupLeader, json.data.groupName, json.data.groupStream,json.data.groupStreamStatus,json.data.history,json.data.limit,json.data.ongoingVideo,json.data.users);
-        console.info(group);
+        console.info(group,mannage_group_name, nameChanged);
         if(mannage_group_name && nameChanged){
+            console.info('group name change');
             onOpenGroupChatWindow(getActiveGroupChat());
             mannage_group_name = false;
         }    
@@ -110,7 +110,9 @@ function responsePrivateHistory(json) {
 function responsePrivateMessageNew(json) {
     console.log('responsePrivateMessageNew: OK');    
     var friend = user.getFriendById(json.data.senderId);
-    friend.addToHistory(json.data);    
+    friend.addToHistory(json.data);  
+    friend.recent = true;
+    user.updateRecentConversationElement(friend);
     if (json.data.senderId === getActiveConverastion()) {
         confirmPrivateMessage(json.data.senderId,json.data.receiverId,json.data.timeId,private_message_status.read);
         friend.updateMessageStatus(user.id,json.data.timeId,private_message_status.read);

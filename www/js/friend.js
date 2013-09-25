@@ -5,17 +5,45 @@ var selectedFriend = [];
  * return object friend
  */
 
-function Friend(id, name, newMessages, status, history, recent) {
+function Friend(id, name, newMessages, status, history, recent,avatar) {
     var historyA = new Array();
     for (var i = 0; i < history.length; i++)
         historyA.push(new Message(id, history[i].date, history[i].groupId, history[i].message, history[i].receiverId, history[i].senderId, history[i].status, history[i].time, history[i].timeId, history[i].timestamp));
     var message = '';
-    if (historyA.length)
+    var message_status = '';
+    if (historyA.length){
         message = historyA[historyA.length - 1].message;
+        message_status = historyA[historyA.length - 1].status;
+    }
     if (newMessages>0)
         message = 'new message';
+    
+    if(avatar!==null){
+        var canvas = document.getElementById('myCanvas');
+        canvas.width = 100;
+        canvas.height = 100;
+        console.info('have avatar',canvas);
+        
+        
+        var ctx=canvas.getContext("2d");
+        ctx.fillStyle="#FF0000";
+        ctx.fillRect(0,0,150,75);
+        b64imgData=btoa(avatar); //Binary to ASCII, where it probably stands for
+        var img=new Image();
+        img.src="data:image/jpg;base64,"+b64imgData;
+        img.onload = function() {
+        ctx.drawImage(img, 0, 0);
+        };
 
+       
+        
+        //image.src = "data:image/jpg;base64," + avatar;
+        //image.src = "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="; // insert a dot image contains 1px.
 
+    }
+
+       
+       
     this.id = id;
     this.name = name;
     this.newMessages = newMessages;
@@ -33,7 +61,7 @@ function Friend(id, name, newMessages, status, history, recent) {
     this.startChat = 'commandOpenPrivateChat(' + this.id + ')';
     this.selectFriend = 'selectFriend(' + this.id + ')';
     this.updateMessageStatus = updateMessageStatusF;
-    this.itemElement = itemTemplate('friend_list_',this.id,this.startChat,this.name,this.newMessages,this.status,message);
+    this.itemElement = itemTemplate('friend_list_',this.id,this.startChat,this.name,this.newMessages,this.status,message,message_status);
     this.renderFriendStatus = renderFriendStatusF;
     this.setNewMessages = setNewMessagesF;
 

@@ -19,7 +19,7 @@ function connect() {
 
     connection.onerror = function(error) {
         onLogout();
-        onConnectionError();
+        onConnectionError(error);
     };
 
     connection.onmessage = function(message) {

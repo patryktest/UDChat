@@ -123,7 +123,11 @@ function renderPopupGroupMenu(content, left_btn, right_btn, add_function) {
     $('#popupGroupMenu p').html('<span class="ui-btn-inner"><span class="ui-btn-text">' + content + '</span></span>');
     $('#popupGroupMenu a.left_btn').html('<span class="ui-btn-inner"><span class="ui-btn-text">' + left_btn + '</span></span>');
     $('#popupGroupMenu a.right_btn').html('<span class="ui-btn-inner"><span class="ui-btn-text">' + right_btn + '</span></span>');
-    $('#popupGroupMenu a.right_btn').attr('onclick', add_function)
+    $('#popupGroupMenu a.right_btn').attr('onclick', add_function);
+    var button_left = $('a.left_btn');
+    var button_right = $('a.right_btn');
+    button_left.css('marginLeft',-button_left.width()-15+'px');
+    console.info($('a.left_btn').width());
 
 
 
@@ -132,10 +136,13 @@ function renderPopupGroupMenu(content, left_btn, right_btn, add_function) {
 
 
 
-function itemTemplate(id_string, id, fun, name, countNewMessage, status, message) {
+function itemTemplate(id_string, id, fun, name, countNewMessage, status, message,message_status) {
     var hidden = '';
+    var hidden_message_status= '';
     if (countNewMessage < 1)
         hidden = 'hidden';
+    if (message_status==='')
+        hidden_message_status = 'hidden';
 
     var element = document.createElement('li');
     element.setAttribute('data-icon', 'false');
@@ -147,7 +154,8 @@ function itemTemplate(id_string, id, fun, name, countNewMessage, status, message
     temp += '<a onclick="' + fun + ';" href="" class="ui-link-inherit">\n\
                     <img  src="./img/profil_img.png" alt="status" class="ui-li-icon"><span class="name">' + name + '</span>';
     if (countNewMessage !== null)
-        temp += '<p class="chat-list-friend-item">\n\
+        temp += '<p class="chat-list-friend-item">\n\n\
+                        <span class="ui-li-message-status ' + hidden_message_status + ' message_status_'+message_status+' "></span>\n\
                         <span class="ui-li-message-count ' + hidden + ' ">' + countNewMessage + '</span>\n\
                         <span class="ui-li-message-text">' + message + '</span>\n\
                     </p>';

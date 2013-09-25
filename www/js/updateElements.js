@@ -139,3 +139,8 @@ function removeGroupFromContactList(id) {
 function removeGroupFromMainList(id) {
     $('#chatListT #group_list_' + id).remove();
 }
+
+function updateContactListView() {
+    for (var i = 0; i < user.friendList.length; i++)
+        $('#contactListT #friend_list_' + user.friendList[i].id).removeClass('ui-selectedFriend');
+}

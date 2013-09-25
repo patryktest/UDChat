@@ -23,7 +23,7 @@ function Group(groupId, groupLeader, groupName, groupStream, groupStreamStatu, h
     this.users = users;
     this.newMessages = 0;
     this.startGroupChat = 'onOpenGroupChatWindow(' + this.groupId + ')';
-    this.itemElement = itemTemplate('group_list_',this.groupId,this.startGroupChat,this.displayGroupName,this.newMessages,null,message);
+    this.itemElement = itemTemplate('group_list_',this.groupId,this.startGroupChat,this.displayGroupName,this.newMessages,null,message,'');
     this.updateItemElement = updateItemElementF;
     this.checkUpdateGroupName = checkUpdateGroupNameF;
     this.isgroupLeader = isgroupLeaderF;
@@ -79,7 +79,7 @@ function Group(groupId, groupLeader, groupName, groupStream, groupStreamStatu, h
         return false;
     }
     function updateF(groupId, groupLeader, groupName, groupStream, groupStreamStatu, history, limit, ongoingVideo, users) {
-        
+        var oldName = this.groupName;
             
         this.displayGroupName = groupName;
         this.groupId = groupId;
@@ -94,7 +94,7 @@ function Group(groupId, groupLeader, groupName, groupStream, groupStreamStatu, h
         this.newMessages = 0;
         this.checkUpdateGroupName();
         var nameChanged = false;
-        if (this.groupName !== groupName){
+        if (oldName !== groupName){
             nameChanged = true;
             this.renderGroupName();            
         }

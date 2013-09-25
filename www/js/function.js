@@ -88,10 +88,7 @@ function updateStatusIcon(statusNew, statusOld) {
 
 
 
-function updateContactListView() {
-    for (var i = 0; i < user.friendList.length; i++)
-        $('#contactListT #friend_list_' + user.friendList[i].id).removeClass('ui-selectedFriend');
-}
+
 
 function isGroupUserInSelectFriend(user){
     for (var i = 0; i < selectedFriend.length; i++){
@@ -102,9 +99,6 @@ function isGroupUserInSelectFriend(user){
 }
 
 
-/*
- * add friends to group
- */
 
 
 

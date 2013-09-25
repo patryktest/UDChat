@@ -139,11 +139,11 @@
     color: white;
     margin: 0;
     padding: 1px 6px;
-    position: absolute;
+    display: inline-block;
 }
 .ui-li-message-text {
     font-size: 11pt;
-    padding-left: 20px;
+    /*padding-left: 20px;*/
 }
 .chat-list-friend-item, .chat-list-group-item{
     margin: -3px 0 0;
@@ -505,4 +505,35 @@
 
 #chatHistoryElementPlace, #groupHistoryElementPlace {
     margin: -32px -13px -31px -53px;
+}
+
+.right_btn {
+    background: none repeat scroll 0 0 #0099CC;
+    border-radius: 0 0 0 0;
+    box-shadow: none;
+    color: #FFFFFF;
+    font-weight: normal;
+    left: 50%;
+}
+
+.left_btn {
+    background: none repeat scroll 0 0 #0099CC;
+    border-radius: 0 0 0 0;
+    box-shadow: none;
+    color: #FFFFFF;
+    font-weight: normal;
+    left: 50%;
+}
+
+#loginPage .ui-input-text{
+    border-radius: 0px;
+}
+
+.login_logo{
+    background: url("../img/logo_front.png") no-repeat scroll 0 0 transparent;
+    height: 225px;
+    left: 50%;
+    margin: 0 auto;
+    width: 250px;
+    background-size: 225px auto;
 }

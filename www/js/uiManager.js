@@ -1,6 +1,6 @@
 function onConnectionOpen(){
     var statusOnConnect = $('#connectionON');
-    statusOnConnect.text('Connected');
+    statusOnConnect.text('server online');
     console.log('connected to ws');
     $('#loginButton').button('enable');
     $('#loginButton').button( "refresh" );
@@ -8,9 +8,9 @@ function onConnectionOpen(){
     //        commandLogin();
 }
 
-function onConnectionError(){
+function onConnectionError(error){
     var statusOnConnect = $('#connectionON');
-    statusOnConnect.text('Not Connected');
+    statusOnConnect.text('server ofline');
     console.log(error);
    // alert(error);
    $('#loginButton').button('disable');
@@ -21,25 +21,28 @@ function onConnectionError(){
  * After login response open main chat page with friend list and group list
  */
 function onUserLogin() {
-    $.mobile.changePage( "index.html#mainPage", { transition: "slide"} );
+    $.mobile.changePage( "index.html#mainPage" );
+    //window.location.replace('index.html#mainPage');
     renderRecentConversations();
 }
 
 function onLogout(){
     user = {};
-    window.location = '#loginPage';
+    window.location.replace = '#loginPage';
 }
 
 function onGoToMainPage(){
     setActiveConverastion('');
     setActiveGroupChat('');
-    $.mobile.changePage( "index.html#mainPage", { transition: "slide"} );
+    $.mobile.changePage( "index.html#mainPage" );
+    //window.location.replace('index.html#mainPage');
     renderRecentConversations();
 }
 
 function onOpenPrivateChatWindow(id){
     
-    $.mobile.changePage( "index.html#chatPageTemplate", { transition: "slide"} );
+    $.mobile.changePage( "index.html#chatPageTemplate");
+    //window.location.replace('index.html#chatPageTemplate');
     var friend = user.getFriendById(id);
     
     $('#chatHistoryElementPlace').html(friend.historyElement);
@@ -62,16 +65,17 @@ function onOpenPrivateChatWindow(id){
 function onClosePrivateChatWindow(){
     closePrivateChatWindow();
     setActiveConverastion('');
-    window.location = '#mainPage';
+    window.location.replace = '#mainPage';
     
 }
 
 function onOpenPageCreatingGroupChat(){
-    window.location = '#createGroupPage';
+    window.location.replace = '#createGroupPage';
 }
 
 function onOpenGroupChatWindow(id){
-    $.mobile.changePage( "index.html#groupChatPageTemplate", { transition: "slide"} );
+    $.mobile.changePage( "index.html#groupChatPageTemplate" );
+    //window.location.replace('index.html#groupChatPageTemplate');
     setActiveGroupChat(id);
     //renderGroupChatWindow(id);
     
@@ -83,14 +87,16 @@ function onOpenGroupChatWindow(id){
     
 }
 function onCloseGroupChatWindow(){
-    $.mobile.changePage( "index.html#mainPage", { transition: "slide"} );
+    $.mobile.changePage( "index.html#mainPage" );
+    //window.location.replace('index.html#mainPage');
     setActiveGroupChat('');
     renderContactList(); 
 }
 
 function onOpenContactList(){
     
-    $.mobile.changePage( "index.html#contactPage", { transition: "slide"} );
+    $.mobile.changePage( "index.html#contactPage" );
+    //window.location.replace('index.html#contactPage');
     
     updateSelectedFriendView();
     if($('#contactListT').html()==="")
@@ -100,7 +106,8 @@ function onOpenContactList(){
 }
 function onManageGroupMembers(group){
     userlength = group.users.length;
-    $.mobile.changePage( "index.html#contactPage", { transition: "slide"} );
+    $.mobile.changePage( "index.html#contactPage" );
+    //window.location.replace('index.html#contactPage');
     if($('#contactListT').html()==="")
         renderContactList();
     for(var i=0;i<userlength;i++){
@@ -116,7 +123,8 @@ function onManageGroupMembers(group){
 
 function onOpenGroupMenu(groupId){
     var group = user.getGroupById(groupId);
-    $.mobile.changePage( "index.html#groupMenuPageTemplate", { transition: "slide"} );
+    $.mobile.changePage( "index.html#groupMenuPageTemplate" );
+    //window.location.replace('index.html#groupMenuPageTemplate');
     renderGroupMenu(group);
     
 }
@@ -141,6 +149,7 @@ function onOpenPrivateGroupChat() {
     if (selectedFriend.length) {
         if (selectedFriend.length < 2){
             commandOpenPrivateChat(selectedFriend[0]);
+            clearSelectedFriend();
         }
         else
             commandOpenGroupChat(user.name);
