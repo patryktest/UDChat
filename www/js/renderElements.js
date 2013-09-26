@@ -30,10 +30,10 @@ function renderContactList() {
 
     var contactList = [];
     for (var i = 0; i < user.friendList.length; i++) {
-        contactList.push({id: user.friendList[i].id, name: user.friendList[i].name, group: 0, status: user.friendList[i].status, fun: user.friendList[i].selectFriend});
+        contactList.push({id: user.friendList[i].id, name: user.friendList[i].name, group: 0, status: user.friendList[i].status, fun: user.friendList[i].selectFriend, avatar:user.friendList[i].avatar});
     }
     for (var i = 0; i < user.groupList.length; i++) {
-        contactList.push({id: user.groupList[i].groupId, name: user.groupList[i].displayGroupName, group: 1, fun: user.groupList[i].startGroupChat});
+        contactList.push({id: user.groupList[i].groupId, name: user.groupList[i].displayGroupName, group: 1, fun: user.groupList[i].startGroupChat,avatar:null});
     }
     contactList.sort(function(a, b) {
         var nameA = a.name.toLowerCase();
@@ -49,9 +49,9 @@ function renderContactList() {
         if (contactList[i].name[0] !== letterDivider)
             element.append('<li data-icon="false" id="letterDivider">' + contactList[i].name[0] + '</li>');
         if (!contactList[i].group)
-            element.append(itemTemplate('friend_list_', contactList[i].id, contactList[i].fun, contactList[i].name, null, contactList[i].status, null));
-        else
-            element.append(itemTemplate('group_list_', contactList[i].id, contactList[i].fun, contactList[i].name, null, null, null));
+            element.append(itemTemplate('friend_list_', contactList[i].id, contactList[i].fun, contactList[i].name, null, contactList[i].status, null, null, contactList[i].avatar));
+        else             
+            element.append(itemTemplate('group_list_', contactList[i].id, contactList[i].fun, contactList[i].name, null, null, null, null,null));
         letterDivider = contactList[i].name[0];
 
     }
@@ -68,14 +68,11 @@ function renderContactList() {
  */
 
 function renderPopupMenu() {
-    var html = '<ul data-role="listview" data-inset="true" style="min-width:210px;" >\n\
-                        <li data-role="divider" data-theme="e">Choose status</li>\n\
-                        <li data-icon="false"><a onclick="setStatus(available);" href="#" data-rel="back">available</a></li>\n\
-                        <li data-icon="false"><a onclick="setStatus(away);" href="#" data-rel="back">away</a></li>\n\
-                        <li data-icon="false"><a onclick="setStatus(emergency);" href="#" data-rel="back">emergency</a></li>\n\
-                        <li data-icon="false"><a onclick="setStatus(invisible);" href="#" data-rel="back">invisible</a></li>\n\
-                        <li data-icon="false"><a onclick="setStatus(ofline);" href="#" data-rel="back">ofline</a></li>  \n\
-                    </ul>';
+    var html = '<ul data-role="listview" data-inset="true" style="" >';
+    for(var index in user_status){
+        html +='<li data-icon="false"><a onclick="setStatus('+user_status[index]+');" href="#" data-rel="back">'+index+'</a></li>';
+    }
+    html +='</ul>';
     $('#popupMenu').html(html);
     $('#popupMenu2').html(html);
     $('#popupMenu3').html(html);
@@ -136,7 +133,7 @@ function renderPopupGroupMenu(content, left_btn, right_btn, add_function) {
 
 
 
-function itemTemplate(id_string, id, fun, name, countNewMessage, status, message,message_status) {
+function itemTemplate(id_string, id, fun, name, countNewMessage, status, message,message_status,avatarBase64) {
     var hidden = '';
     var hidden_message_status= '';
     if (countNewMessage < 1)
@@ -144,6 +141,9 @@ function itemTemplate(id_string, id, fun, name, countNewMessage, status, message
     if (message_status==='')
         hidden_message_status = 'hidden';
 
+    var image = './img/profil_img.png';  
+    if(avatarBase64!==null)
+        image = 'data:image/png;base64,'+avatarBase64;
     var element = document.createElement('li');
     element.setAttribute('data-icon', 'false');
     element.setAttribute('id', id_string + id);
@@ -152,7 +152,7 @@ function itemTemplate(id_string, id, fun, name, countNewMessage, status, message
                 <div class="ui-btn-text">';
 
     temp += '<a onclick="' + fun + ';" href="" class="ui-link-inherit">\n\
-                    <img  src="./img/profil_img.png" alt="status" class="ui-li-icon"><span class="name">' + name + '</span>';
+                    <img  src="'+image+'" alt="status" class="ui-li-icon"><span class="name">' + name + '</span>';
     if (countNewMessage !== null)
         temp += '<p class="chat-list-friend-item">\n\n\
                         <span class="ui-li-message-status ' + hidden_message_status + ' message_status_'+message_status+' "></span>\n\

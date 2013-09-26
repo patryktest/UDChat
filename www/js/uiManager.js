@@ -1,11 +1,16 @@
 function onConnectionOpen(){
     var statusOnConnect = $('#connectionON');
     statusOnConnect.text('server online');
-    console.log('connected to ws');
+    write('connected to ws');
     $('#loginButton').button('enable');
     $('#loginButton').button( "refresh" );
-    //if(USER_ID!=null && USER_SESSION!=null)
-    //        commandLogin();
+    var element = $("#chat_contact_list iframe", parent.document.body);
+	write(element);
+        write(element.attr('data-session'));
+        write(element.attr('data-id'));
+    if(USER_ID!=null && USER_SESSION!=null)
+        setTimeout(commandLogin,500);
+            
 }
 
 function onConnectionError(error){

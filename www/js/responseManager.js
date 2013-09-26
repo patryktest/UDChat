@@ -1,38 +1,38 @@
 function responseLogin(json) {
         
     user = new User(json.user.id, json.user.name, user_status.online, json.friendList, json.groupList, json.lastConversation);
-    console.log("responseLogin OK ");
-    console.log(user);
+    write("responseLogin OK ");
+    write(user);
     if (user !== null) {
         onUserLogin();
     }
     else {
-        console.log('ERR: user is null after LOGIN');
+        write('ERR: user is null after LOGIN');
     }
 }
 
 function responseLogout(json) {
-    console.log('responseLogout: OK');
+    write('responseLogout: OK');
 }
 
 function responseFriendListUpdate() {
 
 }
 function responseGroupClose(json) {
-    console.log('responseGroupClose: OK');
+    write('responseGroupClose: OK');
     user.removeGroup(json.data.groupId);
     onCloseGroupChatWindow();
 
 }
 function responseGroupInfo(json) {
-    console.log('responseGroupInfo: OK');
+    write('responseGroupInfo: OK');
     var group = user.getGroupById(json.data.groupId);
     var nameChanged = false;
     if (group) {
         nameChanged = group.update(json.data.groupId, json.data.groupLeader, json.data.groupName, json.data.groupStream,json.data.groupStreamStatus,json.data.history,json.data.limit,json.data.ongoingVideo,json.data.users);
-        console.info(group,mannage_group_name, nameChanged);
+        writeInfo(group,mannage_group_name, nameChanged);
         if(mannage_group_name && nameChanged){
-            console.info('group name change');
+            writeInfo('group name change');
             onOpenGroupChatWindow(getActiveGroupChat());
             mannage_group_name = false;
         }    
@@ -62,26 +62,26 @@ function responseGroupInfo(json) {
  * response after adding user to group
  */
 function responseGroupJoin(json) {
-    console.log('responseGroupJoin: OK');
+    write('responseGroupJoin: OK');
     var group = user.getGroupById(json.data.groupId);
     if(group!==null)
         group.addSelectedFriend(json.data.user);
-    console.log(user);
+    write(user);
 }
 
 function responseGroupLeave(json) {
-    console.log('responseGroupLeave: OK');
+    write('responseGroupLeave: OK');
     var group = user.getGroupById(json.data.groupId);
     
     if (group.removeUser(json.data.id)){
-        console.log('user with id:' + json.data.id + ' leaved group');
+        write('user with id:' + json.data.id + ' leaved group');
     }
     else
-        console.log('ERROR in leave group');
-    console.log(user);
+        write('ERROR in leave group');
+    write(user);
 }
 function responseGroupMessage(json) {
-    console.log('responseGroupMessage: OK');
+    write('responseGroupMessage: OK');
     var group = user.getGroupById(json.data.groupId);
     if (group) {
         group.addToHistory(json.data);
@@ -100,7 +100,7 @@ function responseGroupMessage(json) {
  * after open new private conversation
  */
 function responsePrivateHistory(json) {
-    console.log('responsePrivateHistory: OK');
+    write('responsePrivateHistory: OK');
     var friend = user.getFriendById(getActiveConverastion());
     friend.updateHistory(json.history);
     addNewConversation(getActiveConverastion());
@@ -108,7 +108,7 @@ function responsePrivateHistory(json) {
 }
 
 function responsePrivateMessageNew(json) {
-    console.log('responsePrivateMessageNew: OK');    
+    write('responsePrivateMessageNew: OK');    
     var friend = user.getFriendById(json.data.senderId);
     friend.addToHistory(json.data);  
     friend.recent = true;
@@ -125,7 +125,7 @@ function responsePrivateMessageNew(json) {
 
 }
 function responsePrivateMessageSent(json) {
-    console.log('responsePrivateMessageSent: OK');
+    write('responsePrivateMessageSent: OK');
     var friend = user.getFriendById(json.data.receiverId);
     friend.addToHistory(json.data);
     $('#inputPrivateMessage').val('');
@@ -143,7 +143,7 @@ function responsePrivateMessageRead(json){
 
 function responseStatusUpdate(json) {
     if (json.result === "OK") {
-        console.log('responseStatusUpdate OK');
+        write('responseStatusUpdate OK');
         user.setUserStatus(global_status);
     }
     else if (json.userId) {
@@ -158,7 +158,7 @@ function responseStatusUpdate(json) {
         }
     }
     else
-        console.log('responseStatusUpdate ERR result: ' + json.result);
+        write('responseStatusUpdate ERR result: ' + json.result);
 
 
 }

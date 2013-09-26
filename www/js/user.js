@@ -17,7 +17,7 @@ function User(id, name, status, friendListA, groupListA, lastConversationA) {
                 }
             }
         }
-        friendListArray.push(new Friend(friendListA[i].id, friendListA[i].name, friendListA[i].newMessages, friendListA[i].status, history, recent,friendListA[i].avatar));
+        friendListArray.push(new Friend(friendListA[i].id, friendListA[i].name, friendListA[i].newMessages, friendListA[i].status, history, recent,friendListA[i].avatarBase64));
     }
     var groupListArray = new Array();
     for (var i = 0; i < groupListA.length; i++) {

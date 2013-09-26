@@ -8,11 +8,13 @@
 
 $(function() {
     
+    
+    if (user){
+        window.location = '#loginPage';}
+    
     connect();
     
-    if (user)
-        window.location = '#loginPage';
-
+   
     $('#inputPrivateMessage').keydown(function(e) {
         if (e.keyCode === 13) {
             var msg = $(this).val();
@@ -98,6 +100,14 @@ function isGroupUserInSelectFriend(user){
     return false;
 }
 
+function write(msg){
+    if(DEBUG_MODE)
+        console.log(msg);
+}
+function writeInfo(msg){
+    if(DEBUG_MODE)
+        console.log(msg);
+}
 
 
 

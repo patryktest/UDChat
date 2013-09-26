@@ -108,7 +108,7 @@
 .ui-icon-CHAT_STATUS_AWAY {
     background: url("../img/icons_away.svg") repeat scroll 0 0 transparent;
 }
-.ui-icon-CHAT_STATUS_DND {
+.ui-icon-CHAT_STATUS_EMERGENCY {
     background: url("../img/icons_emergency.svg") repeat scroll 0 0 transparent;
 }
 .ui-icon-CHAT_STATUS_BUSY {
