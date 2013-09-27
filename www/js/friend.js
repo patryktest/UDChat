@@ -13,13 +13,13 @@ function Friend(id, name, newMessages, status, history, recent,avatarBase64) {
     var message_status = '';
     if (historyA.length){
         message = historyA[historyA.length - 1].message;
-        message_status = historyA[historyA.length - 1].status;
+        message_status = historyA[historyA.length - 1].statusElementRecent;
     }
     if (newMessages>0)
         message = 'new message';
     
     var avatar = null;
-    if(avatarBase64!==''){
+    if(typeof avatareavatarBase64 !=='undefined' && avatarBase64!=='' ){
         var avatar = avatarBase64;
     };
        
@@ -57,6 +57,7 @@ function Friend(id, name, newMessages, status, history, recent,avatarBase64) {
     function addToHistoryF(history) {
         this.history.push(new Message(user.id, history.date, history.groupId, history.message, history.receiverId, history.senderId, history.status, history.time, history.timeId, history.timestamp));
         this.updateHistoryElement();
+        updateRecentContactMessage(this.id,'friend',history.message,history.status);
     }
 
     function updateStatusF(status) {
@@ -81,8 +82,10 @@ function Friend(id, name, newMessages, status, history, recent,avatarBase64) {
             this.newMessages++;
             addRecentNotification('friend',this);
         }
-        else if(num===0)
+        else if(num===0){
+            this.newMessages = 0;
             clearRecentNotification('friend',this);
+        }
         else{
             this.newMessages = num;
             addRecentNotification('friend',this);

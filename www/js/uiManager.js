@@ -5,11 +5,11 @@ function onConnectionOpen(){
     $('#loginButton').button('enable');
     $('#loginButton').button( "refresh" );
     var element = $("#chat_contact_list iframe", parent.document.body);
-	write(element);
-        write(element.attr('data-session'));
-        write(element.attr('data-id'));
-    if(USER_ID!=null && USER_SESSION!=null)
+    USER_SESSION = element.attr('data-session');
+    USER_ID = parseInt(element.attr('data-id'));
+    if(USER_ID!=null && USER_SESSION!=null){
         setTimeout(commandLogin,500);
+    }
             
 }
 

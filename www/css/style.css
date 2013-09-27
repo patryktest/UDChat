@@ -51,6 +51,7 @@
     margin: 9px 0 0;
     padding: 0 0 5px;
     text-align: center;
+    width: 100%;
 }
 .ui-footer {
     position: absolute;
@@ -77,6 +78,21 @@
     min-width: 200px;
 }
 
+#popupMenu .li-CHAT_STATUS_ONLINE{
+    color: #00CC99;
+}
+#popupMenu .li-CHAT_STATUS_AWAY{
+    color: #00CCCC;
+}
+#popupMenu .li-CHAT_STATUS_EMERGENCY{
+    color: #FF6600;
+}
+#popupMenu .li-CHAT_STATUS_OFFLINE{
+    color: #CCCCCC;
+}
+#popupMenu .li-CHAT_STATUS_INVISIBLE {
+    color: #FFFF99;
+}
 
 .ui-CHAT_STATUS_AVAILABLE{
     background: none repeat scroll 0 0 #00CC99;
@@ -86,7 +102,7 @@
     background: none repeat scroll 0 0 #00CCCC;
     color: #00CCCC;
 }
-.ui-CHAT_STATUS_DND{
+.ui-CHAT_STATUS_EMERGENCY{
     background: none repeat scroll 0 0 #FF6600;
     color: #FF6600;
 }
@@ -173,7 +189,7 @@
 
 
 
-.hidden, #contactback.hidden, #contactPageSmallMenu li.hidden{
+.hidden, #contactback.hidden, #contactPageSmallMenu li.hidden,.ui-li-message-status.hidden{
     display: none;
 }
 

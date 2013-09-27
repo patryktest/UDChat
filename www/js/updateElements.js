@@ -1,8 +1,14 @@
 
-function updateRecentContactMessage(id, command, message) {
+function updateRecentContactMessage(id, command, message, message_status) {
+    message_status = message_status || null;
     switch (command) {
         case 'friend':
             $('#chatListT #friend_list_' + id + ' span.ui-li-message-text').html(message);
+            if(message_status!== null){
+                var message_status_element = $('#chatListT #friend_list_' + id + ' span.ui-li-message-status');
+                message_status_element.removeClass();
+                message_status_element.addClass('ui-li-message-status  message_status_'+message_status);
+            }
             break;
         case 'group':
             $('#chatListT #group_list_' + id + ' span.ui-li-message-text').html(message);
@@ -14,6 +20,7 @@ function updateRecentContactMessage(id, command, message) {
 function addRecentNotification(command, data) {
     switch (command) {
         case 'friend':
+            $('#chatListT #friend_list_' + data.id + ' span.ui-li-message-status').addClass('hidden');
             $('#chatListT #friend_list_' + data.id + ' span.ui-li-message-count').removeClass('hidden');
             $('#chatListT #friend_list_' + data.id + ' span.ui-li-message-count').html(data.newMessages);
             updateRecentContactMessage(data.id, command, "new message");
@@ -32,6 +39,7 @@ function addRecentNotification(command, data) {
 function clearRecentNotification(command, item) {
     switch (command) {
         case 'friend':
+            $('#chatListT #friend_list_' + item.id + ' span.ui-li-message-status').removeClass('hidden');
             $('#chatListT #friend_list_' + item.id + ' span.ui-li-message-count').addClass('hidden');
             $('#chatListT #friend_list_' + item.id + ' span.ui-li-message-count').html(item.newMessages);
             if(item.history.length>0)

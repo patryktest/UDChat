@@ -5,6 +5,9 @@ function Message(id,date, groupId,message, receiverId,senderId,status,time,timeI
     var statusE = document.createElement('span');
     statusE.setAttribute('class',userS+'message_status_'+status);
     
+    var statusER = document.createElement('span');
+    statusER.setAttribute('class','ui-li-message-status  message_status_'+status);
+    
     this.date = date;
     this.groupId = groupId;
     this.message = message;
@@ -12,6 +15,7 @@ function Message(id,date, groupId,message, receiverId,senderId,status,time,timeI
     this.senderId = senderId;
     this.status = status;
     this.statusElement = statusE;
+    this.statusElementRecent = statusER;
     this.time = time;
     this.timeId = timeId;
     this.timestamp = timestamp;
@@ -23,6 +27,7 @@ function Message(id,date, groupId,message, receiverId,senderId,status,time,timeI
             userS = 'friend_';
         this.status = status;
         this.statusElement.setAttribute('class',userS+'message_status_'+status);
+        this.statusER.setAttribute('class','ui-li-message-status  message_status_'+status);
     }
     
     

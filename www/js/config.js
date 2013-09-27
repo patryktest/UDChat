@@ -23,9 +23,9 @@ for (var i = 0, len = jsFiles.length; i < len; i++) {
 }
 document.write(scriptTags.join(""));
 
-var WEBSOCKETLINK =  'ws://192.168.2.40:8180/UniquedocChat'; //link for online chat  'ws://dev.uniquedoc.com:8180/UniquedocChat';
-USER_ID = 134;
-USER_SESSION = '1';
+var WEBSOCKETLINK =  /*'ws://192.168.2.40:8180/UniquedocChat'; //link for online chat */ 'ws://dev.uniquedoc.com:8180/UniquedocChat';
+USER_ID = '';
+USER_SESSION = '';
 DEBUG_MODE = true;
 
 user_device = {

@@ -46,13 +46,13 @@ function renderContactList() {
     });
     var letterDivider = "";
     for (var i = 0; i < contactList.length; i++) {
-        if (contactList[i].name[0] !== letterDivider)
-            element.append('<li data-icon="false" id="letterDivider">' + contactList[i].name[0] + '</li>');
+        if (contactList[i].name[0].toUpperCase() !== letterDivider)
+            element.append('<li data-icon="false" id="letterDivider">' + contactList[i].name[0].toUpperCase() + '</li>');
         if (!contactList[i].group)
             element.append(itemTemplate('friend_list_', contactList[i].id, contactList[i].fun, contactList[i].name, null, contactList[i].status, null, null, contactList[i].avatar));
         else             
             element.append(itemTemplate('group_list_', contactList[i].id, contactList[i].fun, contactList[i].name, null, null, null, null,null));
-        letterDivider = contactList[i].name[0];
+        letterDivider = contactList[i].name[0].toUpperCase();
 
     }
     /*if ((element).hasClass('ui-listview')) {
@@ -70,7 +70,7 @@ function renderContactList() {
 function renderPopupMenu() {
     var html = '<ul data-role="listview" data-inset="true" style="" >';
     for(var index in user_status){
-        html +='<li data-icon="false"><a onclick="setStatus('+user_status[index]+');" href="#" data-rel="back">'+index+'</a></li>';
+        html +='<li data-icon="false"><a onclick="setStatus(\''+user_status[index]+'\');" href="#" data-rel="back" class="li-'+user_status[index]+'">'+index+'</a></li>';
     }
     html +='</ul>';
     $('#popupMenu').html(html);
@@ -138,32 +138,47 @@ function itemTemplate(id_string, id, fun, name, countNewMessage, status, message
     var hidden_message_status= '';
     if (countNewMessage < 1)
         hidden = 'hidden';
-    if (message_status==='')
+    if (message_status==='' || countNewMessage >0)
         hidden_message_status = 'hidden';
 
     var image = './img/profil_img.png';  
     if(avatarBase64!==null)
         image = 'data:image/png;base64,'+avatarBase64;
+    
+    var namePart = name;
+    if(id_string==='group_list_')
+        namePart = '<strong>'+name+'</strong>';
+    
     var element = document.createElement('li');
     element.setAttribute('data-icon', 'false');
     element.setAttribute('id', id_string + id);
     element.setAttribute('class','ui-btn ui-btn-icon-right ui-li ui-li-has-icon ui-first-child ui-last-child ui-btn-up-d');
-    var temp = '<div class="ui-btn-inner ui-li">\n\
-                <div class="ui-btn-text">';
-
-    temp += '<a onclick="' + fun + ';" href="" class="ui-link-inherit">\n\
-                    <img  src="'+image+'" alt="status" class="ui-li-icon"><span class="name">' + name + '</span>';
+    var div1 = document.createElement('div');
+    div1.setAttribute('class','ui-btn-inner ui-li');
+    var div2 = document.createElement('div');
+    div2.setAttribute('class','ui-btn-text');
+    var a = document.createElement('a');
+    a.setAttribute('onclick',fun);
+    a.setAttribute('class','ui-link-inherit');
+    
+    a.innerHTML =  '<img  src="'+image+'" alt="status" class="ui-li-icon"><span class="name">' + namePart + '</span>';
+    
+    var pfrienditemelement = document.createElement('p');
+    pfrienditemelement.setAttribute('class','chat-list-friend-item');
+    if(message_status !== '')
+    pfrienditemelement.appendChild(message_status)   ; 
+    //pfrienditemelement.innerHTML = '<span class="ui-li-message-status ' + hidden_message_status + ' message_status_'+message_status+' "></span>\n\
+    //                    <span class="ui-li-message-count ' + hidden + ' ">' + countNewMessage + '</span>\n\
+    //                    <span class="ui-li-message-text">' + message + '</span>\n';
     if (countNewMessage !== null)
-        temp += '<p class="chat-list-friend-item">\n\n\
-                        <span class="ui-li-message-status ' + hidden_message_status + ' message_status_'+message_status+' "></span>\n\
-                        <span class="ui-li-message-count ' + hidden + ' ">' + countNewMessage + '</span>\n\
-                        <span class="ui-li-message-text">' + message + '</span>\n\
-                    </p>';
-    temp += '</a>';
+        a.appendChild(pfrienditemelement);
+    
     if (status !== null)
-        temp += '<span class="user-status-icon ui-icon-' + status + ' device-mobile"></span></div></div>\n';
-
-    element.innerHTML = temp;
+        a.innerHTML = a.innerHTML+'<span class="user-status-icon ui-icon-' + status + ' device-mobile"></span></div></div>\n';
+    div1.appendChild(div2);
+    div2.appendChild(a);
+    element.appendChild(div1);
+    
     return element;
 }
 

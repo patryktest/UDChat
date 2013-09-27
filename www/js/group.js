@@ -23,7 +23,7 @@ function Group(groupId, groupLeader, groupName, groupStream, groupStreamStatu, h
     this.users = users;
     this.newMessages = 0;
     this.startGroupChat = 'onOpenGroupChatWindow(' + this.groupId + ')';
-    this.itemElement = itemTemplate('group_list_',this.groupId,this.startGroupChat,this.displayGroupName,this.newMessages,null,message,'');
+    this.itemElement = itemTemplate('group_list_',this.groupId,this.startGroupChat,this.displayGroupName,this.newMessages,null,message,'',null);
     this.updateItemElement = updateItemElementF;
     this.checkUpdateGroupName = checkUpdateGroupNameF;
     this.isgroupLeader = isgroupLeaderF;
@@ -137,7 +137,7 @@ function Group(groupId, groupLeader, groupName, groupStream, groupStreamStatu, h
             var classs = elements[i].className.split(' ');
             for(var j=0;j<classs.length;j++){
                 if(classs[j]==='name')
-                    elements[i].innerHTML = this.displayGroupName;
+                    elements[i].innerHTML = '<strong>'+this.displayGroupName+'</strong>';
             }
 
         }
