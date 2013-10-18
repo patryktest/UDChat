@@ -10,9 +10,6 @@ function connect() {
     catch (e){
         console.log(e);
     }
-    
-
-
     connection.onopen = function() {
         onConnectionOpen();   
     };
@@ -27,7 +24,7 @@ function connect() {
         try {
             var json = JSON.parse(message.data);
         } catch (e) {
-            console.log('This doesn\'t look like a valid JSON: ', message.data);
+            write('This doesn\'t look like a valid JSON: ', message.data);
             return;
         }
         console.log(json);

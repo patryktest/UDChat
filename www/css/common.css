@@ -1,0 +1,11 @@
+#saveLoginCheckBox {
+    float: right;
+}
+#saveLoginCheckBox .ui-checkbox{
+    clear: both;
+    margin: 0;
+    position: relative;
+    right: 37px;
+    top: 8px;
+    z-index: 1;
+}

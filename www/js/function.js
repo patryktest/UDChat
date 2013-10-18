@@ -13,6 +13,7 @@ $(function() {
         window.location = '#loginPage';}
     
     connect();
+    init();
     
    
     $('#inputPrivateMessage').keydown(function(e) {
@@ -43,6 +44,13 @@ $(function() {
     renderPopupMenu();
 });
 
+function init(){
+    ls = new LocalStorage();
+    $('#saveLoginCheckBox input').attr("checked",ls.checked);
+    $('#loginI').val(ls.name);
+    $('#passwordI').val(ls.pass);
+    
+}
 function monitor_events() {
     $("body").on("FilterInputCreated", function(event){
     
@@ -106,7 +114,7 @@ function write(msg){
 }
 function writeInfo(msg){
     if(DEBUG_MODE)
-        console.log(msg);
+        console.info(msg);
 }
 
 

@@ -93,4 +93,5 @@
     <rim:permit>access_pimdomain_contacts</rim:permit>
   </rim:permissions>
 
+  <preference name="disable-cursor" value="true" />
 </widget>

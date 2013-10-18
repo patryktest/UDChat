@@ -1,8 +1,11 @@
-function login(login, pass) {
+function commandLoginMainPage(login, pass) {
     
     var status = user_status.online; 
     var device = user_device.blackberry;
-    
+    if($('#saveLoginCheckBox input').prop('checked'))
+        ls.save(login,pass,true);
+    else
+        ls.save('','',false)
     try{
         if (login !== "" && pass !== "")
             sendCommand('user.loginWS', [login, pass, status, device]);

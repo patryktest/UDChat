@@ -27,7 +27,7 @@ function Message(id,date, groupId,message, receiverId,senderId,status,time,timeI
             userS = 'friend_';
         this.status = status;
         this.statusElement.setAttribute('class',userS+'message_status_'+status);
-        this.statusER.setAttribute('class','ui-li-message-status  message_status_'+status);
+        this.statusElementRecent.setAttribute('class','ui-li-message-status  message_status_'+status);
     }
     
     

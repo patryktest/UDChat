@@ -165,11 +165,11 @@ function itemTemplate(id_string, id, fun, name, countNewMessage, status, message
     
     var pfrienditemelement = document.createElement('p');
     pfrienditemelement.setAttribute('class','chat-list-friend-item');
-    if(message_status !== '')
-    pfrienditemelement.appendChild(message_status)   ; 
-    //pfrienditemelement.innerHTML = '<span class="ui-li-message-status ' + hidden_message_status + ' message_status_'+message_status+' "></span>\n\
-    //                    <span class="ui-li-message-count ' + hidden + ' ">' + countNewMessage + '</span>\n\
-    //                    <span class="ui-li-message-text">' + message + '</span>\n';
+    /*if(message_status !== '')
+    pfrienditemelement.appendChild(message_status)   ; */
+    pfrienditemelement.innerHTML = '<span class="ui-li-message-status ' + hidden_message_status + ' message_status_'+message_status+' "></span>\n\
+                       <span class="ui-li-message-count ' + hidden + ' ">' + countNewMessage + '</span>\n\
+                       <span class="ui-li-message-text">' + message + '</span>\n';
     if (countNewMessage !== null)
         a.appendChild(pfrienditemelement);
     

@@ -15,7 +15,8 @@ var jsFiles = [
     "js/uiManager.js",
     "js/sendComandManager.js",
     "js/renderElements.js",
-    "js/updateElements.js"
+    "js/updateElements.js",
+    "js/localStorage.js",
 ];
 var scriptTags = new Array(jsFiles.length);
 for (var i = 0, len = jsFiles.length; i < len; i++) {

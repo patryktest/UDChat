@@ -13,7 +13,7 @@ function Friend(id, name, newMessages, status, history, recent,avatarBase64) {
     var message_status = '';
     if (historyA.length){
         message = historyA[historyA.length - 1].message;
-        message_status = historyA[historyA.length - 1].statusElementRecent;
+        message_status = historyA[historyA.length - 1].status;
     }
     if (newMessages>0)
         message = 'new message';
