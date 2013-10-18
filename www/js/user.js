@@ -1,7 +1,7 @@
 function User(id, name, status, friendListA, groupListA, lastConversationA) {
     var lastConversationArray = new Array();
     lastConversationArray = lastConversationA;
-
+   
     var friendListArray = new Array();
     for (var i = 0; i < friendListA.length; i++) {
         var history = new Array();
@@ -17,6 +17,7 @@ function User(id, name, status, friendListA, groupListA, lastConversationA) {
                 }
             }
         }
+        
         friendListArray.push(new Friend(friendListA[i].id, friendListA[i].name, friendListA[i].newMessages, friendListA[i].status, history, recent,friendListA[i].avatarBase64));
     }
     var groupListArray = new Array();

@@ -70,7 +70,7 @@ function renderContactList() {
 function renderPopupMenu() {
     var html = '<ul data-role="listview" data-inset="true" style="" >';
     for(var index in user_status){
-        html +='<li data-icon="false"><a onclick="setStatus(\''+user_status[index]+'\');" href="#" data-rel="back" class="li-'+user_status[index]+'">'+index+'</a></li>';
+        html +='<li data-icon="false"><a onclick="setStatus(\''+user_status[index]+'\');" href="#" data-rel="back" class="li-'+user_status[index]+' li-popup-mnu-link">'+index+'</a></li>';
     }
     html +='</ul>';
     $('#popupMenu').html(html);
@@ -182,21 +182,26 @@ function itemTemplate(id_string, id, fun, name, countNewMessage, status, message
     return element;
 }
 
-function messageTemplate(userIsSender, message, status, date, num) {
+function messageTemplate(userIsSender, message, status, date, num,avatar) {
     var color = 'light';
     if (num % 2)
         color = 'dark';
     else
         color = 'light';
+    
+    var image = './img/profil_img.png';  
+    if(avatar!==null)
+        image = 'data:image/png;base64,'+avatar;
+                
     var element = document.createElement('li');
     element.setAttribute('class', 'ui-li ui-li-static ui-btn-up-d ' + color); //('ui-li ui-li-static ui-btn-up-d '+color);
     //var temp = '<li class="ui-li ui-li-static ui-btn-up-d '+color+'">';
     if (userIsSender) {
-        temp = '<p class="ui-li-right ui-li-desc"><img  src="./img/profil_img.png" alt="status" class="ui-li-profil-icon"></p>';
+        temp = '<p class="ui-li-right ui-li-desc"><img  src="'+image+'" alt="status" class="ui-li-profil-icon"></p>';
         temp += '<p class="ui-li-message-left ui-li-desc">' + message + '</p>';
     }
     else {
-        temp = '<p class="ui-li-left ui-li-desc"><img  src="./img/profil_img.png" alt="status" class="ui-li-profil-icon"></p>';
+        temp = '<p class="ui-li-left ui-li-desc"><img  src="'+image+'" alt="status" class="ui-li-profil-icon"></p>';
         temp += '<p class="ui-li-message-right ui-li-desc">' + message + '</p>';
     }
 
